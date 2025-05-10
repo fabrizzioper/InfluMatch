@@ -1,0 +1,68 @@
+{
+  "HERO": {
+    "TITLE": "Connect with Top Influencers",
+    "SUBTITLE": "Find the perfect match between brands and creators",
+    "CTA": "See How It Works"
+  },
+
+  "HOW_IT_WORKS": {
+    "TITLE": "How It Works",
+    "STEP1_TITLE": "Create Your Profile",
+    "STEP1_DESC": "Sign up and tell us what you do.",
+    "STEP2_TITLE": "Find Matches",
+    "STEP2_DESC": "Browse brands or influencers that fit your needs.",
+    "STEP3_TITLE": "Connect",
+    "STEP3_DESC": "Send a request and start collaborating instantly.",
+    "STEP4_TITLE": "Grow Together",
+    "STEP4_DESC": "Manage campaigns and measure success in one place."
+  },
+  "SUCCESS_CASES": {
+    "TITLE": "Success Stories",
+    "CASE1_TITLE": "Brand X Collaboration",
+    "CASE1_DESC": "How Brand X grew 150% using our influencers.",
+    "CASE2_TITLE": "Influencer Y Campaign",
+    "CASE2_DESC": "Influencer Y reached 1M followers in 2 weeks.",
+    "CASE3_TITLE": "Startup Z Launch",
+    "CASE3_DESC": "Startup Z sold out in 24h with our network."
+  },
+  "PLANS": {
+    "TITLE": "Our Plans",
+    "PLAN1_NAME": "Basic",
+    "PLAN1_FEATURE1": "Profile creation",
+    "PLAN1_FEATURE2": "Search influencers",
+    "PLAN1_FEATURE3": "Email support",
+    "PLAN1_CTA": "Get Started",
+    "PLAN2_NAME": "Pro",
+    "PLAN2_FEATURE1": "All Basic features",
+    "PLAN2_FEATURE2": "Advanced analytics",
+    "PLAN2_FEATURE3": "Priority support",
+    "PLAN2_FEATURE4": "Unlimited campaigns",
+    "PLAN2_CTA": "Subscribe Now",
+    "PLAN3_NAME": "Enterprise",
+    "PLAN3_FEATURE1": "All Pro features",
+    "PLAN3_FEATURE2": "Dedicated account manager",
+    "PLAN3_FEATURE3": "Custom integrations",
+    "PLAN3_FEATURE4": "24/7 support",
+    "PLAN3_FEATURE5": "SLA & reporting",
+    "PLAN3_CTA": "Contact Sales"
+  },
+  "CONTACT": {
+    "TITLE": "Get in Touch",
+    "NAME": "Your Name",
+    "NAME_REQUIRED": "Name is required",
+    "EMAIL": "Email Address",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Enter a valid email",
+    "MESSAGE": "Your Message",
+    "MESSAGE_REQUIRED": "Message is required",
+    "MESSAGE_MINLENGTH": "Message must be at least 10 characters",
+    "SUBMIT": "Send Message"
+  },
+  "FOOTER": {
+    "ABOUT_TITLE": "About InfluMatch",
+    "ABOUT_TEXT": "InfluMatch connects top influencers with leading brands and vice versa.",
+    "LINKS_TITLE": "Quick Links",
+    "FOLLOW_US": "Follow Us",
+    "COPYRIGHT": "All rights reserved."
+  }
+}
