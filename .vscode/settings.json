@@ -1,0 +1,5 @@
+// settings.json de usuario o de espacio de trabajo
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}

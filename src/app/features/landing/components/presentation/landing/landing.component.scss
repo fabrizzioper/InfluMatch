@@ -1,0 +1,16 @@
+/* src/app/features/landing/components/presentation/landing/landing.component.scss */
+:host {
+  display: block;
+  background: mat-color($light-blue); // fondo día por defecto
+  color: mat-color($primary, 900);
+
+  &.dark-mode {
+    background: mat-color($dark-blue);
+    color: mat-color($white);
+  }
+}
+
+.landing-main {
+  max-width: 1200px;
+  margin: 0 auto;
+}

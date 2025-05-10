@@ -5,57 +5,63 @@
     "CTA": "Descubre Cómo Funciona"
   },
   "HOW_IT_WORKS": {
-  "TITLE": "Cómo Funciona",
-  "STEP1_TITLE": "Crea Tu Perfil",
-  "STEP1_DESC": "Regístrate y dinos qué haces.",
-  "STEP2_TITLE": "Encuentra Coincidencias",
-  "STEP2_DESC": "Explora marcas o influencers que se ajusten a tus necesidades.",
-  "STEP3_TITLE": "Conecta",
-  "STEP3_DESC": "Envía una solicitud y comienza a colaborar al instante.",
-  "STEP4_TITLE": "Crece Juntos",
-  "STEP4_DESC": "Gestiona campañas y mide el éxito en un solo lugar."
-},"SUCCESS_CASES": {
-  "TITLE": "Casos de Éxito",
-  "CASE1_TITLE": "Colaboración con Marca X",
-  "CASE1_DESC": "Cómo Marca X creció un 150% con nuestros influencers.",
-  "CASE2_TITLE": "Campaña de Influencer Y",
-  "CASE2_DESC": "Influencer Y alcanzó 1M de seguidores en 2 semanas.",
-  "CASE3_TITLE": "Lanzamiento de Startup Z",
-  "CASE3_DESC": "Startup Z agotó existencias en 24h con nuestra red."
-}
-,"PLANS": {
-  "TITLE": "Nuestros Planes",
-  "PLAN1_NAME": "Básico",
-  "PLAN1_FEATURE1": "Creación de perfil",
-  "PLAN1_FEATURE2": "Buscar influencers",
-  "PLAN1_FEATURE3": "Soporte por email",
-  "PLAN1_CTA": "Comenzar",
-  "PLAN2_NAME": "Pro",
-  "PLAN2_FEATURE1": "Todas las funciones Básicas",
-  "PLAN2_FEATURE2": "Analíticas avanzadas",
-  "PLAN2_FEATURE3": "Soporte prioritario",
-  "PLAN2_FEATURE4": "Campañas ilimitadas",
-  "PLAN2_CTA": "Suscribirse",
-  "PLAN3_NAME": "Enterprise",
-  "PLAN3_FEATURE1": "Todas las funciones Pro",
-  "PLAN3_FEATURE2": "Gerente de cuenta dedicado",
-  "PLAN3_FEATURE3": "Integraciones personalizadas",
-  "PLAN3_FEATURE4": "Soporte 24/7",
-  "PLAN3_FEATURE5": "SLA y reportes",
-  "PLAN3_CTA": "Contactar Ventas"
-}, "CONTACT": {
-  "TITLE": "Contáctanos",
-  "NAME": "Tu Nombre",
-  "NAME_REQUIRED": "El nombre es obligatorio",
-  "EMAIL": "Correo Electrónico",
-  "EMAIL_REQUIRED": "El correo es obligatorio",
-  "EMAIL_INVALID": "Ingresa un correo válido",
-  "MESSAGE": "Tu Mensaje",
-  "MESSAGE_REQUIRED": "El mensaje es obligatorio",
-  "MESSAGE_MINLENGTH": "El mensaje debe tener al menos 10 caracteres",
-  "SUBMIT": "Enviar"
-}
-
-
-
+    "TITLE": "Cómo Funciona",
+    "STEP1_TITLE": "Crea Tu Perfil",
+    "STEP1_DESC": "Regístrate y dinos qué haces.",
+    "STEP2_TITLE": "Encuentra Coincidencias",
+    "STEP2_DESC": "Explora marcas o influencers que se ajusten a tus necesidades.",
+    "STEP3_TITLE": "Conecta",
+    "STEP3_DESC": "Envía una solicitud y comienza a colaborar al instante.",
+    "STEP4_TITLE": "Crece Juntos",
+    "STEP4_DESC": "Gestiona campañas y mide el éxito en un solo lugar."
+  },
+  "SUCCESS_CASES": {
+    "TITLE": "Casos de Éxito",
+    "CASE1_TITLE": "Colaboración con Marca X",
+    "CASE1_DESC": "Cómo Marca X creció un 150% con nuestros influencers.",
+    "CASE2_TITLE": "Campaña de Influencer Y",
+    "CASE2_DESC": "Influencer Y alcanzó 1M de seguidores en 2 semanas.",
+    "CASE3_TITLE": "Lanzamiento de Startup Z",
+    "CASE3_DESC": "Startup Z agotó existencias en 24h con nuestra red."
+  },
+  "PLANS": {
+    "TITLE": "Nuestros Planes",
+    "PLAN1_NAME": "Básico",
+    "PLAN1_FEATURE1": "Creación de perfil",
+    "PLAN1_FEATURE2": "Buscar influencers",
+    "PLAN1_FEATURE3": "Soporte por email",
+    "PLAN1_CTA": "Comenzar",
+    "PLAN2_NAME": "Pro",
+    "PLAN2_FEATURE1": "Todas las funciones Básicas",
+    "PLAN2_FEATURE2": "Analíticas avanzadas",
+    "PLAN2_FEATURE3": "Soporte prioritario",
+    "PLAN2_FEATURE4": "Campañas ilimitadas",
+    "PLAN2_CTA": "Suscribirse",
+    "PLAN3_NAME": "Enterprise",
+    "PLAN3_FEATURE1": "Todas las funciones Pro",
+    "PLAN3_FEATURE2": "Gerente de cuenta dedicado",
+    "PLAN3_FEATURE3": "Integraciones personalizadas",
+    "PLAN3_FEATURE4": "Soporte 24/7",
+    "PLAN3_FEATURE5": "SLA y reportes",
+    "PLAN3_CTA": "Contactar Ventas"
+  },
+  "CONTACT": {
+    "TITLE": "Contáctanos",
+    "NAME": "Tu Nombre",
+    "NAME_REQUIRED": "El nombre es obligatorio",
+    "EMAIL": "Correo Electrónico",
+    "EMAIL_REQUIRED": "El correo es obligatorio",
+    "EMAIL_INVALID": "Ingresa un correo válido",
+    "MESSAGE": "Tu Mensaje",
+    "MESSAGE_REQUIRED": "El mensaje es obligatorio",
+    "MESSAGE_MINLENGTH": "El mensaje debe tener al menos 10 caracteres",
+    "SUBMIT": "Enviar"
+  },
+  "FOOTER": {
+    "ABOUT_TITLE": "Sobre InfluMatch",
+    "ABOUT_TEXT": "InfluMatch conecta a los mejores influencers con marcas líderes y viceversa.",
+    "LINKS_TITLE": "Enlaces Rápidos",
+    "FOLLOW_US": "Síguenos",
+    "COPYRIGHT": "Todos los derechos reservados."
+  }
 }
