@@ -1,0 +1,42 @@
+.success-cases {
+  padding: 48px 24px;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 32px;
+    color: mat-color($primary);
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .case-card {
+    transition: transform 200ms ease-in-out;
+    &:hover {
+      transform: translateY(-4px);
+    }
+    mat-card-image {
+      height: 200px;
+      object-fit: cover;
+    }
+    mat-card-title {
+      font-size: 1.25rem;
+      color: mat-color($primary, 700);
+    }
+    p {
+      font-size: 1rem;
+      color: mat-color($primary, 900);
+    }
+  }
+}

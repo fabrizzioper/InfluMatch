@@ -1,0 +1,26 @@
+<section class="plans">
+  <h2>{{ 'PLANS.TITLE' | translate }}</h2>
+  <div class="plans-grid">
+    <mat-card *ngFor="let plan of plans" class="plan-card">
+      <mat-card-header>
+        <mat-card-title>{{ plan.nameKey | translate }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="price">
+          <span class="amount">{{ plan.price === 0 ? 'Free' : '$' + plan.price }}</span>
+          <span class="period">/ {{ plan.period }}</span>
+        </div>
+        <ul>
+          <li *ngFor="let feat of plan.features">
+            {{ feat | translate }}
+          </li>
+        </ul>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary">
+          {{ plan.ctaKey | translate }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

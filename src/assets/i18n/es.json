@@ -14,6 +14,36 @@
   "STEP3_DESC": "Envía una solicitud y comienza a colaborar al instante.",
   "STEP4_TITLE": "Crece Juntos",
   "STEP4_DESC": "Gestiona campañas y mide el éxito en un solo lugar."
+},"SUCCESS_CASES": {
+  "TITLE": "Casos de Éxito",
+  "CASE1_TITLE": "Colaboración con Marca X",
+  "CASE1_DESC": "Cómo Marca X creció un 150% con nuestros influencers.",
+  "CASE2_TITLE": "Campaña de Influencer Y",
+  "CASE2_DESC": "Influencer Y alcanzó 1M de seguidores en 2 semanas.",
+  "CASE3_TITLE": "Lanzamiento de Startup Z",
+  "CASE3_DESC": "Startup Z agotó existencias en 24h con nuestra red."
 }
+,"PLANS": {
+  "TITLE": "Nuestros Planes",
+  "PLAN1_NAME": "Básico",
+  "PLAN1_FEATURE1": "Creación de perfil",
+  "PLAN1_FEATURE2": "Buscar influencers",
+  "PLAN1_FEATURE3": "Soporte por email",
+  "PLAN1_CTA": "Comenzar",
+  "PLAN2_NAME": "Pro",
+  "PLAN2_FEATURE1": "Todas las funciones Básicas",
+  "PLAN2_FEATURE2": "Analíticas avanzadas",
+  "PLAN2_FEATURE3": "Soporte prioritario",
+  "PLAN2_FEATURE4": "Campañas ilimitadas",
+  "PLAN2_CTA": "Suscribirse",
+  "PLAN3_NAME": "Enterprise",
+  "PLAN3_FEATURE1": "Todas las funciones Pro",
+  "PLAN3_FEATURE2": "Gerente de cuenta dedicado",
+  "PLAN3_FEATURE3": "Integraciones personalizadas",
+  "PLAN3_FEATURE4": "Soporte 24/7",
+  "PLAN3_FEATURE5": "SLA y reportes",
+  "PLAN3_CTA": "Contactar Ventas"
+}
+
 
 }

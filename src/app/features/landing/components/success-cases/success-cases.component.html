@@ -1,1 +1,14 @@
-<p>success-cases works!</p>
+<section class="success-cases">
+  <h2>{{ 'SUCCESS_CASES.TITLE' | translate }}</h2>
+  <div class="cases-grid">
+    <mat-card *ngFor="let c of cases" class="case-card" appearance="outlined">
+      <img mat-card-image [src]="c.image" [alt]="(c.titleKey | translate)" />
+      <mat-card-header>
+        <mat-card-title>{{ c.titleKey | translate }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ c.descKey | translate }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
