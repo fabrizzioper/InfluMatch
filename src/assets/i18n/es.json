@@ -43,7 +43,19 @@
   "PLAN3_FEATURE4": "Soporte 24/7",
   "PLAN3_FEATURE5": "SLA y reportes",
   "PLAN3_CTA": "Contactar Ventas"
+}, "CONTACT": {
+  "TITLE": "Contáctanos",
+  "NAME": "Tu Nombre",
+  "NAME_REQUIRED": "El nombre es obligatorio",
+  "EMAIL": "Correo Electrónico",
+  "EMAIL_REQUIRED": "El correo es obligatorio",
+  "EMAIL_INVALID": "Ingresa un correo válido",
+  "MESSAGE": "Tu Mensaje",
+  "MESSAGE_REQUIRED": "El mensaje es obligatorio",
+  "MESSAGE_MINLENGTH": "El mensaje debe tener al menos 10 caracteres",
+  "SUBMIT": "Enviar"
 }
+
 
 
 }

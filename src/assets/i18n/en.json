@@ -43,7 +43,19 @@
   "PLAN3_FEATURE4": "24/7 support",
   "PLAN3_FEATURE5": "SLA & reporting",
   "PLAN3_CTA": "Contact Sales"
+},"CONTACT": {
+  "TITLE": "Get in Touch",
+  "NAME": "Your Name",
+  "NAME_REQUIRED": "Name is required",
+  "EMAIL": "Email Address",
+  "EMAIL_REQUIRED": "Email is required",
+  "EMAIL_INVALID": "Enter a valid email",
+  "MESSAGE": "Your Message",
+  "MESSAGE_REQUIRED": "Message is required",
+  "MESSAGE_MINLENGTH": "Message must be at least 10 characters",
+  "SUBMIT": "Send Message"
 }
+
 
 
 

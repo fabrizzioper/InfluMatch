@@ -1,0 +1,29 @@
+.contact {
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    color: mat-color($primary);
+  }
+
+  form {
+    width: 100%;
+    max-width: 500px;
+    display: grid;
+    gap: 16px;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    button {
+      justify-self: center;
+      margin-top: 8px;
+    }
+  }
+}
