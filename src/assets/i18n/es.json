@@ -4,7 +4,11 @@
     "HOW_IT_WORKS": "Cómo Funciona",
     "SUCCESS_CASES": "Casos de Éxito",
     "PLANS": "Planes",
-    "CONTACT": "Contacto"
+    "CONTACT": "Contacto",
+    "LANGUAGE": "Idioma",
+    "THEME": "Tema",
+    "DARK_MODE": "Modo Oscuro",
+    "LIGHT_MODE": "Modo Claro"
   },
   "HERO": {
     "TITLE": "Conecta con los Mejores Influencers",

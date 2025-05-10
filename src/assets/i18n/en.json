@@ -4,7 +4,11 @@
     "HOW_IT_WORKS": "How It Works",
     "SUCCESS_CASES": "Success Cases",
     "PLANS": "Plans",
-    "CONTACT": "Contact"
+    "CONTACT": "Contact",
+    "LANGUAGE": "Language",
+    "THEME": "Theme",
+    "DARK_MODE": "Dark Mode",
+    "LIGHT_MODE": "Light Mode"
   },
   "HERO": {
     "TITLE": "Connect with Top Influencers",

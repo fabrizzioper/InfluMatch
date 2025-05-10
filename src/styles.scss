@@ -120,6 +120,11 @@ button {
   --z-tooltip: 1070;
 }
 
+/* Añadir esta clase para prevenir el scroll cuando el menú móvil está abierto */
+body.no-scroll {
+  overflow: hidden;
+}
+
 /* Estilos para modo oscuro */
 .dark-mode {
   --background-light: var(--background-dark);
