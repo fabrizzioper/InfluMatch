@@ -5,7 +5,7 @@
   h2 {
     font-size: 2rem;
     margin-bottom: 32px;
-    color: mat-color($primary);
+    color: var(--primary);
   }
 
   .plans-grid {
@@ -32,12 +32,12 @@
     }
 
     .mat-card-header {
-      background: mat-color($secondary, 100);
+      background: var(--secondary, 100);
     }
 
     .mat-card-title {
       font-size: 1.5rem;
-      color: mat-color($primary, 700);
+      color: var(--primary, 700);
     }
 
     .price {
@@ -48,7 +48,7 @@
       }
       .period {
         font-size: 1rem;
-        color: mat-color($primary, 900);
+        color: var(--primary, 900);
       }
     }
 
@@ -59,7 +59,7 @@
 
       li {
         margin: 8px 0;
-        color: mat-color($primary, 800);
+        color: var(--primary, 800);
       }
     }
   }

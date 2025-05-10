@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+/* 1) Carga tu custom theme (debe ir antes de cualquier mixin) */
+
+/* 2) Importa core de Material si necesitas la API aquí */
+
+/* 3) Reset y estilos base */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
+  background: var(--white);
+  color: var(--dark-blue);
+}
+
+/* 4) Variables CSS globales */
+:root {
+  --primary-color: #2d46b9;
+  --secondary-color: #6c7ae0;
+  --light-blue: #e6e9f7;
+  --dark-blue: #1a2980;
+  --white: #ffffff;
+}
+
+/* 5) Core de Material (tipografía, ripples…) */
+
+/* 6) Tu custom-theme ya aplicó el light theme y definió .dark-mode */
+
+/* 7) Utilidades */
+.hidden {
+  display: none !important;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}

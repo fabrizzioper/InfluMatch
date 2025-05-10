@@ -5,7 +5,7 @@
   h2 {
     font-size: 2rem;
     margin-bottom: 32px;
-    color: mat-color($primary);
+    color: var(--primary);
   }
 
   .steps-container {
@@ -23,19 +23,19 @@
 
     .step-icon {
       font-size: 48px;
-      color: mat-color($accent);
+      color: var(--accent);
       margin-bottom: 16px;
     }
 
     h3 {
       font-size: 1.25rem;
       margin-bottom: 8px;
-      color: mat-color($primary, 700);
+      color: var(--primary, 700);
     }
 
     p {
       font-size: 1rem;
-      color: mat-color($primary, 900);
+      color: var(--primary, 900);
     }
   }
 }

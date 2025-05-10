@@ -1,0 +1,33 @@
+<!-- header.component.html -->
+<mat-toolbar color="primary" class="header-toolbar">
+  <div class="logo-container">
+    <img src="assets/images/logo.png" alt="InfluMatch logo" class="logo" />
+  </div>
+
+  <nav class="nav-links">
+    <a mat-button routerLink="/">{{ "HEADER.HOME" | translate }}</a>
+    <a mat-button routerLink="/how-it-works">{{
+      "HEADER.HOW_IT_WORKS" | translate
+    }}</a>
+    <a mat-button routerLink="/success-cases">{{
+      "HEADER.SUCCESS_CASES" | translate
+    }}</a>
+    <a mat-button routerLink="/plans">{{ "HEADER.PLANS" | translate }}</a>
+    <a mat-button routerLink="/contact">{{ "HEADER.CONTACT" | translate }}</a>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <mat-button-toggle-group
+    [value]="translate.currentLang"
+    (change)="changeLang($event.value)"
+    appearance="legacy"
+  >
+    <mat-button-toggle value="en">EN</mat-button-toggle>
+    <mat-button-toggle value="es">ES</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <button mat-icon-button (click)="toggleTheme()">
+    <mat-icon>{{ isDark ? "dark_mode" : "light_mode" }}</mat-icon>
+  </button>
+</mat-toolbar>

@@ -1,0 +1,37 @@
+/* header.component.scss */
+.header-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      height: 40px;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    margin-left: 32px;
+
+    a {
+      margin: 0 12px;
+      font-weight: 500;
+      color: white;
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+/* Mobile: hide central links, use a menu later if needed */
+@media (max-width: 600px) {
+  .nav-links {
+    display: none;
+  }
+}

@@ -15,13 +15,13 @@
     h1 {
       font-size: 2.5rem;
       margin-bottom: 16px;
-      color: mat-color($primary, 700);
+      color: var(--primary, 700);
     }
 
     p {
       font-size: 1.125rem;
       margin-bottom: 24px;
-      color: mat-color($primary, 900);
+      color: var(--primary, 900);
     }
   }
 
