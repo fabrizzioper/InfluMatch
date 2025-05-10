@@ -3,5 +3,18 @@
     "TITLE": "Connect with Top Influencers",
     "SUBTITLE": "Find the perfect match between brands and creators",
     "CTA": "See How It Works"
-  }
+  },
+
+  "HOW_IT_WORKS": {
+  "TITLE": "How It Works",
+  "STEP1_TITLE": "Create Your Profile",
+  "STEP1_DESC": "Sign up and tell us what you do.",
+  "STEP2_TITLE": "Find Matches",
+  "STEP2_DESC": "Browse brands or influencers that fit your needs.",
+  "STEP3_TITLE": "Connect",
+  "STEP3_DESC": "Send a request and start collaborating instantly.",
+  "STEP4_TITLE": "Grow Together",
+  "STEP4_DESC": "Manage campaigns and measure success in one place."
+}
+
 }

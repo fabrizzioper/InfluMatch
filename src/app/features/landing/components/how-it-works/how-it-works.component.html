@@ -1,0 +1,11 @@
+<section class="how-it-works">
+  <h2>{{ 'HOW_IT_WORKS.TITLE' | translate }}</h2>
+
+  <div class="steps-container">
+    <mat-card *ngFor="let step of steps" class="step-card">
+      <mat-icon class="step-icon">{{ step.icon }}</mat-icon>
+      <h3>{{ step.titleKey | translate }}</h3>
+      <p>{{ step.descKey | translate }}</p>
+    </mat-card>
+  </div>
+</section>

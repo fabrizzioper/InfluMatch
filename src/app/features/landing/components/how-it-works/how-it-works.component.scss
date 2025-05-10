@@ -1,0 +1,41 @@
+.how-it-works {
+  padding: 48px 24px;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 32px;
+    color: mat-color($primary);
+  }
+
+  .steps-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .step-card {
+    padding: 16px;
+
+    .step-icon {
+      font-size: 48px;
+      color: mat-color($accent);
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 8px;
+      color: mat-color($primary, 700);
+    }
+
+    p {
+      font-size: 1rem;
+      color: mat-color($primary, 900);
+    }
+  }
+}
