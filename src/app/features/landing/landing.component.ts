@@ -1,7 +1,8 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, type TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 import { HeaderComponent } from './components/header/header.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
@@ -30,13 +31,22 @@ import { HeroComponent } from './presentation/hero/hero.component';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss'],
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
   @HostBinding('class.dark-mode') isDark = false;
+  private themeSubscription: Subscription | null = null;
 
   constructor(private theme: ThemeService) {}
 
   ngOnInit() {
     this.isDark = this.theme.isDark();
-    this.theme.themeChanges().subscribe((d) => (this.isDark = d));
+    this.themeSubscription = this.theme.themeChanges().subscribe((isDark) => {
+      this.isDark = isDark;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 }

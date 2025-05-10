@@ -1,4 +1,3 @@
-// src/app/shared/shared.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -9,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -19,6 +19,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatButtonModule,
     MatIconModule,
     MatButtonToggleModule,
+    MatCardModule,
   ],
   exports: [
     CommonModule,
@@ -28,6 +29,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatButtonModule,
     MatIconModule,
     MatButtonToggleModule,
+    MatCardModule,
   ],
 })
 export class SharedModule {}

@@ -1,14 +1,83 @@
-<section class="success-cases">
-  <h2>{{ 'SUCCESS_CASES.TITLE' | translate }}</h2>
-  <div class="cases-grid">
-    <mat-card *ngFor="let c of cases" class="case-card" appearance="outlined">
-      <img mat-card-image [src]="c.image" [alt]="(c.titleKey | translate)" />
-      <mat-card-header>
-        <mat-card-title>{{ c.titleKey | translate }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ c.descKey | translate }}</p>
-      </mat-card-content>
-    </mat-card>
+<section class="success-cases-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{{ "SUCCESS_CASES.TITLE" | translate }}</h2>
+      <div class="section-divider">
+        <span class="divider-dot"></span>
+      </div>
+      <p class="section-subtitle">{{ "SUCCESS_CASES.SUBTITLE" | translate }}</p>
+    </div>
+
+    <div class="cases-grid">
+      <div class="case-card-wrapper" *ngFor="let c of cases">
+        <mat-card class="case-card">
+          <div class="case-image-container">
+            <img
+              [src]="c.image"
+              [alt]="c.titleKey | translate"
+              class="case-image"
+            />
+            <div class="case-overlay">
+              <button mat-icon-button class="case-expand-button">
+                <mat-icon>fullscreen</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <mat-card-content>
+            <h3 class="case-title">{{ c.titleKey | translate }}</h3>
+            <p class="case-description">{{ c.descKey | translate }}</p>
+
+            <div class="case-stats">
+              <div class="stat-item" *ngFor="let stat of c.stats">
+                <div class="stat-value">{{ stat.value }}</div>
+                <div class="stat-label">{{ stat.label | translate }}</div>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-button color="primary" class="case-read-more">
+              {{ "SUCCESS_CASES.READ_MORE" | translate }}
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="view-more-container">
+      <button
+        mat-stroked-button
+        color="primary"
+        class="view-more-button"
+        routerLink="/success-cases"
+      >
+        {{ "SUCCESS_CASES.VIEW_ALL" | translate }}
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+
+    <div class="testimonial-section">
+      <div class="testimonial-container">
+        <div class="testimonial-quote">
+          <mat-icon class="quote-icon">format_quote</mat-icon>
+          <p class="quote-text">
+            {{ "SUCCESS_CASES.TESTIMONIAL" | translate }}
+          </p>
+          <div class="quote-author">
+            <img
+              src="assets/images/testimonial-avatar.png"
+              alt="Testimonial author"
+              class="author-avatar"
+            />
+            <div class="author-info">
+              <h4>{{ "SUCCESS_CASES.TESTIMONIAL_AUTHOR" | translate }}</h4>
+              <p>{{ "SUCCESS_CASES.TESTIMONIAL_POSITION" | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

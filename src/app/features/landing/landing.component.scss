@@ -1,16 +1,17 @@
-/* src/app/features/landing/components/presentation/landing/landing.component.scss */
 :host {
   display: block;
-  background: var(--light-blue); // fondo día por defecto
-  color: var(--primary, 900);
+  background-color: var(--background-light, #f8f9fa);
+  color: var(--text-primary, #333333);
+  min-height: 100vh;
 
   &.dark-mode {
-    background: var(--dark-blue);
-    color: var(--white);
+    background-color: var(--background-dark, #121212);
+    color: var(--text-primary-dark, #e0e0e0);
   }
 }
 
 .landing-main {
   max-width: 1200px;
   margin: 0 auto;
+  padding-top: 70px; // Espacio para el header fijo
 }

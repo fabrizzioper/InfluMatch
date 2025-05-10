@@ -1,35 +1,320 @@
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 48px 24px;
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #4051b5 0%, #7986cb 100%);
+  color: white;
+  padding: 80px 0 120px;
+  overflow: hidden;
 
-  @media (max-width: 768px) {
-    flex-direction: column-reverse;
-    text-align: center;
+  .hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
   }
 
   .hero-content {
-    max-width: 500px;
+    max-width: 550px;
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-      color: var(--primary, 700);
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      animation: fadeInUp 0.8s ease-out;
     }
 
-    p {
-      font-size: 1.125rem;
-      margin-bottom: 24px;
-      color: var(--primary, 900);
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 32px;
+      opacity: 0.9;
+      line-height: 1.6;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+
+      .cta-button {
+        padding: 0 32px;
+        height: 48px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+
+        mat-icon {
+          margin-left: 8px;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+
+          mat-icon {
+            transform: translateX(4px);
+          }
+        }
+      }
+
+      .secondary-button {
+        padding: 0 32px;
+        height: 48px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 30px;
+        border-color: rgba(255, 255, 255, 0.5);
+        color: white;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+      }
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      animation: fadeInUp 0.8s ease-out 0.6s both;
+
+      .stat-item {
+        .stat-value {
+          font-size: 2rem;
+          font-weight: 700;
+          margin-bottom: 4px;
+        }
+
+        .stat-label {
+          font-size: 0.9rem;
+          opacity: 0.8;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+      }
     }
   }
 
   .hero-image {
-    img {
-      width: 400px;
-      max-width: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-out 0.4s both;
+
+    .image-container {
+      position: relative;
+
+      .main-illustration {
+        max-width: 100%;
+        height: auto;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .floating-element {
+        position: absolute;
+        background-color: white;
+        border-radius: 12px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        animation: float 5s ease-in-out infinite;
+
+        mat-icon {
+          margin-right: 8px;
+          color: #4051b5;
+        }
+
+        span {
+          font-weight: 700;
+          color: #333;
+        }
+
+        &.floating-element-1 {
+          top: 20%;
+          left: -10%;
+          animation-delay: 0.5s;
+        }
+
+        &.floating-element-2 {
+          top: 60%;
+          right: -5%;
+          animation-delay: 1s;
+        }
+
+        &.floating-element-3 {
+          bottom: 10%;
+          left: 10%;
+          animation-delay: 1.5s;
+        }
+      }
+    }
+  }
+
+  .hero-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+
+    svg {
+      width: 100%;
       height: auto;
+    }
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .hero-section {
+    .hero-content {
+      .hero-title {
+        font-size: 3rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-section {
+    padding: 60px 0 100px;
+
+    .hero-container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-content {
+      margin-bottom: 60px;
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+    }
+
+    .hero-image {
+      .image-container {
+        .floating-element {
+          &.floating-element-1 {
+            top: 10%;
+            left: 0;
+          }
+
+          &.floating-element-2 {
+            top: 50%;
+            right: 0;
+          }
+
+          &.floating-element-3 {
+            bottom: 5%;
+            left: 20%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    padding: 40px 0 80px;
+
+    .hero-content {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 24px;
+      }
+    }
+
+    .hero-image {
+      .image-container {
+        .floating-element {
+          padding: 6px 10px;
+
+          &.floating-element-1,
+          &.floating-element-2,
+          &.floating-element-3 {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Estilos para modo oscuro
+:host-context(.dark-mode) {
+  .hero-section {
+    .hero-wave {
+      svg {
+        path {
+          fill: var(--background-dark, #121212);
+        }
+      }
     }
   }
 }

@@ -1,21 +1,56 @@
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-section about">
-      <h3>{{ 'FOOTER.ABOUT_TITLE' | translate }}</h3>
-      <p>{{ 'FOOTER.ABOUT_TEXT' | translate }}</p>
+      <h3>{{ "FOOTER.ABOUT_TITLE" | translate }}</h3>
+      <p>{{ "FOOTER.ABOUT_TEXT" | translate }}</p>
+      <div class="footer-logo">
+        <img src="assets/images/logo-white.png" alt="InfluMatch Logo" />
+      </div>
     </div>
+
     <div class="footer-section links">
-      <h3>{{ 'FOOTER.LINKS_TITLE' | translate }}</h3>
+      <h3>{{ "FOOTER.LINKS_TITLE" | translate }}</h3>
       <ul>
-        <li><a routerLink="/">{{ 'HEADER.HOME' | translate }}</a></li>
-        <li><a routerLink="/how-it-works">{{ 'HEADER.HOW_IT_WORKS' | translate }}</a></li>
-        <li><a routerLink="/success-cases">{{ 'HEADER.SUCCESS_CASES' | translate }}</a></li>
-        <li><a routerLink="/plans">{{ 'HEADER.PLANS' | translate }}</a></li>
-        <li><a routerLink="/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
+        <li>
+          <a routerLink="/">{{ "HEADER.HOME" | translate }}</a>
+        </li>
+        <li>
+          <a routerLink="/how-it-works">{{
+            "HEADER.HOW_IT_WORKS" | translate
+          }}</a>
+        </li>
+        <li>
+          <a routerLink="/success-cases">{{
+            "HEADER.SUCCESS_CASES" | translate
+          }}</a>
+        </li>
+        <li>
+          <a routerLink="/plans">{{ "HEADER.PLANS" | translate }}</a>
+        </li>
+        <li>
+          <a routerLink="/contact">{{ "HEADER.CONTACT" | translate }}</a>
+        </li>
       </ul>
     </div>
-    <div class="footer-section social">
-      <h3>{{ 'FOOTER.FOLLOW_US' | translate }}</h3>
+
+    <div class="footer-section contact-info">
+      <h3>{{ "FOOTER.CONTACT_TITLE" | translate }}</h3>
+      <ul class="contact-list">
+        <li>
+          <mat-icon>location_on</mat-icon>
+          <span>{{ "CONTACT.ADDRESS" | translate }}</span>
+        </li>
+        <li>
+          <mat-icon>email</mat-icon>
+          <span>{{ "CONTACT.EMAIL_ADDRESS" | translate }}</span>
+        </li>
+        <li>
+          <mat-icon>phone</mat-icon>
+          <span>{{ "CONTACT.PHONE_NUMBER" | translate }}</span>
+        </li>
+      </ul>
+
+      <h3 class="social-title">{{ "FOOTER.FOLLOW_US" | translate }}</h3>
       <div class="social-icons">
         <a href="#" aria-label="Facebook"><mat-icon>facebook</mat-icon></a>
         <a href="#" aria-label="Twitter"><mat-icon>twitter</mat-icon></a>
@@ -24,7 +59,17 @@
       </div>
     </div>
   </div>
+
   <div class="footer-bottom">
-    © {{ currentYear }} InfluMatch — {{ 'FOOTER.COPYRIGHT' | translate }}
+    <div class="container">
+      <p>
+        © {{ currentYear }} InfluMatch — {{ "FOOTER.COPYRIGHT" | translate }}
+      </p>
+      <div class="footer-links">
+        <a href="#">{{ "FOOTER.PRIVACY" | translate }}</a>
+        <a href="#">{{ "FOOTER.TERMS" | translate }}</a>
+        <a href="#">{{ "FOOTER.COOKIES" | translate }}</a>
+      </div>
+    </div>
   </div>
 </footer>

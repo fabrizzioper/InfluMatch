@@ -1,29 +1,384 @@
-.contact {
-  padding: 48px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+.contact-section {
+  position: relative;
+  background: linear-gradient(135deg, #4051b5 0%, #7986cb 100%);
+  color: white;
+  padding: 80px 0 120px;
+  overflow: hidden;
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 24px;
-    color: var(--primary);
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
   }
 
-  form {
-    width: 100%;
-    max-width: 500px;
-    display: grid;
-    gap: 16px;
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
 
-    mat-form-field {
-      width: 100%;
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: white;
     }
 
-    button {
-      justify-self: center;
-      margin-top: 8px;
+    .section-divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 16px 0;
+
+      .divider-dot {
+        width: 80px;
+        height: 4px;
+        background: white;
+        border-radius: 4px;
+        position: relative;
+
+        &::before,
+        &::after {
+          content: "";
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: white;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        &::before {
+          left: -5px;
+        }
+
+        &::after {
+          right: -5px;
+        }
+      }
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+
+  .contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .info-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 24px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.15);
+          transform: translateY(-5px);
+        }
+
+        .info-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: white;
+          color: #4051b5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 16px;
+
+          mat-icon {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        h3 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 8px;
+        }
+
+        p {
+          color: rgba(255, 255, 255, 0.9);
+          line-height: 1.6;
+        }
+      }
+
+      .social-links {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 24px;
+
+        h3 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 16px;
+        }
+
+        .social-icons {
+          display: flex;
+          gap: 16px;
+
+          .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: #4051b5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+
+            &:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            mat-icon {
+              font-size: 20px;
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .contact-form-container {
+      .form-card {
+        background-color: white;
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+        h3 {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 24px;
+          color: #333;
+          text-align: center;
+        }
+
+        form {
+          display: grid;
+          gap: 16px;
+
+          mat-form-field {
+            width: 100%;
+
+            ::ng-deep .mat-form-field-prefix {
+              margin-right: 12px;
+              color: #4051b5;
+            }
+          }
+
+          .form-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+
+            .submit-button {
+              min-width: 150px;
+              height: 48px;
+              border-radius: 30px;
+              font-size: 1rem;
+              font-weight: 500;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+              transition: all 0.3s ease;
+              position: relative;
+
+              &:not([disabled]):hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+              }
+
+              .spinner {
+                margin: 0 auto;
+              }
+            }
+          }
+        }
+
+        .form-success,
+        .form-error {
+          text-align: center;
+          padding: 24px;
+          border-radius: 8px;
+          margin-top: 16px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          animation: fadeIn 0.5s ease-out;
+
+          mat-icon {
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+          }
+
+          p {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+          }
+        }
+
+        .form-success {
+          background-color: rgba(76, 175, 80, 0.1);
+
+          mat-icon {
+            color: #4caf50;
+          }
+        }
+
+        .form-error {
+          background-color: rgba(244, 67, 54, 0.1);
+
+          mat-icon {
+            color: #f44336;
+          }
+        }
+      }
+    }
+  }
+
+  .contact-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .contact-section {
+    .contact-container {
+      grid-template-columns: 1fr;
+      gap: 30px;
+
+      .contact-info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        .social-links {
+          grid-column: span 2;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 60px 0 100px;
+
+    .section-header {
+      margin-bottom: 40px;
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    .contact-container {
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form-container {
+        .form-card {
+          padding: 30px 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-section {
+    .contact-container {
+      .contact-info {
+        .social-links {
+          .social-icons {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Estilos para modo oscuro
+:host-context(.dark-mode) {
+  .contact-section {
+    .contact-wave {
+      svg {
+        path {
+          fill: var(--background-dark, #121212);
+        }
+      }
+    }
+
+    .contact-form-container {
+      .form-card {
+        background-color: var(--card-background-dark, #1e1e1e);
+
+        h3 {
+          color: var(--text-primary-dark, #e0e0e0);
+        }
+
+        ::ng-deep {
+          .mat-form-field-label {
+            color: var(--text-secondary-dark, #b0b0b0);
+          }
+
+          .mat-input-element {
+            color: var(--text-primary-dark, #e0e0e0);
+          }
+
+          .mat-form-field-outline {
+            color: rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
     }
   }
 }

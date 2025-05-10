@@ -1,26 +1,109 @@
-<section class="plans">
-  <h2>{{ 'PLANS.TITLE' | translate }}</h2>
-  <div class="plans-grid">
-    <mat-card *ngFor="let plan of plans" class="plan-card">
-      <mat-card-header>
-        <mat-card-title>{{ plan.nameKey | translate }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="price">
-          <span class="amount">{{ plan.price === 0 ? 'Free' : '$' + plan.price }}</span>
-          <span class="period">/ {{ plan.period }}</span>
+<section class="plans-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{{ "PLANS.TITLE" | translate }}</h2>
+      <div class="section-divider">
+        <span class="divider-dot"></span>
+      </div>
+      <p class="section-subtitle">{{ "PLANS.SUBTITLE" | translate }}</p>
+    </div>
+
+    <div class="plans-toggle">
+      <mat-button-toggle-group
+        [value]="billingPeriod"
+        (change)="changeBillingPeriod($event.value)"
+      >
+        <mat-button-toggle value="monthly">{{
+          "PLANS.MONTHLY" | translate
+        }}</mat-button-toggle>
+        <mat-button-toggle value="yearly">
+          {{ "PLANS.YEARLY" | translate }}
+          <span class="discount-badge">-20%</span>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="plans-grid">
+      <div
+        *ngFor="let plan of plans"
+        class="plan-wrapper"
+        [class.popular]="plan.popular"
+      >
+        <div *ngIf="plan.popular" class="popular-badge">
+          {{ "PLANS.POPULAR" | translate }}
         </div>
-        <ul>
-          <li *ngFor="let feat of plan.features">
-            {{ feat | translate }}
-          </li>
-        </ul>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary">
-          {{ plan.ctaKey | translate }}
-        </button>
-      </mat-card-actions>
-    </mat-card>
+
+        <mat-card class="plan-card">
+          <mat-card-header>
+            <div class="plan-icon">
+              <mat-icon>{{ plan.icon }}</mat-icon>
+            </div>
+            <mat-card-title>{{ plan.nameKey | translate }}</mat-card-title>
+            <mat-card-subtitle>{{
+              plan.descriptionKey | translate
+            }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="price">
+              <span class="currency">{{ plan.price === 0 ? "" : "$" }}</span>
+              <span class="amount">{{
+                plan.price === 0
+                  ? ("PLANS.FREE" | translate)
+                  : billingPeriod === "yearly"
+                  ? plan.price * 0.8 * 12
+                  : plan.price
+              }}</span>
+              <span class="period" *ngIf="plan.price !== 0"
+                >/
+                {{
+                  billingPeriod === "yearly"
+                    ? ("PLANS.YEAR" | translate)
+                    : ("PLANS.MONTH" | translate)
+                }}</span
+              >
+            </div>
+
+            <div class="features">
+              <ul>
+                <li
+                  *ngFor="let feat of plan.features"
+                  [class.highlighted]="feat.highlighted"
+                >
+                  <mat-icon class="feature-icon">{{
+                    feat.highlighted ? "check_circle" : "check"
+                  }}</mat-icon>
+                  <span>{{ feat.key | translate }}</span>
+                </li>
+              </ul>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button
+              mat-flat-button
+              [color]="plan.popular ? 'accent' : 'primary'"
+              class="cta-button"
+            >
+              {{ plan.ctaKey | translate }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="enterprise-plan">
+      <div class="enterprise-content">
+        <div class="enterprise-info">
+          <h3>{{ "PLANS.ENTERPRISE_TITLE" | translate }}</h3>
+          <p>{{ "PLANS.ENTERPRISE_DESC" | translate }}</p>
+        </div>
+        <div class="enterprise-action">
+          <button mat-flat-button color="primary">
+            {{ "PLANS.ENTERPRISE_CTA" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

@@ -1,11 +1,56 @@
 <section class="how-it-works">
-  <h2>{{ 'HOW_IT_WORKS.TITLE' | translate }}</h2>
+  <div class="container">
+    <div class="section-header">
+      <h2>{{ "HOW_IT_WORKS.TITLE" | translate }}</h2>
+      <div class="section-divider">
+        <span class="divider-dot"></span>
+      </div>
+    </div>
 
-  <div class="steps-container">
-    <mat-card *ngFor="let step of steps" class="step-card">
-      <mat-icon class="step-icon">{{ step.icon }}</mat-icon>
-      <h3>{{ step.titleKey | translate }}</h3>
-      <p>{{ step.descKey | translate }}</p>
-    </mat-card>
+    <div class="steps-container">
+      <div
+        class="step-card"
+        *ngFor="let step of steps; let i = index"
+        [attr.data-step]="i + 1"
+      >
+        <div class="step-number">{{ i + 1 }}</div>
+        <div class="step-content">
+          <div class="step-icon-container">
+            <mat-icon class="step-icon">{{ step.icon }}</mat-icon>
+          </div>
+          <h3>{{ step.titleKey | translate }}</h3>
+          <p>{{ step.descKey | translate }}</p>
+        </div>
+        <div class="step-connector" *ngIf="i < steps.length - 1">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5 12H19M19 12L12 5M19 12L12 19"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-container">
+      <button
+        mat-flat-button
+        color="accent"
+        class="cta-button"
+        routerLink="/plans"
+      >
+        {{ "PLANS.TITLE" | translate }}
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
   </div>
 </section>

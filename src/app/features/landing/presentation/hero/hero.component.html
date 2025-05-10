@@ -1,13 +1,77 @@
-<section class="hero">
-  <div class="hero-content">
-    <h1>{{ 'HERO.TITLE' | translate }}</h1>
-    <p>{{ 'HERO.SUBTITLE' | translate }}</p>
-    <button mat-raised-button color="accent" routerLink="/how-it-works">
-      {{ 'HERO.CTA' | translate }}
-    </button>
+<section class="hero-section">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ "HERO.TITLE" | translate }}</h1>
+      <p class="hero-subtitle">{{ "HERO.SUBTITLE" | translate }}</p>
+      <div class="hero-actions">
+        <button
+          mat-flat-button
+          color="accent"
+          class="cta-button"
+          routerLink="/how-it-works"
+        >
+          {{ "HERO.CTA" | translate }}
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          class="secondary-button"
+          routerLink="/plans"
+        >
+          {{ "HERO.SECONDARY_CTA" | translate }}
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-value">10K+</div>
+          <div class="stat-label">
+            {{ "HERO.STAT_INFLUENCERS" | translate }}
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">5K+</div>
+          <div class="stat-label">{{ "HERO.STAT_BRANDS" | translate }}</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">98%</div>
+          <div class="stat-label">
+            {{ "HERO.STAT_SATISFACTION" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <div class="image-container">
+        <img
+          src="assets/images/hero-illustration.svg"
+          alt="InfluMatch Illustration"
+          class="main-illustration"
+        />
+        <div class="floating-element floating-element-1">
+          <mat-icon>thumb_up</mat-icon>
+          <span>+500</span>
+        </div>
+        <div class="floating-element floating-element-2">
+          <mat-icon>star</mat-icon>
+          <span>4.9</span>
+        </div>
+        <div class="floating-element floating-element-3">
+          <mat-icon>trending_up</mat-icon>
+          <span>+200%</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="hero-image">
-    <!-- Aquí podrías poner una ilustración o imagen SVG -->
-    <img src="assets/images/hero-illustration.svg" alt="Illustration" />
+
+  <div class="hero-wave">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="var(--background-light, #f8f9fa)"
+        fill-opacity="1"
+        d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      ></path>
+    </svg>
   </div>
 </section>
