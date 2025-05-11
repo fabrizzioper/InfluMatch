@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -83,17 +83,12 @@ export class HowItWorksComponent implements OnInit, OnDestroy {
     },
   ];
 
-  activeStep = 0;
-  private stepInterval: any;
   private themeSubscription: Subscription | null = null;
   isDarkMode = false;
 
   constructor(private themeService: ThemeService) {}
 
   ngOnInit(): void {
-    // Start auto-cycling through steps
-    this.startStepCycle();
-
     // Subscribe to theme changes
     this.themeSubscription = this.themeService
       .themeChanges()
@@ -104,54 +99,18 @@ export class HowItWorksComponent implements OnInit, OnDestroy {
     // Initialize AOS (Animate on Scroll) if available
     if (typeof AOS !== 'undefined') {
       AOS.init({
-        duration: 800,
-        easing: 'ease-out',
+        duration: 1000,
+        easing: 'ease-out-cubic',
         once: true,
+        offset: 100,
       });
     }
   }
 
   ngOnDestroy(): void {
-    // Clear interval when component is destroyed
-    if (this.stepInterval) {
-      clearInterval(this.stepInterval);
-    }
-
     // Unsubscribe from theme changes
     if (this.themeSubscription) {
       this.themeSubscription.unsubscribe();
     }
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    // Refresh AOS on scroll if available
-    if (typeof AOS !== 'undefined') {
-      AOS.refresh();
-    }
-  }
-
-  setActiveStep(index: number): void {
-    // Clear the auto-cycle interval when user interacts
-    if (this.stepInterval) {
-      clearInterval(this.stepInterval);
-    }
-
-    this.activeStep = index;
-
-    // Restart the cycle after user interaction
-    this.startStepCycle();
-  }
-
-  private startStepCycle(): void {
-    // Clear any existing interval
-    if (this.stepInterval) {
-      clearInterval(this.stepInterval);
-    }
-
-    // Set up auto-cycling through steps every 4 seconds
-    this.stepInterval = setInterval(() => {
-      this.activeStep = (this.activeStep + 1) % this.steps.length;
-    }, 4000);
   }
 }

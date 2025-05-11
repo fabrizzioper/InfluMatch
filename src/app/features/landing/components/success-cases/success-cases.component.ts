@@ -53,7 +53,7 @@ export class SuccessCasesComponent implements OnInit {
       },
       {
         titleKey: 'SUCCESS_CASES.CASE2_TITLE',
-        image: 'assets/images/case2.png',
+        image: '../assets/images/case2.png',
         descKey: 'SUCCESS_CASES.CASE2_DESC',
         stats: [
           { value: '1M+', label: 'SUCCESS_CASES.FOLLOWERS' },
