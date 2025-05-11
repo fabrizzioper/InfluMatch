@@ -187,11 +187,24 @@
     "ABOUT_TITLE": "Sobre InfluMatch",
     "ABOUT_TEXT": "InfluMatch conecta a los mejores influencers con marcas líderes para crear asociaciones de marketing poderosas que generan resultados. Nuestra plataforma hace que la colaboración sea simple, transparente y efectiva.",
     "LINKS_TITLE": "Enlaces Rápidos",
+    "RESOURCES_TITLE": "Recursos",
+    "LEGAL_TITLE": "Legal",
     "CONTACT_TITLE": "Contáctanos",
     "FOLLOW_US": "Síguenos",
     "COPYRIGHT": "Todos los derechos reservados",
     "PRIVACY": "Política de Privacidad",
     "TERMS": "Términos de Servicio",
-    "COOKIES": "Política de Cookies"
+    "COOKIES": "Política de Cookies",
+    "COMPLIANCE": "Cumplimiento",
+    "SECURITY": "Seguridad",
+    "BLOG": "Blog",
+    "HELP_CENTER": "Centro de Ayuda",
+    "GUIDES": "Guías",
+    "API_DOCS": "Documentación API",
+    "COMMUNITY": "Comunidad",
+    "NEWSLETTER_TITLE": "Suscríbete a nuestro boletín",
+    "NEWSLETTER_TEXT": "Mantente actualizado con las últimas tendencias en marketing de influencers y características de la plataforma.",
+    "EMAIL_PLACEHOLDER": "Ingresa tu correo electrónico",
+    "SUBSCRIBE": "Suscribirse"
   }
 }

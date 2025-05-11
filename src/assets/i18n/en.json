@@ -187,11 +187,24 @@
     "ABOUT_TITLE": "About InfluMatch",
     "ABOUT_TEXT": "InfluMatch connects top influencers with leading brands to create powerful marketing partnerships that drive results. Our platform makes collaboration simple, transparent, and effective.",
     "LINKS_TITLE": "Quick Links",
+    "RESOURCES_TITLE": "Resources",
+    "LEGAL_TITLE": "Legal",
     "CONTACT_TITLE": "Contact Us",
     "FOLLOW_US": "Follow Us",
     "COPYRIGHT": "All rights reserved",
     "PRIVACY": "Privacy Policy",
     "TERMS": "Terms of Service",
-    "COOKIES": "Cookie Policy"
+    "COOKIES": "Cookie Policy",
+    "COMPLIANCE": "Compliance",
+    "SECURITY": "Security",
+    "BLOG": "Blog",
+    "HELP_CENTER": "Help Center",
+    "GUIDES": "Guides",
+    "API_DOCS": "API Documentation",
+    "COMMUNITY": "Community",
+    "NEWSLETTER_TITLE": "Subscribe to our newsletter",
+    "NEWSLETTER_TEXT": "Stay updated with the latest trends in influencer marketing and platform features.",
+    "EMAIL_PLACEHOLDER": "Enter your email address",
+    "SUBSCRIBE": "Subscribe"
   }
 }

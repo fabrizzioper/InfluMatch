@@ -1,9 +1,15 @@
-import { Component, OnInit, HostListener, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  Inject,
+  OnDestroy,
+} from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DOCUMENT } from '@angular/common';
+import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../../core/services/theme.service';
 
 interface NavItem {
@@ -21,11 +27,13 @@ interface NavItem {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isDark = false;
   isScrolled = false;
   isMobileMenuOpen = false;
   currentLang = 'en';
+  private themeSubscription: Subscription | null = null;
+  private langSubscription: Subscription | null = null;
 
   navItems: NavItem[] = [
     {
@@ -72,9 +80,31 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Initialize theme state
     this.isDark = this.themeService.isDark();
+    this.themeSubscription = this.themeService
+      .themeChanges()
+      .subscribe((isDark) => {
+        this.isDark = isDark;
+      });
+
+    // Initialize language state
     this.currentLang = this.translate.currentLang || 'en';
+    this.langSubscription = this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang;
+    });
+
     this.checkScroll();
+  }
+
+  ngOnDestroy(): void {
+    // Clean up subscriptions
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
+    if (this.langSubscription) {
+      this.langSubscription.unsubscribe();
+    }
   }
 
   @HostListener('window:scroll', [])
