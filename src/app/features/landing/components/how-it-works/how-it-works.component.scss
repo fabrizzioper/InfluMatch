@@ -1,5 +1,4 @@
 .how-it-works {
-  padding: 120px 0;
   background-color: var(--background-light);
   position: relative;
   overflow: hidden;
@@ -229,8 +228,6 @@
 
   // Features Section
   .features-section {
-    margin-bottom: 120px;
-
     .features-header {
       text-align: center;
       margin-bottom: 60px;
@@ -311,7 +308,6 @@
 
   // Testimonial Section
   .testimonial-section {
-    margin-bottom: 120px;
     padding: 80px 0;
     background-color: var(--background-light-alt);
     border-radius: 24px;
@@ -755,4 +751,8 @@
       }
     }
   }
+}
+
+.always-white {
+  color: white !important;
 }

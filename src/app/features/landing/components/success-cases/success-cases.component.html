@@ -112,36 +112,5 @@
         </button>
       </div>
     </div>
-
-    <!-- Testimonial Section -->
-    <div class="testimonial-section" data-aos="fade-up">
-      <div class="testimonial-content">
-        <div class="testimonial-quote">
-          <div class="quote-mark">"</div>
-          <p>{{ "SUCCESS_CASES.TESTIMONIAL" | translate }}</p>
-          <div class="quote-author">
-            <img
-              src="assets/images/testimonial-author.jpg"
-              alt="Testimonial author"
-              class="author-image"
-            />
-            <div class="author-info">
-              <h5>{{ "SUCCESS_CASES.TESTIMONIAL_AUTHOR" | translate }}</h5>
-              <p>{{ "SUCCESS_CASES.TESTIMONIAL_POSITION" | translate }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Brands Section -->
-    <div class="brands-section" data-aos="fade-up">
-      <h3>{{ "SUCCESS_CASES.TRUSTED_BRANDS" | translate }}</h3>
-      <div class="brands-grid">
-        <div class="brand-logo" *ngFor="let brand of brands">
-          <img [src]="brand.logo" [alt]="brand.name" />
-        </div>
-      </div>
-    </div>
   </div>
 </section>

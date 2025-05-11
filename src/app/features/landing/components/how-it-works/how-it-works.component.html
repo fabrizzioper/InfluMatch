@@ -15,8 +15,12 @@
       />
       <div class="image-overlay">
         <div class="overlay-content">
-          <h3>{{ "HOW_IT_WORKS.HERO_TITLE" | translate }}</h3>
-          <p>{{ "HOW_IT_WORKS.HERO_SUBTITLE" | translate }}</p>
+          <h3 class="always-white">
+            {{ "HOW_IT_WORKS.HERO_TITLE" | translate }}
+          </h3>
+          <p class="always-white">
+            {{ "HOW_IT_WORKS.HERO_SUBTITLE" | translate }}
+          </p>
           <button mat-flat-button color="primary" class="overlay-button">
             {{ "HOW_IT_WORKS.LEARN_MORE" | translate }}
           </button>
@@ -74,50 +78,6 @@
           <h4>{{ feature.titleKey | translate }}</h4>
           <p>{{ feature.descKey | translate }}</p>
         </div>
-      </div>
-    </div>
-
-    <!-- Testimonial Section -->
-    <div class="testimonial-section" data-aos="fade-up">
-      <div class="testimonial-content">
-        <div class="quote-mark">"</div>
-        <p class="testimonial-text">
-          {{ "HOW_IT_WORKS.TESTIMONIAL" | translate }}
-        </p>
-        <div class="testimonial-author">
-          <img
-            src="../../../../../assets/images/testimonial-author.jpg"
-            alt="Testimonial Author"
-            class="author-image"
-          />
-          <div class="author-info">
-            <h5>{{ "HOW_IT_WORKS.TESTIMONIAL_AUTHOR" | translate }}</h5>
-            <p>{{ "HOW_IT_WORKS.TESTIMONIAL_POSITION" | translate }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA Section -->
-    <div class="cta-section" data-aos="fade-up">
-      <h3>{{ "HOW_IT_WORKS.CTA_TITLE" | translate }}</h3>
-      <p>{{ "HOW_IT_WORKS.CTA_SUBTITLE" | translate }}</p>
-      <div class="cta-buttons">
-        <button
-          mat-flat-button
-          color="primary"
-          class="cta-button"
-          routerLink="/plans"
-        >
-          {{ "HOW_IT_WORKS.GET_STARTED" | translate }}
-        </button>
-        <button
-          mat-stroked-button
-          class="secondary-button"
-          routerLink="/success-cases"
-        >
-          {{ "HOW_IT_WORKS.VIEW_CASES" | translate }}
-        </button>
       </div>
     </div>
   </div>

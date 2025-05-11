@@ -69,7 +69,7 @@ export class SuccessCasesComponent implements OnInit, AfterViewInit {
         id: 'case1',
         titleKey: 'SUCCESS_CASES.CASE1_TITLE',
         categoryKey: 'SUCCESS_CASES.CATEGORY_FASHION',
-        image: 'assets/images/case1.jpg',
+        image: '../../../../../assets/images/case1.png',
         descKey: 'SUCCESS_CASES.CASE1_DESC',
         stats: [
           { value: '+150%', label: 'SUCCESS_CASES.GROWTH' },
@@ -81,7 +81,7 @@ export class SuccessCasesComponent implements OnInit, AfterViewInit {
         id: 'case2',
         titleKey: 'SUCCESS_CASES.CASE2_TITLE',
         categoryKey: 'SUCCESS_CASES.CATEGORY_BEAUTY',
-        image: 'assets/images/case2.jpg',
+        image: '../../../../../assets/images/case2.png',
         descKey: 'SUCCESS_CASES.CASE2_DESC',
         stats: [
           { value: '1M+', label: 'SUCCESS_CASES.FOLLOWERS' },
@@ -93,7 +93,7 @@ export class SuccessCasesComponent implements OnInit, AfterViewInit {
         id: 'case3',
         titleKey: 'SUCCESS_CASES.CASE3_TITLE',
         categoryKey: 'SUCCESS_CASES.CATEGORY_TECH',
-        image: 'assets/images/case3.jpg',
+        image: '../../../../../assets/images/case3.png',
         descKey: 'SUCCESS_CASES.CASE3_DESC',
         stats: [
           { value: '24h', label: 'SUCCESS_CASES.SOLD_OUT' },
