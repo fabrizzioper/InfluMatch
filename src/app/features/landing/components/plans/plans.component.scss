@@ -1,15 +1,51 @@
+// Añadir más color y mejorar la consistencia en la sección de planes
 .plans-section {
-  padding: 120px 0;
+  padding: var(--spacing-section) 0;
   background-color: var(--background-light);
   color: var(--text-primary);
   position: relative;
   overflow: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 
+  // Añadir elementos decorativos
+  &::before {
+    content: "";
+    position: absolute;
+    top: 100px;
+    left: -150px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      rgba(var(--primary-rgb), 0.05) 0%,
+      rgba(var(--primary-rgb), 0) 70%
+    );
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 100px;
+    right: -150px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(
+      circle,
+      rgba(var(--accent-rgb), 0.05) 0%,
+      rgba(var(--accent-rgb), 0) 70%
+    );
+    border-radius: 50%;
+    z-index: 0;
+  }
+
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
+    position: relative;
+    z-index: 1;
   }
 
   // Section Header
@@ -72,6 +108,8 @@
       padding: 4px;
       position: relative;
       transition: background-color 0.3s ease;
+      border: 1px solid rgba(var(--primary-rgb), 0.1);
+      box-shadow: var(--shadow-sm);
 
       .toggle-option {
         padding: 12px 24px;
@@ -86,21 +124,22 @@
         transition: all 0.3s ease;
 
         &.active {
-          background-color: white;
-          color: var(--text-primary);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          background: var(--gradient-primary);
+          color: white;
+          box-shadow: var(--shadow-sm);
         }
 
         .discount-badge {
           position: absolute;
           top: -10px;
           right: -10px;
-          background-color: var(--accent);
+          background: var(--gradient-accent);
           color: white;
           font-size: 0.7rem;
           padding: 2px 6px;
           border-radius: 10px;
           font-weight: 700;
+          box-shadow: 0 2px 6px rgba(var(--accent-rgb), 0.3);
         }
       }
     }
@@ -127,19 +166,21 @@
     .plan-card {
       position: relative;
       background-color: white;
-      border-radius: 20px;
+      border-radius: var(--border-radius-lg);
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow-md);
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
       transform: translateY(0);
+      border: 1px solid rgba(var(--primary-rgb), 0.05);
 
       &:hover {
         transform: translateY(-10px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(var(--primary-rgb), 0.1);
       }
 
       &.featured {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 30px rgba(var(--primary-rgb), 0.15);
         border: 2px solid var(--primary);
         z-index: 1;
 
@@ -160,7 +201,7 @@
         top: 0;
         left: 0;
         right: 0;
-        background-color: var(--primary);
+        background: var(--gradient-primary);
         color: white;
         text-align: center;
         padding: 8px;
@@ -178,7 +219,11 @@
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          background-color: var(--background-light-alt);
+          background: linear-gradient(
+            135deg,
+            rgba(var(--primary-rgb), 0.1) 0%,
+            rgba(var(--primary-rgb), 0.2) 100%
+          );
           display: flex;
           align-items: center;
           justify-content: center;
@@ -234,7 +279,7 @@
           .amount {
             font-size: 3rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--primary);
             line-height: 1;
             margin: 0 4px;
             transition: color 0.3s ease;
@@ -303,27 +348,28 @@
           padding: 12px 0;
           font-size: 1rem;
           font-weight: 500;
-          border-radius: 980px;
+          border-radius: var(--border-radius-full);
           transition: all 0.3s ease;
 
           &.primary-button {
-            background-color: var(--primary);
+            background: var(--gradient-primary);
             color: white;
             border: none;
+            box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.25);
 
             &:hover {
-              background-color: var(--primary-dark);
               transform: translateY(-2px);
+              box-shadow: 0 6px 16px rgba(var(--primary-rgb), 0.35);
             }
           }
 
           &.secondary-button {
-            background-color: var(--background-light-alt);
-            color: var(--text-primary);
+            background-color: rgba(var(--primary-rgb), 0.1);
+            color: var(--primary);
             border: none;
 
             &:hover {
-              background-color: var(--background-light);
+              background-color: rgba(var(--primary-rgb), 0.15);
               transform: translateY(-2px);
             }
           }
@@ -335,14 +381,16 @@
   // Enterprise Section
   .enterprise-section {
     margin-bottom: 80px;
-    border-radius: 20px;
+    border-radius: var(--border-radius-lg);
     overflow: hidden;
     background-color: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
+    border: 1px solid rgba(var(--primary-rgb), 0.05);
 
     &:hover {
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(var(--primary-rgb), 0.1);
     }
 
     .enterprise-content {
@@ -356,6 +404,21 @@
 
       .enterprise-image {
         overflow: hidden;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            135deg,
+            rgba(var(--primary-rgb), 0.2) 0%,
+            rgba(var(--primary-rgb), 0) 100%
+          );
+        }
 
         img {
           width: 100%;
@@ -389,6 +452,19 @@
           margin-bottom: 16px;
           color: var(--text-primary);
           transition: color 0.3s ease;
+          position: relative;
+          display: inline-block;
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 1px;
+          }
 
           @media (max-width: 768px) {
             font-size: 1.75rem;
@@ -412,15 +488,16 @@
           padding: 12px 30px;
           font-size: 1rem;
           font-weight: 500;
-          border-radius: 980px;
-          background-color: var(--primary);
+          border-radius: var(--border-radius-full);
+          background: var(--gradient-primary);
           color: white;
           border: none;
           transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.25);
 
           &:hover {
-            background-color: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(var(--primary-rgb), 0.35);
           }
 
           @media (max-width: 768px) {
@@ -436,8 +513,24 @@
     margin-bottom: 80px;
     padding: 60px 0;
     background-color: var(--background-light-alt);
-    border-radius: 20px;
+    border-radius: var(--border-radius-lg);
     transition: background-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        135deg,
+        rgba(var(--primary-rgb), 0.05) 0%,
+        rgba(var(--primary-rgb), 0) 50%
+      );
+    }
 
     .testimonial-content {
       max-width: 800px;
@@ -445,6 +538,7 @@
       padding: 0 40px;
       position: relative;
       text-align: center;
+      z-index: 1;
 
       .quote-mark {
         font-size: 120px;
@@ -530,6 +624,22 @@
       margin-bottom: 40px;
       color: var(--text-primary);
       transition: color 0.3s ease;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--gradient-primary);
+        border-radius: 1.5px;
+      }
 
       @media (max-width: 768px) {
         font-size: 1.75rem;
@@ -547,13 +657,15 @@
 
       .faq-item {
         background-color: white;
-        border-radius: 12px;
+        border-radius: var(--border-radius-md);
         overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        box-shadow: var(--shadow-sm);
         transition: all 0.3s ease;
+        border: 1px solid rgba(var(--primary-rgb), 0.05);
 
         &:hover {
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: var(--shadow-md);
+          border-color: rgba(var(--primary-rgb), 0.1);
         }
 
         .faq-question {
@@ -610,16 +722,26 @@
   .plans-section {
     background-color: var(--background-dark);
 
+    &::before,
+    &::after {
+      opacity: 0.5;
+    }
+
     .billing-toggle {
       .toggle-container {
         background-color: var(--background-dark-alt);
+        border-color: rgba(var(--primary-light-rgb), 0.2);
 
         .toggle-option {
           color: var(--text-secondary-dark);
 
           &.active {
-            background-color: var(--card-background-dark);
-            color: var(--text-primary-dark);
+            background: linear-gradient(
+              135deg,
+              var(--primary-light) 0%,
+              var(--primary) 100%
+            );
+            color: white;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
           }
         }
@@ -630,9 +752,11 @@
       .plan-card {
         background-color: var(--card-background-dark);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        border-color: rgba(var(--primary-light-rgb), 0.1);
 
         &:hover {
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          border-color: rgba(var(--primary-light-rgb), 0.2);
         }
 
         &.featured {
@@ -642,7 +766,11 @@
 
         .plan-header {
           .plan-icon {
-            background-color: var(--background-dark-alt);
+            background: linear-gradient(
+              135deg,
+              rgba(var(--primary-light-rgb), 0.15) 0%,
+              rgba(var(--primary-light-rgb), 0.25) 100%
+            );
 
             mat-icon {
               color: var(--primary-light);
@@ -653,24 +781,39 @@
         .plan-price {
           border-top-color: rgba(255, 255, 255, 0.05);
           border-bottom-color: rgba(255, 255, 255, 0.05);
+
+          .amount {
+            color: var(--primary-light);
+          }
+        }
+
+        .plan-features {
+          ul li .feature-icon {
+            color: var(--primary-light);
+          }
         }
 
         .plan-cta {
           button {
             &.primary-button {
-              background-color: var(--primary-light);
+              background: linear-gradient(
+                135deg,
+                var(--primary-light) 0%,
+                var(--primary) 100%
+              );
+              box-shadow: 0 4px 12px rgba(var(--primary-light-rgb), 0.25);
 
               &:hover {
-                background-color: var(--primary);
+                box-shadow: 0 6px 16px rgba(var(--primary-light-rgb), 0.35);
               }
             }
 
             &.secondary-button {
-              background-color: var(--background-dark-alt);
-              color: var(--text-primary-dark);
+              background-color: rgba(var(--primary-light-rgb), 0.15);
+              color: var(--primary-light);
 
               &:hover {
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: rgba(var(--primary-light-rgb), 0.25);
               }
             }
           }
@@ -681,18 +824,25 @@
     .enterprise-section {
       background-color: var(--card-background-dark);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      border-color: rgba(var(--primary-light-rgb), 0.1);
 
       &:hover {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-color: rgba(var(--primary-light-rgb), 0.2);
       }
 
       .enterprise-content {
         .enterprise-text {
           .enterprise-button {
-            background-color: var(--primary-light);
+            background: linear-gradient(
+              135deg,
+              var(--primary-light) 0%,
+              var(--primary) 100%
+            );
+            box-shadow: 0 4px 12px rgba(var(--primary-light-rgb), 0.25);
 
             &:hover {
-              background-color: var(--primary);
+              box-shadow: 0 6px 16px rgba(var(--primary-light-rgb), 0.35);
             }
           }
         }
@@ -702,7 +852,19 @@
     .plans-testimonial {
       background-color: var(--background-dark-alt);
 
+      &::before {
+        background: linear-gradient(
+          135deg,
+          rgba(var(--primary-light-rgb), 0.1) 0%,
+          rgba(var(--primary-light-rgb), 0) 50%
+        );
+      }
+
       .testimonial-content {
+        .quote-mark {
+          color: var(--primary-light);
+        }
+
         .testimonial-author {
           .author-image {
             border-color: var(--background-dark);
@@ -717,14 +879,20 @@
         .faq-item {
           background-color: var(--card-background-dark);
           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+          border-color: rgba(var(--primary-light-rgb), 0.1);
 
           &:hover {
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border-color: rgba(var(--primary-light-rgb), 0.2);
           }
 
           .faq-question {
             &:hover {
               background-color: var(--background-dark-alt);
+            }
+
+            mat-icon {
+              color: var(--primary-light);
             }
           }
         }
