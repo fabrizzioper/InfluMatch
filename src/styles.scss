@@ -118,6 +118,17 @@ button {
   --z-modal: 1050;
   --z-popover: 1060;
   --z-tooltip: 1070;
+
+  /* RGB values for colors */
+  --primary-rgb: 45, 70, 185;
+  --primary-light-rgb: 121, 134, 203;
+  --primary-dark-rgb: 26, 41, 128;
+  --secondary-rgb: 108, 122, 224;
+  --secondary-light-rgb: 230, 233, 247;
+  --secondary-dark-rgb: 64, 81, 181;
+  --accent-rgb: 255, 64, 129;
+  --accent-light-rgb: 255, 128, 171;
+  --accent-dark-rgb: 197, 17, 98;
 }
 
 /* Añadir esta clase para prevenir el scroll cuando el menú móvil está abierto */

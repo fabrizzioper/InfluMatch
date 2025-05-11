@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ThemeService } from '../../../../core/services/theme.service';
 
 interface Step {
   icon: string;
   titleKey: string;
   descKey: string;
 }
+
+interface Feature {
+  icon: string;
+  titleKey: string;
+  descKey: string;
+}
+
+declare var AOS: any;
 
 @Component({
   selector: 'app-how-it-works',
@@ -26,7 +36,7 @@ interface Step {
   templateUrl: './how-it-works.component.html',
   styleUrls: ['./how-it-works.component.scss'],
 })
-export class HowItWorksComponent {
+export class HowItWorksComponent implements OnInit, OnDestroy {
   steps: Step[] = [
     {
       icon: 'person_add',
@@ -49,4 +59,99 @@ export class HowItWorksComponent {
       descKey: 'HOW_IT_WORKS.STEP4_DESC',
     },
   ];
+
+  features: Feature[] = [
+    {
+      icon: 'verified_user',
+      titleKey: 'HOW_IT_WORKS.FEATURE1_TITLE',
+      descKey: 'HOW_IT_WORKS.FEATURE1_DESC',
+    },
+    {
+      icon: 'speed',
+      titleKey: 'HOW_IT_WORKS.FEATURE2_TITLE',
+      descKey: 'HOW_IT_WORKS.FEATURE2_DESC',
+    },
+    {
+      icon: 'insights',
+      titleKey: 'HOW_IT_WORKS.FEATURE3_TITLE',
+      descKey: 'HOW_IT_WORKS.FEATURE3_DESC',
+    },
+    {
+      icon: 'support_agent',
+      titleKey: 'HOW_IT_WORKS.FEATURE4_TITLE',
+      descKey: 'HOW_IT_WORKS.FEATURE4_DESC',
+    },
+  ];
+
+  activeStep = 0;
+  private stepInterval: any;
+  private themeSubscription: Subscription | null = null;
+  isDarkMode = false;
+
+  constructor(private themeService: ThemeService) {}
+
+  ngOnInit(): void {
+    // Start auto-cycling through steps
+    this.startStepCycle();
+
+    // Subscribe to theme changes
+    this.themeSubscription = this.themeService
+      .themeChanges()
+      .subscribe((isDark) => {
+        this.isDarkMode = isDark;
+      });
+
+    // Initialize AOS (Animate on Scroll) if available
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-out',
+        once: true,
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Clear interval when component is destroyed
+    if (this.stepInterval) {
+      clearInterval(this.stepInterval);
+    }
+
+    // Unsubscribe from theme changes
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    // Refresh AOS on scroll if available
+    if (typeof AOS !== 'undefined') {
+      AOS.refresh();
+    }
+  }
+
+  setActiveStep(index: number): void {
+    // Clear the auto-cycle interval when user interacts
+    if (this.stepInterval) {
+      clearInterval(this.stepInterval);
+    }
+
+    this.activeStep = index;
+
+    // Restart the cycle after user interaction
+    this.startStepCycle();
+  }
+
+  private startStepCycle(): void {
+    // Clear any existing interval
+    if (this.stepInterval) {
+      clearInterval(this.stepInterval);
+    }
+
+    // Set up auto-cycling through steps every 4 seconds
+    this.stepInterval = setInterval(() => {
+      this.activeStep = (this.activeStep + 1) % this.steps.length;
+    }, 4000);
+  }
 }

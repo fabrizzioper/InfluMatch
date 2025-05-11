@@ -1,56 +1,103 @@
-<section class="how-it-works">
+<section class="how-it-works" id="how-it-works-section">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header" data-aos="fade-up">
       <h2>{{ "HOW_IT_WORKS.TITLE" | translate }}</h2>
       <div class="section-divider">
         <span class="divider-dot"></span>
       </div>
+      <p class="section-subtitle">{{ "HOW_IT_WORKS.SUBTITLE" | translate }}</p>
     </div>
 
-    <div class="steps-container">
-      <div
-        class="step-card"
-        *ngFor="let step of steps; let i = index"
-        [attr.data-step]="i + 1"
-      >
-        <div class="step-number">{{ i + 1 }}</div>
-        <div class="step-content">
-          <div class="step-icon-container">
-            <mat-icon class="step-icon">{{ step.icon }}</mat-icon>
+    <div class="process-container">
+      <!-- Process Timeline -->
+      <div class="process-timeline">
+        <div class="timeline-line"></div>
+        <div
+          *ngFor="let step of steps; let i = index"
+          class="timeline-dot"
+          [class.active]="activeStep === i"
+          (click)="setActiveStep(i)"
+        ></div>
+      </div>
+
+      <!-- Process Steps -->
+      <div class="steps-container">
+        <div
+          *ngFor="let step of steps; let i = index"
+          class="step-card"
+          [class.active]="activeStep === i"
+          [attr.data-step]="i + 1"
+          [attr.data-aos]="'fade-up'"
+          [attr.data-aos-delay]="i * 100"
+          (mouseenter)="setActiveStep(i)"
+        >
+          <div class="step-number">{{ i + 1 }}</div>
+          <div class="step-content">
+            <div class="step-icon-container">
+              <mat-icon class="step-icon">{{ step.icon }}</mat-icon>
+            </div>
+            <h3>{{ step.titleKey | translate }}</h3>
+            <p>{{ step.descKey | translate }}</p>
           </div>
-          <h3>{{ step.titleKey | translate }}</h3>
-          <p>{{ step.descKey | translate }}</p>
-        </div>
-        <div class="step-connector" *ngIf="i < steps.length - 1">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5 12H19M19 12L12 5M19 12L12 19"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <div class="step-connector" *ngIf="i < steps.length - 1">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 12H19M19 12L12 5M19 12L12 19"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="cta-container">
+    <div class="features-grid">
+      <div
+        *ngFor="let feature of features; let i = index"
+        class="feature-card"
+        [attr.data-aos]="'fade-up'"
+        [attr.data-aos-delay]="i * 100"
+      >
+        <div class="feature-icon-container">
+          <mat-icon>{{ feature.icon }}</mat-icon>
+        </div>
+        <h4>{{ feature.titleKey | translate }}</h4>
+        <p>{{ feature.descKey | translate }}</p>
+      </div>
+    </div>
+
+    <div class="cta-container" data-aos="fade-up" data-aos-delay="300">
       <button
         mat-flat-button
         color="accent"
         class="cta-button"
         routerLink="/plans"
       >
-        {{ "PLANS.TITLE" | translate }}
+        {{ "HOW_IT_WORKS.GET_STARTED" | translate }}
         <mat-icon>arrow_forward</mat-icon>
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        class="secondary-button"
+        routerLink="/success-cases"
+      >
+        {{ "HOW_IT_WORKS.VIEW_CASES" | translate }}
       </button>
     </div>
   </div>
+
+  <!-- Decorative Elements -->
+  <div class="decorative-shape shape-1"></div>
+  <div class="decorative-shape shape-2"></div>
+  <div class="decorative-shape shape-3"></div>
 </section>
