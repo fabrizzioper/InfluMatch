@@ -46,44 +46,60 @@ button {
   cursor: pointer;
 }
 
-/* Variables CSS globales */
+/* Variables CSS globales - Paleta InfluMatch */
 :root {
-  /* Colores principales (estilo Apple) */
-  --primary: #0071e3;
-  --primary-light: #47a1ff;
-  --primary-dark: #0058b9;
-  --secondary: #86868b;
-  --secondary-light: #a1a1a6;
-  --secondary-dark: #6e6e73;
-  --accent: #fa5252;
-  --accent-light: #ff8080;
-  --accent-dark: #e03131;
+  /* Colores principales de InfluMatch */
+  --primary: #2d46b9; /* Azul principal */
+  --primary-light: #6c7ae0; /* Azul secundario */
+  --primary-dark: #1a2980; /* Azul oscuro */
+  --background-light-alt: #e6e9f7; /* Azul muy claro */
+  --white: #ffffff; /* Blanco */
 
-  /* Colores adicionales para más vida */
+  /* Colores derivados para UI */
+  --primary-rgb: 45, 70, 185; /* RGB de primary */
+  --primary-light-rgb: 108, 122, 224; /* RGB de primary-light */
+  --primary-dark-rgb: 26, 41, 128; /* RGB de primary-dark */
+
+  /* Colores de acento y estado */
+  --accent: #ff6b6b; /* Rojo/coral para acentos */
+  --accent-light: #ff9e9e;
+  --accent-dark: #e03e3e;
+  --accent-rgb: 255, 107, 107;
+
+  /* Colores de estado */
   --success: #34c759;
   --success-light: #8be9a8;
+  --success-rgb: 52, 199, 89;
   --warning: #ff9500;
   --warning-light: #ffbd69;
+  --warning-rgb: 255, 149, 0;
   --error: #ff3b30;
   --error-light: #ff8f89;
+  --error-rgb: 255, 59, 48;
   --info: #007aff;
   --info-light: #66afff;
+  --info-rgb: 0, 122, 255;
 
   /* Gradientes */
   --gradient-primary: linear-gradient(
     135deg,
-    var(--primary),
-    var(--primary-light)
+    var(--primary) 0%,
+    var(--primary-light) 100%
+  );
+  --gradient-dark: linear-gradient(
+    135deg,
+    var(--primary-dark) 0%,
+    var(--primary) 100%
   );
   --gradient-accent: linear-gradient(
     135deg,
-    var(--accent),
-    var(--accent-light)
+    var(--accent) 0%,
+    var(--accent-light) 100%
   );
   --gradient-success: linear-gradient(
     135deg,
-    var(--success),
-    var(--success-light)
+    var(--success) 0%,
+    var(--success-light) 100%
   );
 
   /* Colores de texto */
@@ -94,18 +110,17 @@ button {
   --text-secondary-dark: #a1a1a6;
 
   /* Colores de fondo */
-  --background-light: #ffffff;
-  --background-light-alt: #f5f5f7;
-  --background-dark: #000000;
+  --background-light: var(--white);
+  --background-dark: #121212;
   --background-dark-alt: #1d1d1f;
-  --card-background-light: #ffffff;
+  --card-background-light: var(--white);
   --card-background-dark: #1d1d1f;
 
   /* Sombras */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.16);
+  --shadow-sm: 0 2px 8px rgba(var(--primary-rgb), 0.05);
+  --shadow-md: 0 4px 12px rgba(var(--primary-rgb), 0.08);
+  --shadow-lg: 0 8px 24px rgba(var(--primary-rgb), 0.12);
+  --shadow-xl: 0 12px 32px rgba(var(--primary-rgb), 0.16);
 
   /* Bordes */
   --border-radius-sm: 4px;
@@ -136,17 +151,6 @@ button {
   --z-modal: 1050;
   --z-popover: 1060;
   --z-tooltip: 1070;
-
-  /* RGB values for colors */
-  --primary-rgb: 0, 113, 227;
-  --primary-light-rgb: 71, 161, 255;
-  --primary-dark-rgb: 0, 88, 185;
-  --secondary-rgb: 134, 134, 139;
-  --secondary-light-rgb: 161, 161, 166;
-  --secondary-dark-rgb: 110, 110, 115;
-  --accent-rgb: 250, 82, 82;
-  --accent-light-rgb: 255, 128, 128;
-  --accent-dark-rgb: 224, 49, 49;
 }
 
 /* Añadir esta clase para prevenir el scroll cuando el menú móvil está abierto */
@@ -161,6 +165,11 @@ body.no-scroll {
   --card-background-light: var(--card-background-dark);
   --text-primary: var(--text-primary-dark);
   --text-secondary: var(--text-secondary-dark);
+
+  /* Adaptación de colores para modo oscuro */
+  --primary: #3d56c9; /* Azul principal más brillante */
+  --primary-light: #7c8ae0; /* Azul secundario más brillante */
+  --primary-dark: #1a2980; /* Azul oscuro se mantiene */
 
   background-color: var(--background-dark);
   color: var(--text-primary-dark);

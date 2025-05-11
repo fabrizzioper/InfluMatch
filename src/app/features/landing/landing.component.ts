@@ -11,7 +11,7 @@ import { PlansComponent } from './components/plans/plans.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ThemeService } from '../../core/services/theme.service';
-import { HeroComponent } from './presentation/hero/hero.component';
+import { HeroComponent } from './components/hero/hero.component';
 
 @Component({
   selector: 'app-landing',
