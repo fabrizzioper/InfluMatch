@@ -21,7 +21,8 @@
     "BADGE3": "Pagos Seguros",
     "STAT_INFLUENCERS": "Influencers",
     "STAT_BRANDS": "Marcas",
-    "STAT_SATISFACTION": "Satisfacción"
+    "STAT_SATISFACTION": "Satisfacción",
+    "SCROLL_DOWN": "Desliza para explorar"
   },
   "HOW_IT_WORKS": {
     "OVERLINE": "Nuestro Proceso",
@@ -59,8 +60,17 @@
     "VIEW_CASES": "Ver Casos de Éxito"
   },
   "SUCCESS_CASES": {
-    "TITLE": "Casos de Éxito",
-    "SUBTITLE": "Mira cómo marcas e influencers logran grandes resultados con InfluMatch",
+    "OVERLINE": "Casos de Éxito",
+    "TITLE": "Resultados Reales, Impacto Real",
+    "SUBTITLE": "Descubre cómo marcas e influencers logran un éxito extraordinario a través de nuestra plataforma",
+    "FEATURED_CATEGORY": "Caso de Estudio Destacado",
+    "FEATURED_TITLE": "Cómo Lumina Fashion Transformó su Presencia Digital",
+    "FEATURED_DESC": "Lumina Fashion se asoció con nuestra red seleccionada de influencers de moda para lanzar su colección de verano, resultando en un engagement y crecimiento de ventas sin precedentes.",
+    "GALLERY_TITLE": "Más Casos de Éxito",
+    "GALLERY_SUBTITLE": "Explora cómo nuestra plataforma ha ayudado a marcas en diferentes industrias",
+    "CATEGORY_FASHION": "Moda",
+    "CATEGORY_BEAUTY": "Belleza",
+    "CATEGORY_TECH": "Tecnología",
     "CASE1_TITLE": "Colaboración con Marca X",
     "CASE1_DESC": "Cómo Marca X creció un 150% con nuestros influencers.",
     "CASE2_TITLE": "Campaña de Influencer Y",
@@ -77,9 +87,10 @@
     "ENGAGEMENT": "Engagement",
     "SOLD_OUT": "Agotado",
     "INFLUENCERS": "Influencers",
-    "TESTIMONIAL": "InfluMatch transformó completamente nuestra forma de conectar con marcas. ¡Hemos visto un aumento del 300% en oportunidades de colaboración desde que nos unimos!",
+    "TESTIMONIAL": "InfluMatch transformó completamente nuestra forma de conectar con marcas. Hemos visto un aumento del 300% en oportunidades de colaboración desde que nos unimos, y la calidad de las asociaciones ha sido excepcional.",
     "TESTIMONIAL_AUTHOR": "Ana García",
-    "TESTIMONIAL_POSITION": "Influencer de Moda, 2M seguidores"
+    "TESTIMONIAL_POSITION": "Influencer de Moda, 2M seguidores",
+    "TRUSTED_BRANDS": "Marcas que Confían en Nosotros"
   },
   "PLANS": {
     "TITLE": "Nuestros Planes",

@@ -1,4 +1,4 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,11 +12,20 @@ interface Stat {
 }
 
 interface SuccessCase {
+  id: string;
   titleKey: string;
+  categoryKey: string;
   image: string;
   descKey: string;
   stats: Stat[];
 }
+
+interface Brand {
+  name: string;
+  logo: string;
+}
+
+declare var AOS: any;
 
 @Component({
   selector: 'app-success-cases',
@@ -32,18 +41,35 @@ interface SuccessCase {
   templateUrl: './success-cases.component.html',
   styleUrls: ['./success-cases.component.scss'],
 })
-export class SuccessCasesComponent implements OnInit {
+export class SuccessCasesComponent implements OnInit, AfterViewInit {
   cases: SuccessCase[] = [];
+  brands: Brand[] = [];
 
   ngOnInit(): void {
     this.initializeCases();
+    this.initializeBrands();
+  }
+
+  ngAfterViewInit(): void {
+    // Initialize AOS (Animate on Scroll) if available
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-out-cubic',
+        once: false,
+        mirror: true,
+        offset: 50,
+      });
+    }
   }
 
   private initializeCases(): void {
     this.cases = [
       {
+        id: 'case1',
         titleKey: 'SUCCESS_CASES.CASE1_TITLE',
-        image: 'assets/images/case1.png',
+        categoryKey: 'SUCCESS_CASES.CATEGORY_FASHION',
+        image: 'assets/images/case1.jpg',
         descKey: 'SUCCESS_CASES.CASE1_DESC',
         stats: [
           { value: '+150%', label: 'SUCCESS_CASES.GROWTH' },
@@ -52,8 +78,10 @@ export class SuccessCasesComponent implements OnInit {
         ],
       },
       {
+        id: 'case2',
         titleKey: 'SUCCESS_CASES.CASE2_TITLE',
-        image: '../assets/images/case2.png',
+        categoryKey: 'SUCCESS_CASES.CATEGORY_BEAUTY',
+        image: 'assets/images/case2.jpg',
         descKey: 'SUCCESS_CASES.CASE2_DESC',
         stats: [
           { value: '1M+', label: 'SUCCESS_CASES.FOLLOWERS' },
@@ -62,8 +90,10 @@ export class SuccessCasesComponent implements OnInit {
         ],
       },
       {
+        id: 'case3',
         titleKey: 'SUCCESS_CASES.CASE3_TITLE',
-        image: 'assets/images/case3.png',
+        categoryKey: 'SUCCESS_CASES.CATEGORY_TECH',
+        image: 'assets/images/case3.jpg',
         descKey: 'SUCCESS_CASES.CASE3_DESC',
         stats: [
           { value: '24h', label: 'SUCCESS_CASES.SOLD_OUT' },
@@ -71,6 +101,17 @@ export class SuccessCasesComponent implements OnInit {
           { value: '4.5x', label: 'SUCCESS_CASES.ROI' },
         ],
       },
+    ];
+  }
+
+  private initializeBrands(): void {
+    this.brands = [
+      { name: 'Brand 1', logo: 'assets/images/brand1.png' },
+      { name: 'Brand 2', logo: 'assets/images/brand2.png' },
+      { name: 'Brand 3', logo: 'assets/images/brand3.png' },
+      { name: 'Brand 4', logo: 'assets/images/brand4.png' },
+      { name: 'Brand 5', logo: 'assets/images/brand5.png' },
+      { name: 'Brand 6', logo: 'assets/images/brand6.png' },
     ];
   }
 }

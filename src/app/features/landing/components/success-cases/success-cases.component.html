@@ -1,81 +1,145 @@
-<section class="success-cases-section">
+<section class="success-cases-section" id="success-cases">
   <div class="container">
-    <div class="section-header">
-      <h2>{{ "SUCCESS_CASES.TITLE" | translate }}</h2>
-      <div class="section-divider">
-        <span class="divider-dot"></span>
-      </div>
+    <div class="section-intro" data-aos="fade-up">
+      <span class="overline">{{ "SUCCESS_CASES.OVERLINE" | translate }}</span>
+      <h2 class="section-title">{{ "SUCCESS_CASES.TITLE" | translate }}</h2>
       <p class="section-subtitle">{{ "SUCCESS_CASES.SUBTITLE" | translate }}</p>
     </div>
 
-    <div class="cases-grid">
-      <div class="case-card-wrapper" *ngFor="let c of cases">
-        <mat-card class="case-card">
-          <div class="case-image-container">
-            <img
-              [src]="c.image"
-              [alt]="c.titleKey | translate"
-              class="case-image"
-            />
+    <!-- Featured Case -->
+    <div class="featured-case" data-aos="fade-up">
+      <div class="featured-case-content">
+        <div class="featured-case-text">
+          <span class="case-category">{{
+            "SUCCESS_CASES.FEATURED_CATEGORY" | translate
+          }}</span>
+          <h3 class="case-title">
+            {{ "SUCCESS_CASES.FEATURED_TITLE" | translate }}
+          </h3>
+          <p class="case-description">
+            {{ "SUCCESS_CASES.FEATURED_DESC" | translate }}
+          </p>
+
+          <div class="case-metrics">
+            <div class="metric">
+              <span class="metric-value">+150%</span>
+              <span class="metric-label">{{
+                "SUCCESS_CASES.GROWTH" | translate
+              }}</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">2.5M</span>
+              <span class="metric-label">{{
+                "SUCCESS_CASES.REACH" | translate
+              }}</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">3.2x</span>
+              <span class="metric-label">{{
+                "SUCCESS_CASES.ROI" | translate
+              }}</span>
+            </div>
+          </div>
+
+          <button mat-flat-button class="learn-more-btn">
+            {{ "SUCCESS_CASES.READ_MORE" | translate }}
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+        <div class="featured-case-image">
+          <img
+            src="assets/images/featured-case.jpg"
+            alt="Featured success case"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Case Gallery -->
+    <div class="case-gallery">
+      <div class="gallery-header" data-aos="fade-up">
+        <h3>{{ "SUCCESS_CASES.GALLERY_TITLE" | translate }}</h3>
+        <p>{{ "SUCCESS_CASES.GALLERY_SUBTITLE" | translate }}</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div
+          class="case-card"
+          *ngFor="let c of cases; let i = index"
+          [attr.data-aos]="'fade-up'"
+          [attr.data-aos-delay]="i * 100"
+        >
+          <div class="case-card-image">
+            <img [src]="c.image" [alt]="c.titleKey | translate" />
             <div class="case-overlay">
-              <button mat-icon-button class="case-expand-button">
+              <button
+                mat-icon-button
+                class="expand-btn"
+                aria-label="Expand case"
+              >
                 <mat-icon>fullscreen</mat-icon>
               </button>
             </div>
           </div>
-
-          <mat-card-content>
-            <h3 class="case-title">{{ c.titleKey | translate }}</h3>
-            <p class="case-description">{{ c.descKey | translate }}</p>
+          <div class="case-card-content">
+            <span class="case-category">{{ c.categoryKey | translate }}</span>
+            <h4>{{ c.titleKey | translate }}</h4>
+            <p>{{ c.descKey | translate }}</p>
 
             <div class="case-stats">
-              <div class="stat-item" *ngFor="let stat of c.stats">
-                <div class="stat-value">{{ stat.value }}</div>
-                <div class="stat-label">{{ stat.label | translate }}</div>
+              <div class="stat" *ngFor="let stat of c.stats">
+                <span class="stat-value">{{ stat.value }}</span>
+                <span class="stat-label">{{ stat.label | translate }}</span>
               </div>
             </div>
-          </mat-card-content>
 
-          <mat-card-actions>
-            <button mat-button color="primary" class="case-read-more">
+            <a class="read-more-link" [routerLink]="['/case', c.id]">
               {{ "SUCCESS_CASES.READ_MORE" | translate }}
               <mat-icon>arrow_forward</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-card>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-cta" data-aos="fade-up">
+        <button
+          mat-stroked-button
+          class="view-all-btn"
+          routerLink="/success-cases"
+        >
+          {{ "SUCCESS_CASES.VIEW_ALL" | translate }}
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
       </div>
     </div>
 
-    <div class="view-more-container">
-      <button
-        mat-stroked-button
-        color="primary"
-        class="view-more-button"
-        routerLink="/success-cases"
-      >
-        {{ "SUCCESS_CASES.VIEW_ALL" | translate }}
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
-    </div>
-
-    <div class="testimonial-section">
-      <div class="testimonial-container">
+    <!-- Testimonial Section -->
+    <div class="testimonial-section" data-aos="fade-up">
+      <div class="testimonial-content">
         <div class="testimonial-quote">
-          <mat-icon class="quote-icon">format_quote</mat-icon>
-          <p class="quote-text">
-            {{ "SUCCESS_CASES.TESTIMONIAL" | translate }}
-          </p>
+          <div class="quote-mark">"</div>
+          <p>{{ "SUCCESS_CASES.TESTIMONIAL" | translate }}</p>
           <div class="quote-author">
             <img
-              src="assets/images/testimonial-avatar.png"
+              src="assets/images/testimonial-author.jpg"
               alt="Testimonial author"
-              class="author-avatar"
+              class="author-image"
             />
             <div class="author-info">
-              <h4>{{ "SUCCESS_CASES.TESTIMONIAL_AUTHOR" | translate }}</h4>
+              <h5>{{ "SUCCESS_CASES.TESTIMONIAL_AUTHOR" | translate }}</h5>
               <p>{{ "SUCCESS_CASES.TESTIMONIAL_POSITION" | translate }}</p>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brands Section -->
+    <div class="brands-section" data-aos="fade-up">
+      <h3>{{ "SUCCESS_CASES.TRUSTED_BRANDS" | translate }}</h3>
+      <div class="brands-grid">
+        <div class="brand-logo" *ngFor="let brand of brands">
+          <img [src]="brand.logo" [alt]="brand.name" />
         </div>
       </div>
     </div>

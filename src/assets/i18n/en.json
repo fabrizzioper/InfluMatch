@@ -19,7 +19,10 @@
     "BADGE1": "Verified Profiles",
     "BADGE2": "Fast Matching",
     "BADGE3": "Secure Payments",
-    "STAT_INFLUENCERS": "Influencers"
+    "STAT_INFLUENCERS": "Influencers",
+    "STAT_BRANDS": "Brands",
+    "STAT_SATISFACTION": "Satisfaction",
+    "SCROLL_DOWN": "Scroll to explore"
   },
   "HOW_IT_WORKS": {
     "OVERLINE": "Our Process",
@@ -57,8 +60,17 @@
     "VIEW_CASES": "View Success Stories"
   },
   "SUCCESS_CASES": {
-    "TITLE": "Success Stories",
-    "SUBTITLE": "See how brands and influencers achieve great results with InfluMatch",
+    "OVERLINE": "Success Stories",
+    "TITLE": "Real Results, Real Impact",
+    "SUBTITLE": "Discover how brands and influencers achieve remarkable success through our platform",
+    "FEATURED_CATEGORY": "Featured Case Study",
+    "FEATURED_TITLE": "How Lumina Fashion Transformed Their Digital Presence",
+    "FEATURED_DESC": "Lumina Fashion partnered with our curated network of fashion influencers to launch their summer collection, resulting in unprecedented engagement and sales growth.",
+    "GALLERY_TITLE": "More Success Stories",
+    "GALLERY_SUBTITLE": "Explore how our platform has helped brands across different industries",
+    "CATEGORY_FASHION": "Fashion",
+    "CATEGORY_BEAUTY": "Beauty",
+    "CATEGORY_TECH": "Technology",
     "CASE1_TITLE": "Brand X Collaboration",
     "CASE1_DESC": "How Brand X grew 150% using our influencers.",
     "CASE2_TITLE": "Influencer Y Campaign",
@@ -75,9 +87,10 @@
     "ENGAGEMENT": "Engagement",
     "SOLD_OUT": "Sold Out",
     "INFLUENCERS": "Influencers",
-    "TESTIMONIAL": "InfluMatch completely transformed how we connect with brands. We've seen a 300% increase in collaboration opportunities since joining!",
+    "TESTIMONIAL": "InfluMatch completely transformed how we connect with brands. We've seen a 300% increase in collaboration opportunities since joining, and the quality of partnerships has been exceptional.",
     "TESTIMONIAL_AUTHOR": "Jane Smith",
-    "TESTIMONIAL_POSITION": "Fashion Influencer, 2M followers"
+    "TESTIMONIAL_POSITION": "Fashion Influencer, 2M followers",
+    "TRUSTED_BRANDS": "Trusted by Leading Brands"
   },
   "PLANS": {
     "TITLE": "Our Plans",
