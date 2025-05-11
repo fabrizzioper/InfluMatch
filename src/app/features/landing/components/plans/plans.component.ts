@@ -1,9 +1,8 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, type OnInit, type AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TranslateModule } from '@ngx-translate/core';
 
 interface PlanFeature {
@@ -21,6 +20,14 @@ interface Plan {
   popular: boolean;
 }
 
+interface FAQ {
+  questionKey: string;
+  answerKey: string;
+  isOpen: boolean;
+}
+
+declare var AOS: any;
+
 @Component({
   selector: 'app-plans',
   standalone: true,
@@ -29,22 +36,52 @@ interface Plan {
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatButtonToggleModule,
     TranslateModule,
   ],
   templateUrl: './plans.component.html',
   styleUrls: ['./plans.component.scss'],
 })
-export class PlansComponent implements OnInit {
+export class PlansComponent implements OnInit, AfterViewInit {
   plans: Plan[] = [];
+  faqs: FAQ[] = [];
   billingPeriod: 'monthly' | 'yearly' = 'monthly';
 
   ngOnInit(): void {
     this.initializePlans();
+    this.initializeFaqs();
+  }
+
+  ngAfterViewInit(): void {
+    // Initialize AOS (Animate on Scroll) if available
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-out-cubic',
+        once: false,
+        mirror: true,
+        offset: 50,
+      });
+    }
   }
 
   changeBillingPeriod(period: 'monthly' | 'yearly'): void {
     this.billingPeriod = period;
+  }
+
+  calculateYearlyPrice(monthlyPrice: number): number {
+    // Apply 20% discount and multiply by 12 months
+    return monthlyPrice * 0.8 * 12;
+  }
+
+  calculateSavings(monthlyPrice: number): number {
+    // Calculate how much they save per year with the discount
+    const regularYearlyPrice = monthlyPrice * 12;
+    const discountedYearlyPrice = this.calculateYearlyPrice(monthlyPrice);
+    return regularYearlyPrice - discountedYearlyPrice;
+  }
+
+  toggleFaq(index: number): void {
+    this.faqs[index].isOpen = !this.faqs[index].isOpen;
   }
 
   private initializePlans(): void {
@@ -90,6 +127,31 @@ export class PlansComponent implements OnInit {
         ],
         ctaKey: 'PLANS.PLAN3_CTA',
         popular: false,
+      },
+    ];
+  }
+
+  private initializeFaqs(): void {
+    this.faqs = [
+      {
+        questionKey: 'PLANS.FAQ1_QUESTION',
+        answerKey: 'PLANS.FAQ1_ANSWER',
+        isOpen: false,
+      },
+      {
+        questionKey: 'PLANS.FAQ2_QUESTION',
+        answerKey: 'PLANS.FAQ2_ANSWER',
+        isOpen: false,
+      },
+      {
+        questionKey: 'PLANS.FAQ3_QUESTION',
+        answerKey: 'PLANS.FAQ3_ANSWER',
+        isOpen: false,
+      },
+      {
+        questionKey: 'PLANS.FAQ4_QUESTION',
+        answerKey: 'PLANS.FAQ4_ANSWER',
+        isOpen: false,
       },
     ];
   }

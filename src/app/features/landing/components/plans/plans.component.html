@@ -1,107 +1,177 @@
-<section class="plans-section">
+<section class="plans-section" id="plans">
   <div class="container">
-    <div class="section-header">
-      <h2>{{ "PLANS.TITLE" | translate }}</h2>
-      <div class="section-divider">
-        <span class="divider-dot"></span>
-      </div>
+    <!-- Header -->
+    <div class="section-header" data-aos="fade-up">
+      <span class="overline">{{ "PLANS.OVERLINE" | translate }}</span>
+      <h2 class="section-title">{{ "PLANS.TITLE" | translate }}</h2>
       <p class="section-subtitle">{{ "PLANS.SUBTITLE" | translate }}</p>
     </div>
 
-    <div class="plans-toggle">
-      <mat-button-toggle-group
-        [value]="billingPeriod"
-        (change)="changeBillingPeriod($event.value)"
-      >
-        <mat-button-toggle value="monthly">{{
-          "PLANS.MONTHLY" | translate
-        }}</mat-button-toggle>
-        <mat-button-toggle value="yearly">
+    <!-- Billing Toggle -->
+    <div class="billing-toggle" data-aos="fade-up" data-aos-delay="100">
+      <div class="toggle-container">
+        <button
+          class="toggle-option"
+          [class.active]="billingPeriod === 'monthly'"
+          (click)="changeBillingPeriod('monthly')"
+        >
+          {{ "PLANS.MONTHLY" | translate }}
+        </button>
+        <button
+          class="toggle-option"
+          [class.active]="billingPeriod === 'yearly'"
+          (click)="changeBillingPeriod('yearly')"
+        >
           {{ "PLANS.YEARLY" | translate }}
           <span class="discount-badge">-20%</span>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+        </button>
+      </div>
     </div>
 
+    <!-- Plans Grid -->
     <div class="plans-grid">
       <div
-        *ngFor="let plan of plans"
-        class="plan-wrapper"
-        [class.popular]="plan.popular"
+        *ngFor="let plan of plans; let i = index"
+        class="plan-card"
+        [class.featured]="plan.popular"
+        [attr.data-aos]="'fade-up'"
+        [attr.data-aos-delay]="i * 100"
       >
-        <div *ngIf="plan.popular" class="popular-badge">
-          {{ "PLANS.POPULAR" | translate }}
-        </div>
-
-        <mat-card class="plan-card">
-          <mat-card-header>
+        <div class="card-content">
+          <!-- Plan Header -->
+          <div class="plan-header">
             <div class="plan-icon">
               <mat-icon>{{ plan.icon }}</mat-icon>
             </div>
-            <mat-card-title>{{ plan.nameKey | translate }}</mat-card-title>
-            <mat-card-subtitle>{{
-              plan.descriptionKey | translate
-            }}</mat-card-subtitle>
-          </mat-card-header>
+            <h3 class="plan-name">{{ plan.nameKey | translate }}</h3>
+            <p class="plan-description">
+              {{ plan.descriptionKey | translate }}
+            </p>
+          </div>
 
-          <mat-card-content>
-            <div class="price">
-              <span class="currency">{{ plan.price === 0 ? "" : "$" }}</span>
-              <span class="amount">{{
-                plan.price === 0
-                  ? ("PLANS.FREE" | translate)
-                  : billingPeriod === "yearly"
-                  ? plan.price * 0.8 * 12
-                  : plan.price
-              }}</span>
-              <span class="period" *ngIf="plan.price !== 0"
-                >/
+          <!-- Plan Price -->
+          <div class="plan-price">
+            <div class="price-container">
+              <span class="currency" *ngIf="plan.price !== 0">$</span>
+              <span class="amount">
+                {{
+                  plan.price === 0
+                    ? ("PLANS.FREE" | translate)
+                    : billingPeriod === "yearly"
+                    ? (calculateYearlyPrice(plan.price) | number : "1.0-2")
+                    : plan.price
+                }}
+              </span>
+              <span class="period" *ngIf="plan.price !== 0">
+                /
                 {{
                   billingPeriod === "yearly"
                     ? ("PLANS.YEAR" | translate)
                     : ("PLANS.MONTH" | translate)
-                }}</span
+                }}
+              </span>
+            </div>
+            <div
+              class="price-note"
+              *ngIf="billingPeriod === 'yearly' && plan.price !== 0"
+            >
+              {{ "PLANS.SAVE" | translate }}
+              {{ calculateSavings(plan.price) | currency }}
+            </div>
+          </div>
+
+          <!-- Plan Features -->
+          <div class="plan-features">
+            <ul>
+              <li
+                *ngFor="let feature of plan.features"
+                [class.highlighted]="feature.highlighted"
               >
-            </div>
-
-            <div class="features">
-              <ul>
-                <li
-                  *ngFor="let feat of plan.features"
-                  [class.highlighted]="feat.highlighted"
-                >
-                  <mat-icon class="feature-icon">{{
-                    feat.highlighted ? "check_circle" : "check"
+                <div class="feature-icon">
+                  <mat-icon>{{
+                    feature.highlighted ? "check_circle" : "check"
                   }}</mat-icon>
-                  <span>{{ feat.key | translate }}</span>
-                </li>
-              </ul>
-            </div>
-          </mat-card-content>
+                </div>
+                <span>{{ feature.key | translate }}</span>
+              </li>
+            </ul>
+          </div>
 
-          <mat-card-actions>
+          <!-- Plan CTA -->
+          <div class="plan-cta">
             <button
               mat-flat-button
-              [color]="plan.popular ? 'accent' : 'primary'"
-              class="cta-button"
+              [class.primary-button]="plan.popular"
+              [class.secondary-button]="!plan.popular"
             >
               {{ plan.ctaKey | translate }}
             </button>
-          </mat-card-actions>
-        </mat-card>
+          </div>
+        </div>
+
+        <!-- Popular Badge -->
+        <div class="popular-badge" *ngIf="plan.popular">
+          {{ "PLANS.POPULAR" | translate }}
+        </div>
       </div>
     </div>
 
-    <div class="enterprise-plan">
+    <!-- Enterprise Section -->
+    <div class="enterprise-section" data-aos="fade-up">
       <div class="enterprise-content">
-        <div class="enterprise-info">
+        <div class="enterprise-image">
+          <img
+            src="assets/images/enterprise-image.jpg"
+            alt="Enterprise Solutions"
+          />
+        </div>
+        <div class="enterprise-text">
           <h3>{{ "PLANS.ENTERPRISE_TITLE" | translate }}</h3>
           <p>{{ "PLANS.ENTERPRISE_DESC" | translate }}</p>
-        </div>
-        <div class="enterprise-action">
-          <button mat-flat-button color="primary">
+          <button mat-flat-button class="enterprise-button">
             {{ "PLANS.ENTERPRISE_CTA" | translate }}
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="plans-testimonial" data-aos="fade-up">
+      <div class="testimonial-content">
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">{{ "PLANS.TESTIMONIAL" | translate }}</p>
+        <div class="testimonial-author">
+          <img
+            src="assets/images/testimonial-author.jpg"
+            alt="Testimonial Author"
+            class="author-image"
+          />
+          <div class="author-info">
+            <h5>{{ "PLANS.TESTIMONIAL_AUTHOR" | translate }}</h5>
+            <p>{{ "PLANS.TESTIMONIAL_POSITION" | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section" data-aos="fade-up">
+      <h3 class="faq-title">{{ "PLANS.FAQ_TITLE" | translate }}</h3>
+
+      <div class="faq-grid">
+        <div
+          class="faq-item"
+          *ngFor="let faq of faqs; let i = index"
+          [attr.data-aos]="'fade-up'"
+          [attr.data-aos-delay]="i * 50"
+        >
+          <div class="faq-question" (click)="toggleFaq(i)">
+            <h4>{{ faq.questionKey | translate }}</h4>
+            <mat-icon>{{ faq.isOpen ? "remove" : "add" }}</mat-icon>
+          </div>
+          <div class="faq-answer" [class.open]="faq.isOpen">
+            <p>{{ faq.answerKey | translate }}</p>
+          </div>
         </div>
       </div>
     </div>
