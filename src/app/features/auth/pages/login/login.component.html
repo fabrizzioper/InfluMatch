@@ -1,0 +1,58 @@
+<div class="login-container" [class.dark-mode]="isDark">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>InfluMatch</h1>
+      <p>Inicia sesión para continuar</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          type="email"
+          placeholder="ejemplo@correo.com"
+        />
+        <mat-error *ngIf="form.get('email')?.hasError('required')">
+          El correo es obligatorio
+        </mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email')">
+          Ingresa un correo válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+        />
+        <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="form.get('password')?.hasError('required')">
+          La contraseña es obligatoria
+        </mat-error>
+      </mat-form-field>
+
+      <div class="forgot-password">
+        <a href="#">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Iniciar sesión
+      </button>
+
+      <div class="register-link">
+        ¿No tienes cuenta? <a routerLink="/register">Regístrate</a>
+      </div>
+    </form>
+  </div>
+</div>
