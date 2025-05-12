@@ -1,4 +1,3 @@
-// features/auth/pages/login/login.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   ReactiveFormsModule,
@@ -14,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 import { LoginUseCase } from '../../../../application/use-cases/login.usecase';
@@ -31,6 +31,7 @@ import { ThemeService } from '../../../../core/services/theme.service';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatCheckboxModule,
     MatSnackBarModule,
   ],
   templateUrl: './login.component.html',
