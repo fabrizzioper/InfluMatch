@@ -5,7 +5,7 @@ import {
   Validators,
   FormGroup,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 
@@ -15,11 +15,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { LoginUseCase } from '../../../../application/use-cases/login.usecase';
 import { AuthService } from '../../../../core/services/auth.service';
 import { UserCredentials } from '../../../../domain/value-objects/user-credentials.vo';
-import { ThemeService } from '../../../../core/services/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +27,14 @@ import { ThemeService } from '../../../../core/services/theme.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    TranslateModule,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -40,8 +42,8 @@ import { ThemeService } from '../../../../core/services/theme.service';
 export class LoginComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   hide = true;
-  isDark = false;
-  private themeSubscription: Subscription | null = null;
+  currentLang = 'es';
+  private langSubscription: Subscription | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private snack: MatSnackBar,
-    private theme: ThemeService
+    private translate: TranslateService
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -58,16 +60,22 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.isDark = this.theme.isDark();
-    this.themeSubscription = this.theme.themeChanges().subscribe((isDark) => {
-      this.isDark = isDark;
+    // Initialize language
+    this.currentLang = this.translate.currentLang || 'es';
+    this.langSubscription = this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang;
     });
   }
 
   ngOnDestroy() {
-    if (this.themeSubscription) {
-      this.themeSubscription.unsubscribe();
+    if (this.langSubscription) {
+      this.langSubscription.unsubscribe();
     }
+  }
+
+  changeLang(lang: string): void {
+    this.currentLang = lang;
+    this.translate.use(lang);
   }
 
   submit(): void {
@@ -80,9 +88,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.auth.save(user);
         this.router.navigateByUrl('/');
       } else {
-        this.snack.open('Credenciales incorrectas', 'Cerrar', {
-          duration: 2500,
-        });
+        this.snack.open(
+          this.translate.instant('LOGIN.INVALID_CREDENTIALS'),
+          this.translate.instant('LOGIN.CLOSE'),
+          {
+            duration: 2500,
+          }
+        );
       }
     });
   }

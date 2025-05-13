@@ -10,6 +10,24 @@
     "DARK_MODE": "Dark Mode",
     "LIGHT_MODE": "Light Mode"
   },
+  "LOGIN": {
+    "WELCOME": "Welcome back!",
+    "SUBTITLE": "Connect with the best influencers and brands on our AI-powered platform",
+    "TITLE": "Sign In",
+    "INSTRUCTION": "Enter your credentials to continue",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "EMAIL_REQUIRED": "Email is required",
+    "EMAIL_INVALID": "Please enter a valid email",
+    "PASSWORD_REQUIRED": "Password is required",
+    "REMEMBER_ME": "Remember me",
+    "FORGOT_PASSWORD": "Forgot password?",
+    "SIGN_IN": "Sign in",
+    "NO_ACCOUNT": "Don't have an account?",
+    "SIGN_UP": "Sign up",
+    "INVALID_CREDENTIALS": "Invalid credentials",
+    "CLOSE": "Close"
+  },
   "HERO": {
     "OVERLINE": "Influencer Marketing Platform",
     "TITLE": "Connect with Top Influencers",

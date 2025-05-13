@@ -1,4 +1,4 @@
-<div class="login-container" [ngClass]="{ 'dark-mode': isDark }">
+<div class="login-container">
   <div class="login-left">
     <div class="video-container">
       <video class="background-video" autoplay loop muted playsinline>
@@ -7,35 +7,63 @@
           type="video/mp4"
         />
       </video>
+      <div class="video-overlay"></div>
     </div>
-    <div class="logo">
-      <img
-        src="../../../../../assets/images/logo-dark.png"
-        alt="InfluMatch Logo"
-      />
+
+    <div class="top-actions">
+      <!-- Language Selector -->
+      <div class="language-selector">
+        <button
+          class="lang-btn"
+          [class.active]="currentLang === 'es'"
+          (click)="changeLang('es')"
+        >
+          ES
+        </button>
+        <div class="lang-divider"></div>
+        <button
+          class="lang-btn"
+          [class.active]="currentLang === 'en'"
+          (click)="changeLang('en')"
+        >
+          EN
+        </button>
+      </div>
     </div>
-    <h1 class="welcome-text">¡Bienvenido de nuevo!</h1>
+
+    <div class="left-content">
+      <div class="logo">
+        <img
+          src="../../../../../assets/images/logo-light.png"
+          alt="InfluMatch Logo"
+        />
+      </div>
+      <h1 class="welcome-text">{{ "LOGIN.WELCOME" | translate }}</h1>
+      <p class="welcome-subtitle">{{ "LOGIN.SUBTITLE" | translate }}</p>
+    </div>
   </div>
 
   <div class="login-right">
     <div class="login-form-container">
-      <h2>InfluMatch</h2>
-      <p class="subtitle">Inicia sesión para continuar</p>
+      <h2>{{ "LOGIN.TITLE" | translate }}</h2>
+      <p class="subtitle">{{ "LOGIN.INSTRUCTION" | translate }}</p>
 
       <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
         <mat-form-field appearance="outline">
-          <mat-label>Correo electrónico</mat-label>
+          <mat-label>{{ "LOGIN.EMAIL" | translate }}</mat-label>
+          <mat-icon matPrefix>email</mat-icon>
           <input matInput formControlName="email" type="email" required />
           <mat-error *ngIf="form.get('email')?.hasError('required')">
-            El correo electrónico es obligatorio
+            {{ "LOGIN.EMAIL_REQUIRED" | translate }}
           </mat-error>
           <mat-error *ngIf="form.get('email')?.hasError('email')">
-            Ingresa un correo electrónico válido
+            {{ "LOGIN.EMAIL_INVALID" | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Contraseña</mat-label>
+          <mat-label>{{ "LOGIN.PASSWORD" | translate }}</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
           <input
             matInput
             formControlName="password"
@@ -47,32 +75,38 @@
             matSuffix
             (click)="hide = !hide"
             type="button"
+            aria-label="Toggle password visibility"
           >
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
           <mat-error *ngIf="form.get('password')?.hasError('required')">
-            La contraseña es obligatoria
+            {{ "LOGIN.PASSWORD_REQUIRED" | translate }}
           </mat-error>
         </mat-form-field>
 
         <div class="form-actions">
-          <mat-checkbox color="primary">Recordarme</mat-checkbox>
-          <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+          <mat-checkbox color="primary">{{
+            "LOGIN.REMEMBER_ME" | translate
+          }}</mat-checkbox>
+          <a href="#" class="forgot-password">{{
+            "LOGIN.FORGOT_PASSWORD" | translate
+          }}</a>
         </div>
 
         <button
           mat-flat-button
-          color="primary"
           type="submit"
           class="login-button"
           [disabled]="form.invalid"
         >
-          Iniciar sesión
+          <span>{{ "LOGIN.SIGN_IN" | translate }}</span>
+          <mat-icon>arrow_forward</mat-icon>
         </button>
       </form>
 
       <div class="register-link">
-        ¿No tienes cuenta? <a href="/register">Regístrate</a>
+        {{ "LOGIN.NO_ACCOUNT" | translate }}
+        <a routerLink="/register">{{ "LOGIN.SIGN_UP" | translate }}</a>
       </div>
     </div>
   </div>
