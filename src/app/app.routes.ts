@@ -30,29 +30,5 @@ export const routes: Routes = [
         (m) => m.OnboardingComponent
       ),
   },
-  {
-    path: 'dashboard',
-    loadComponent: () =>
-      import('./features/dashboard/dashboard.component').then(
-        (m) => m.DashboardComponent
-      ),
-    canActivate: [authGuard],
-    children: [
-      {
-        path: '',
-        loadComponent: () =>
-          import('./features/dashboard/pages/home/home.component').then(
-            (m) => m.HomeComponent
-          ),
-      },
-      {
-        path: 'profile',
-        loadComponent: () =>
-          import('./features/dashboard/pages/profile/profile.component').then(
-            (m) => m.ProfileComponent
-          ),
-      },
-    ],
-  },
   { path: '**', redirectTo: '' },
 ];
