@@ -26,6 +26,7 @@
     "NO_ACCOUNT": "Don't have an account?",
     "SIGN_UP": "Sign up",
     "INVALID_CREDENTIALS": "Invalid credentials",
+    "CREDENTIALS_ERROR": "Incorrect email or password",
     "CLOSE": "Close"
   },
   "REGISTER": {
@@ -42,7 +43,6 @@
     "PASSWORD_REQUIRED": "Password is required",
     "PASSWORD_MINLENGTH": "Password must be at least 6 characters",
     "ACCOUNT_TYPE": "Account Type",
-    "ACCOUNT_TYPE_DEVELOPER": "Developer",
     "ACCOUNT_TYPE_BRAND": "Brand",
     "ACCOUNT_TYPE_INFLUENCER": "Influencer",
     "ACCEPT_TERMS_1": "I accept the",

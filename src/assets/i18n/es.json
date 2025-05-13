@@ -26,6 +26,7 @@
     "NO_ACCOUNT": "¿No tienes cuenta?",
     "SIGN_UP": "Regístrate",
     "INVALID_CREDENTIALS": "Credenciales incorrectas",
+    "CREDENTIALS_ERROR": "Contraseña o correo incorrectos",
     "CLOSE": "Cerrar"
   },
   "REGISTER": {
@@ -42,7 +43,6 @@
     "PASSWORD_REQUIRED": "La contraseña es obligatoria",
     "PASSWORD_MINLENGTH": "La contraseña debe tener al menos 6 caracteres",
     "ACCOUNT_TYPE": "Tipo de cuenta",
-    "ACCOUNT_TYPE_DEVELOPER": "Desarrollador",
     "ACCOUNT_TYPE_BRAND": "Marca",
     "ACCOUNT_TYPE_INFLUENCER": "Influencer",
     "ACCEPT_TERMS_1": "Acepto los",

@@ -83,19 +83,29 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     const creds = this.form.value as UserCredentials;
 
-    this.loginUC.execute(creds).subscribe((user) => {
-      if (user) {
-        this.auth.save(user);
-        this.router.navigateByUrl('/');
-      } else {
-        this.snack.open(
-          this.translate.instant('LOGIN.INVALID_CREDENTIALS'),
-          this.translate.instant('LOGIN.CLOSE'),
-          {
-            duration: 2500,
-          }
-        );
+    this.loginUC.execute(creds).subscribe(
+      (user) => {
+        if (user) {
+          this.auth.save(user);
+          this.router.navigateByUrl('/');
+        } else {
+          this.showErrorMessage();
+        }
+      },
+      (error) => {
+        // Manejar el error de la API
+        this.showErrorMessage();
       }
-    });
+    );
+  }
+
+  private showErrorMessage(): void {
+    this.snack.open(
+      this.translate.instant('LOGIN.CREDENTIALS_ERROR'),
+      this.translate.instant('LOGIN.CLOSE'),
+      {
+        duration: 3000,
+      }
+    );
   }
 }

@@ -22,6 +22,12 @@ import { RegisterUseCase } from '../../../../application/use-cases/register.usec
 import { AuthService } from '../../../../core/services/auth.service';
 import { NewUserVO } from '../../../../domain/value-objects/new-user.vo';
 
+// Interfaz para las opciones de rol
+interface RolOption {
+  value: string; // Valor que se enviará al backend (siempre en español)
+  translationKey: string; // Clave para la traducción
+}
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -47,6 +53,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   currentLang = 'es';
   private langSubscription: Subscription | null = null;
 
+  // Opciones de rol (siempre en español)
+  rolOptions: RolOption[] = [
+    { value: 'influencer', translationKey: 'REGISTER.ACCOUNT_ _INFLUENCER' },
+    { value: 'marca', translationKey: 'REGISTER.ACCOUNT_ _BRAND' },
+  ];
+
   constructor(
     private fb: FormBuilder,
     private registerUC: RegisterUseCase,
@@ -55,11 +67,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private translate: TranslateService
   ) {
+    this.initForm();
+  }
+
+  private initForm(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      rol_type: [''],
+      rol_: ['influencer', Validators.required], // Valor por defecto: influencer
       acceptTerms: [false, Validators.requiredTrue],
     });
   }

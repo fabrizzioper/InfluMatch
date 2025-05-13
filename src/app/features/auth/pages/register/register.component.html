@@ -101,12 +101,12 @@
           <mat-label>{{ "REGISTER.ACCOUNT_TYPE" | translate }}</mat-label>
           <mat-icon matPrefix>business</mat-icon>
           <mat-select formControlName="rol_type">
-            <mat-option value="Brand">{{
-              "REGISTER.ACCOUNT_TYPE_BRAND" | translate
-            }}</mat-option>
-            <mat-option value="Influencer">{{
-              "REGISTER.ACCOUNT_TYPE_INFLUENCER" | translate
-            }}</mat-option>
+            <mat-option
+              *ngFor="let option of rolOptions"
+              [value]="option.value"
+            >
+              {{ option.translationKey | translate }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
