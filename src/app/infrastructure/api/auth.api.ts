@@ -1,8 +1,9 @@
-// src/app/infrastructure/api/auth.api.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs'; // 👈 importa map desde rxjs 7+
+/* si tu proyecto aún usa rxjs <7:
+   import { map } from 'rxjs/operators';
+*/
 
 import { environment } from '../../../environments/environment';
 import { User } from '../../domain/entities/user.entity';
@@ -10,7 +11,7 @@ import { UserCredentials } from '../../domain/value-objects/user-credentials.vo'
 
 @Injectable({ providedIn: 'root' })
 export class AuthApi {
-  private readonly base = environment.apiBase;
+  private readonly base = `${environment.apiBase}/users-register`;
 
   constructor(private http: HttpClient) {}
 
@@ -20,8 +21,8 @@ export class AuthApi {
       .set('password', creds.password)
       .set('limit', '1');
 
-    return this.http
-      .get<User[]>(`${this.base}/users-register`, { params })
-      .pipe(map((arr) => (arr.length ? arr[0] : null)));
+    return this.http.get<User[]>(this.base, { params }).pipe(
+      map((users: User[]) => (users.length ? users[0] : null)) // 👈 tipa users
+    );
   }
 }

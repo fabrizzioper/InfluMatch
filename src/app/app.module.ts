@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
 
 // Factory function for TranslateHttpLoader
 export function createTranslateLoader(http: HttpClient) {
@@ -18,6 +19,7 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    CoreModule,
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule,
