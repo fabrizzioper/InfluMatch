@@ -1,0 +1,375 @@
+.onboarding-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+
+  .sidebar {
+    width: 180px;
+    background: linear-gradient(180deg, #4a6bff 0%, #3f5ce0 100%);
+    padding: 40px 0;
+
+    .logo {
+      padding: 0 20px;
+      margin-bottom: 40px;
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .step {
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 14px;
+        position: relative;
+
+        &.active {
+          color: white;
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        &.completed {
+          color: white;
+        }
+
+        .step-icon {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 12px;
+          font-size: 12px;
+
+          &.completed {
+            background-color: #4cd964;
+          }
+        }
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    .form-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 500px;
+      padding: 30px;
+
+      .card-header {
+        text-align: center;
+        margin-bottom: 30px;
+
+        h1 {
+          font-size: 24px;
+          font-weight: 600;
+          margin-bottom: 10px;
+          color: #333;
+        }
+
+        p {
+          color: #666;
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+
+      .form-section {
+        margin-bottom: 25px;
+
+        .section-title {
+          font-size: 16px;
+          font-weight: 500;
+          margin-bottom: 15px;
+          color: #333;
+          display: flex;
+          align-items: center;
+
+          &::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #eee;
+            margin-left: 10px;
+          }
+        }
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+
+        label {
+          display: block;
+          margin-bottom: 8px;
+          font-size: 14px;
+          color: #555;
+
+          .required {
+            color: #f44336;
+          }
+        }
+
+        input,
+        textarea,
+        select {
+          width: 100%;
+          padding: 10px 12px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 14px;
+          color: #333;
+          transition: border-color 0.2s;
+
+          &:focus {
+            outline: none;
+            border-color: #4a6bff;
+          }
+
+          &.ng-invalid.ng-touched {
+            border-color: #f44336;
+          }
+        }
+
+        textarea {
+          min-height: 100px;
+          resize: vertical;
+        }
+
+        .error-message {
+          color: #f44336;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+
+        .form-row {
+          display: flex;
+          gap: 15px;
+
+          .form-col {
+            flex: 1;
+          }
+
+          @media (max-width: 576px) {
+            flex-direction: column;
+            gap: 20px;
+          }
+        }
+      }
+
+      .upload-area {
+        border: 1px dashed #ddd;
+        border-radius: 4px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          border-color: #4a6bff;
+          background-color: rgba(74, 107, 255, 0.05);
+        }
+
+        .upload-icon {
+          font-size: 24px;
+          color: #4a6bff;
+          margin-bottom: 10px;
+        }
+
+        .upload-text {
+          font-size: 14px;
+          color: #666;
+          margin: 0;
+        }
+
+        .upload-hint {
+          font-size: 12px;
+          color: #999;
+          margin-top: 5px;
+        }
+      }
+
+      .social-input {
+        display: flex;
+        align-items: center;
+
+        .social-icon {
+          width: 40px;
+          text-align: center;
+          color: #666;
+        }
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+
+        button {
+          padding: 10px 20px;
+          border-radius: 4px;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &.btn-back {
+            background-color: transparent;
+            border: 1px solid #ddd;
+            color: #666;
+
+            &:hover {
+              background-color: #f5f5f5;
+            }
+          }
+
+          &.btn-next {
+            background-color: #4a6bff;
+            border: none;
+            color: white;
+
+            &:hover {
+              background-color: darken(#4a6bff, 5%);
+            }
+
+            &:disabled {
+              background-color: #b3b3b3;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Estilos para los campos específicos
+.followers-group {
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 20px;
+
+  .platform-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .platform-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 16px;
+      }
+    }
+
+    .platform-name {
+      width: 100px;
+      font-size: 14px;
+    }
+
+    .platform-input {
+      flex: 1;
+    }
+  }
+}
+
+.portfolio-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  input {
+    flex: 1;
+  }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 5px;
+
+    &:hover {
+      color: darken(#f44336, 10%);
+    }
+  }
+}
+
+.add-more-btn {
+  background: none;
+  border: none;
+  color: #4a6bff;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+
+  i {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    color: darken(#4a6bff, 10%);
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .onboarding-container {
+    flex-direction: column;
+
+    .sidebar {
+      width: 100%;
+      padding: 20px;
+
+      .steps {
+        display: flex;
+        justify-content: space-around;
+
+        .step {
+          padding: 10px;
+          flex-direction: column;
+          text-align: center;
+
+          .step-icon {
+            margin-right: 0;
+            margin-bottom: 5px;
+          }
+        }
+      }
+    }
+
+    .content {
+      padding: 20px;
+
+      .form-card {
+        padding: 20px;
+      }
+    }
+  }
+}

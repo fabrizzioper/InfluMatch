@@ -1,46 +1,452 @@
-<h2>Completa tu perfil</h2>
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <!-- campos comunes -->
-  <mat-form-field
-    ><mat-label>Nombre público</mat-label>
-    <input matInput formControlName="display_name"
-  /></mat-form-field>
-  <mat-form-field
-    ><mat-label>Bio</mat-label>
-    <textarea matInput formControlName="bio"></textarea>
-  </mat-form-field>
+<div class="onboarding-container">
+  <!-- Sidebar con pasos -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="assets/images/logo-white.png" alt="InfluMatch" />
+    </div>
+    <ul class="steps">
+      <li class="step completed">
+        <div class="step-icon completed">
+          <i class="fas fa-check"></i>
+        </div>
+        <span>Registro</span>
+      </li>
+      <li class="step active">
+        <div class="step-icon">2</div>
+        <span>Perfil</span>
+      </li>
+      <li class="step">
+        <div class="step-icon">3</div>
+        <span>Configuración</span>
+      </li>
+    </ul>
+  </div>
 
-  <!-- sección condicional -->
-  <ng-container *ngIf="userType === 'influencer'">
-    <mat-form-field
-      ><mat-label>Especialidad (nicho)</mat-label>
-      <input matInput formControlName="niche"
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Seguidores</mat-label>
-      <input matInput type="number" formControlName="followers_count"
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Tarifa por post</mat-label>
-      <input matInput type="number" formControlName="rate_per_post"
-    /></mat-form-field>
-  </ng-container>
+  <!-- Contenido principal -->
+  <div class="content">
+    <div class="form-card">
+      <div class="card-header">
+        <h1>¡Completa tu perfil!</h1>
+        <p *ngIf="user_type === 'influencer'">
+          Para que las marcas puedan encontrarte, cuéntanos sobre ti.
+        </p>
+        <p *ngIf="user_type === 'marca'">
+          Para encontrar los influencers adecuados, cuéntanos sobre tu marca.
+        </p>
+      </div>
 
-  <ng-container *ngIf="userType === 'marca'">
-    <mat-form-field
-      ><mat-label>Sector</mat-label> <input matInput formControlName="sector"
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Rango de presupuesto</mat-label>
-      <input matInput formControlName="budget_range"
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Objetivos</mat-label>
-      <textarea matInput formControlName="objectives"></textarea>
-    </mat-form-field>
-  </ng-container>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <!-- Sección 1: Información básica (común para ambos) -->
+        <div class="form-section">
+          <h2 class="section-title">Información básica</h2>
 
-  <button mat-flat-button color="primary" [disabled]="form.invalid">
-    Finalizar
-  </button>
-</form>
+          <div class="form-group">
+            <label>Nombre público <span class="required">*</span></label>
+            <input
+              type="text"
+              formControlName="display_name"
+              placeholder="Cómo aparecerás en la plataforma"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                form.get('display_name')?.invalid &&
+                form.get('display_name')?.touched
+              "
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Foto de perfil</label>
+            <div class="upload-area" (click)="fileInput.click()">
+              <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+              </div>
+              <p class="upload-text">
+                Arrastra una imagen o haz clic para seleccionar
+              </p>
+              <p class="upload-hint">Recomendado: 300×300px, máximo 2MB</p>
+              <input
+                type="file"
+                #fileInput
+                style="display: none"
+                accept="image/*"
+              />
+            </div>
+            <input type="hidden" formControlName="avatar_url" />
+          </div>
+
+          <div class="form-group">
+            <label>Biografía <span class="required">*</span></label>
+            <textarea
+              formControlName="bio"
+              placeholder="{{
+                user_type === 'influencer'
+                  ? 'Cuéntanos sobre tu contenido y experiencia...'
+                  : 'Cuéntanos sobre tu marca y los valores que representa...'
+              }}"
+            >
+            </textarea>
+            <div
+              class="error-message"
+              *ngIf="form.get('bio')?.invalid && form.get('bio')?.touched"
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Ubicación <span class="required">*</span></label>
+            <input
+              type="text"
+              formControlName="location"
+              placeholder="Ciudad, País"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                form.get('location')?.invalid && form.get('location')?.touched
+              "
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Correo de contacto <span class="required">*</span></label>
+            <input
+              type="email"
+              formControlName="contact_email"
+              placeholder="email@ejemplo.com"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                form.get('contact_email')?.invalid &&
+                form.get('contact_email')?.touched
+              "
+            >
+              Introduce un correo electrónico válido
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección 2: Información específica para Influencers -->
+        <div class="form-section" *ngIf="user_type === 'influencer'">
+          <h2 class="section-title">Perfil de Influencer</h2>
+
+          <div class="form-group">
+            <label>Nicho / Categoría <span class="required">*</span></label>
+            <select formControlName="niche">
+              <option value="">Selecciona una categoría</option>
+              <option value="moda">Moda</option>
+              <option value="belleza">Belleza</option>
+              <option value="lifestyle">Lifestyle</option>
+              <option value="fitness">Fitness</option>
+              <option value="viajes">Viajes</option>
+              <option value="tecnologia">Tecnología</option>
+              <option value="gastronomia">Gastronomía</option>
+              <option value="gaming">Gaming</option>
+              <option value="otro">Otro</option>
+            </select>
+            <div
+              class="error-message"
+              *ngIf="form.get('niche')?.invalid && form.get('niche')?.touched"
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Seguidores por plataforma</label>
+            <div class="followers-group" formGroupName="followers">
+              <div class="platform-row">
+                <div class="platform-icon">
+                  <i class="fab fa-instagram"></i>
+                </div>
+                <div class="platform-name">Instagram</div>
+                <div class="platform-input">
+                  <input
+                    type="number"
+                    formControlName="instagram"
+                    placeholder="Número de seguidores"
+                  />
+                </div>
+              </div>
+
+              <div class="platform-row">
+                <div class="platform-icon">
+                  <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="platform-name">TikTok</div>
+                <div class="platform-input">
+                  <input
+                    type="number"
+                    formControlName="tiktok"
+                    placeholder="Número de seguidores"
+                  />
+                </div>
+              </div>
+
+              <div class="platform-row">
+                <div class="platform-icon">
+                  <i class="fab fa-youtube"></i>
+                </div>
+                <div class="platform-name">YouTube</div>
+                <div class="platform-input">
+                  <input
+                    type="number"
+                    formControlName="youtube"
+                    placeholder="Número de seguidores"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              >Tarifa base por publicación (USD)
+              <span class="required">*</span></label
+            >
+            <input
+              type="number"
+              formControlName="rate_per_post"
+              placeholder="Ej: 500"
+            />
+            <div
+              class="error-message"
+              *ngIf="
+                form.get('rate_per_post')?.invalid &&
+                form.get('rate_per_post')?.touched
+              "
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-row">
+              <div class="form-col">
+                <label>Engagement promedio (%)</label>
+                <input
+                  type="number"
+                  formControlName="engagement_rate"
+                  placeholder="Ej: 3.5"
+                />
+              </div>
+              <div class="form-col">
+                <label>Audiencia principal</label>
+                <select formControlName="main_audience">
+                  <option value="">Selecciona un rango</option>
+                  <option value="18-24">18-24 años</option>
+                  <option value="25-34">25-34 años</option>
+                  <option value="35-44">35-44 años</option>
+                  <option value="45+">45+ años</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Idiomas hablados</label>
+            <select multiple formControlName="languages">
+              <option value="es">Español</option>
+              <option value="en">Inglés</option>
+              <option value="fr">Francés</option>
+              <option value="de">Alemán</option>
+              <option value="it">Italiano</option>
+              <option value="pt">Portugués</option>
+              <option value="other">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Redes sociales</label>
+            <div formGroupName="social_links">
+              <div class="social-input">
+                <div class="social-icon">
+                  <i class="fab fa-instagram"></i>
+                </div>
+                <input
+                  type="text"
+                  formControlName="instagram"
+                  placeholder="@usuario"
+                />
+              </div>
+              <div class="social-input">
+                <div class="social-icon">
+                  <i class="fab fa-tiktok"></i>
+                </div>
+                <input
+                  type="text"
+                  formControlName="tiktok"
+                  placeholder="@usuario"
+                />
+              </div>
+              <div class="social-input">
+                <div class="social-icon">
+                  <i class="fab fa-youtube"></i>
+                </div>
+                <input
+                  type="text"
+                  formControlName="youtube"
+                  placeholder="URL del canal"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Portafolio (URLs a posts destacados)</label>
+            <div formArrayName="portfolio_urls">
+              <div
+                *ngFor="let url of portfolioUrls.controls; let i = index"
+                class="portfolio-item"
+              >
+                <input
+                  type="text"
+                  [formControlName]="i"
+                  placeholder="https://"
+                />
+                <button
+                  type="button"
+                  class="remove-btn"
+                  (click)="removePortfolioUrl(i)"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="add-more-btn"
+              (click)="addPortfolioUrl()"
+            >
+              <i class="fas fa-plus"></i> Añadir URL
+            </button>
+          </div>
+        </div>
+
+        <!-- Sección 2: Información específica para Marcas -->
+        <div class="form-section" *ngIf="user_type === 'marca'">
+          <h2 class="section-title">Perfil de Marca</h2>
+
+          <div class="form-group">
+            <label>Sector / Industria <span class="required">*</span></label>
+            <select formControlName="sector">
+              <option value="">Selecciona un sector</option>
+              <option value="moda">Moda</option>
+              <option value="belleza">Belleza</option>
+              <option value="tecnologia">Tecnología</option>
+              <option value="alimentacion">Alimentación</option>
+              <option value="hogar">Hogar y Decoración</option>
+              <option value="salud">Salud</option>
+              <option value="entretenimiento">Entretenimiento</option>
+              <option value="otro">Otro</option>
+            </select>
+            <div
+              class="error-message"
+              *ngIf="form.get('sector')?.invalid && form.get('sector')?.touched"
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Sitio web oficial</label>
+            <input
+              type="url"
+              formControlName="website"
+              placeholder="https://www.ejemplo.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Rango de presupuesto <span class="required">*</span></label>
+            <select formControlName="budget_range">
+              <option value="">Selecciona un rango</option>
+              <option value="1000-5000">$1,000 - $5,000</option>
+              <option value="5000-10000">$5,000 - $10,000</option>
+              <option value="10000-50000">$10,000 - $50,000</option>
+              <option value="50000+">$50,000+</option>
+            </select>
+            <div
+              class="error-message"
+              *ngIf="
+                form.get('budget_range')?.invalid &&
+                form.get('budget_range')?.touched
+              "
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Objetivos de campaña <span class="required">*</span></label>
+            <textarea
+              formControlName="objectives"
+              placeholder="¿Qué buscas lograr con tus campañas de influencer marketing?"
+            >
+            </textarea>
+            <div
+              class="error-message"
+              *ngIf="
+                form.get('objectives')?.invalid &&
+                form.get('objectives')?.touched
+              "
+            >
+              Este campo es obligatorio
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Persona de contacto</label>
+            <div class="form-row">
+              <div class="form-col">
+                <input
+                  type="text"
+                  formControlName="contact_name"
+                  placeholder="Nombre completo"
+                />
+              </div>
+              <div class="form-col">
+                <input
+                  type="text"
+                  formControlName="contact_position"
+                  placeholder="Cargo"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de contenido que buscas</label>
+            <select multiple formControlName="content_types">
+              <option value="posts">Posts</option>
+              <option value="stories">Stories</option>
+              <option value="reels">Reels/TikToks</option>
+              <option value="video">Videos</option>
+              <option value="blogs">Blog Posts</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Botones de navegación -->
+        <div class="button-group">
+          <button type="button" class="btn-back">Anterior</button>
+          <button
+            type="submit"
+            class="btn-next"
+            [disabled]="form.invalid"
+            (click)="console.log(form.value)"
+          >
+            Finalizar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
