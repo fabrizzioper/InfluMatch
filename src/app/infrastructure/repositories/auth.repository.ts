@@ -5,6 +5,7 @@ import { AuthRepository } from '../../domain/repositories/auth-repository';
 import { AuthApi } from '../api/auth.api';
 import { User } from '../../domain/entities/user.entity';
 import { UserCredentials } from '../../domain/value-objects/user-credentials.vo';
+import { NewUserVO } from '../../domain/value-objects/new-user.vo';
 
 @Injectable({ providedIn: 'root' })
 export class AuthRepositoryImpl extends AuthRepository {
@@ -19,6 +20,12 @@ export class AuthRepositoryImpl extends AuthRepository {
           ? { ...user, role: user.rol_type ?? 'guest' } // 🔄 adapta el campo
           : null
       )
+    );
+  }
+
+  register(data: NewUserVO): Observable<User> {
+    return this.api.register(data).pipe(
+      map((u) => ({ ...u, role: u.rol_type ?? 'guest' })) // adapta el campo
     );
   }
 }

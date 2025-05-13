@@ -8,10 +8,13 @@ import { Observable, map } from 'rxjs'; // 👈 importa map desde rxjs 7+
 import { environment } from '../../../environments/environment';
 import { User } from '../../domain/entities/user.entity';
 import { UserCredentials } from '../../domain/value-objects/user-credentials.vo';
+import { NewUserVO } from '../../domain/value-objects/new-user.vo';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApi {
-  private readonly base = `${environment.apiBase}/users-register`;
+  private readonly resource = 'users-register';
+
+  private readonly url = `${environment.apiBase}/${this.resource}`;
 
   constructor(private http: HttpClient) {}
 
@@ -21,8 +24,12 @@ export class AuthApi {
       .set('password', creds.password)
       .set('limit', '1');
 
-    return this.http.get<User[]>(this.base, { params }).pipe(
-      map((users: User[]) => (users.length ? users[0] : null)) // 👈 tipa users
-    );
+    return this.http
+      .get<User[]>(this.url, { params })
+      .pipe(map((users) => (users.length ? users[0] : null)));
+  }
+
+  register(data: NewUserVO): Observable<User> {
+    return this.http.post<User>(this.url, data);
   }
 }
