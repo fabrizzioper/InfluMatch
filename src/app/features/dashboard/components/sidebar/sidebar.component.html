@@ -2,13 +2,13 @@
   <div class="logo-container">
     <img
       *ngIf="expanded"
-      src="../../../../../assets/images/logo-light.png"
+      src="../../../../../assets/images/logo-dark.png"
       alt="InfluMatch"
       class="logo"
     />
     <img
       *ngIf="!expanded"
-      src="../../../../../assets/images/logo-light.png"
+      src="../../../../../assets/images/logo-dark.png"
       alt="InfluMatch"
       class="logo-icon"
     />
@@ -23,8 +23,8 @@
       {{ user.name.charAt(0).toUpperCase() }}
     </div>
     <div class="user-details" *ngIf="expanded">
-      <div class="user-name">{{ user.name }}</div>
-      <div class="user-role">{{ user.rol_type }}</div>
+      <div class="user-name">{{ user.name || "Usuario" }}</div>
+      <div class="user-role">{{ user.rol_type || "-" }}</div>
     </div>
   </div>
 

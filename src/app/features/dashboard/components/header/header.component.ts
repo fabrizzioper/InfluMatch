@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,22 +20,24 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   @Input() sidebarExpanded = true;
   @Output() toggleSidebar = new EventEmitter<void>();
 
-  currentLang: string;
+  currentLang = 'es';
 
-  constructor(private translate: TranslateService) {
-    this.currentLang = this.translate.currentLang || 'es';
+  constructor(private translateService: TranslateService) {}
+
+  ngOnInit(): void {
+    this.currentLang = this.translateService.currentLang || 'es';
   }
 
   onToggleSidebar(): void {
     this.toggleSidebar.emit();
   }
 
-  changeLang(lang: string): void {
+  changeLanguage(lang: string): void {
+    this.translateService.use(lang);
     this.currentLang = lang;
-    this.translate.use(lang);
   }
 }

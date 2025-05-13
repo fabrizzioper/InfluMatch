@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
@@ -30,7 +30,7 @@ interface NavItem {
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   @Input() expanded = true;
   @Input() user: User | null = null;
   @Output() toggleSidebar = new EventEmitter<void>();
@@ -38,24 +38,46 @@ export class SidebarComponent {
 
   navItems: NavItem[] = [
     {
-      label: 'DASHBOARD.MENU.HOME',
+      label: 'DASHBOARD.HOME',
       icon: 'dashboard',
       route: '/dashboard',
       exact: true,
     },
     {
-      label: 'DASHBOARD.MENU.PROFILE',
+      label: 'DASHBOARD.PROFILE',
       icon: 'person',
       route: '/dashboard/profile',
       exact: false,
     },
     {
-      label: 'DASHBOARD.MENU.SETTINGS',
+      label: 'DASHBOARD.CAMPAIGNS',
+      icon: 'campaign',
+      route: '/dashboard/campaigns',
+      exact: false,
+    },
+    {
+      label: 'DASHBOARD.MESSAGES',
+      icon: 'message',
+      route: '/dashboard/messages',
+      exact: false,
+    },
+    {
+      label: 'DASHBOARD.ANALYTICS',
+      icon: 'bar_chart',
+      route: '/dashboard/analytics',
+      exact: false,
+    },
+    {
+      label: 'DASHBOARD.SETTINGS',
       icon: 'settings',
       route: '/dashboard/settings',
       exact: false,
     },
   ];
+
+  constructor() {}
+
+  ngOnInit(): void {}
 
   onToggleSidebar(): void {
     this.toggleSidebar.emit();

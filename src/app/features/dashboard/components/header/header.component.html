@@ -1,27 +1,33 @@
-<mat-toolbar color="primary" class="header-toolbar">
+<mat-toolbar class="header-toolbar">
   <button mat-icon-button class="menu-button" (click)="onToggleSidebar()">
     <mat-icon>menu</mat-icon>
   </button>
-  
-  <span class="toolbar-title">{{ 'DASHBOARD.TITLE' | translate }}</span>
-  
-  <div class="toolbar-spacer"></div>
-  
-  <button mat-button [matMenuTriggerFor]="langMenu" class="lang-button">
-    <mat-icon>language</mat-icon>
-    <span>{{ currentLang.toUpperCase() }}</span>
-  </button>
-  
+
+  <span class="toolbar-title">{{ "DASHBOARD.TITLE" | translate }}</span>
+
+  <span class="toolbar-spacer"></span>
+
+  <div class="toolbar-actions">
+    <button mat-button class="lang-button" [matMenuTriggerFor]="langMenu">
+      <mat-icon>language</mat-icon>
+      <span>{{ currentLang | uppercase }}</span>
+    </button>
+
+    <button mat-icon-button class="action-button notification-button">
+      <mat-icon>notifications</mat-icon>
+    </button>
+
+    <button mat-icon-button class="action-button">
+      <mat-icon>help_outline</mat-icon>
+    </button>
+  </div>
+
   <mat-menu #langMenu="matMenu">
-    <button mat-menu-item (click)="changeLang('es')" [disabled]="currentLang === 'es'">
+    <button mat-menu-item (click)="changeLanguage('es')">
       <span>Español</span>
     </button>
-    <button mat-menu-item (click)="changeLang('en')" [disabled]="currentLang === 'en'">
+    <button mat-menu-item (click)="changeLanguage('en')">
       <span>English</span>
     </button>
   </mat-menu>
-  
-  <button mat-icon-button class="notification-button">
-    <mat-icon>notifications</mat-icon>
-  </button>
 </mat-toolbar>

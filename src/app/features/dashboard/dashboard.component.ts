@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,10 +37,7 @@ export class DashboardComponent implements OnInit {
   sidebarExpanded = true;
   currentUser: User | null = null;
 
-  constructor(
-    private authService: AuthService,
-    private translate: TranslateService
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.currentUser = this.authService.currentUser;
@@ -52,6 +49,6 @@ export class DashboardComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    window.location.href = '/';
+    this.router.navigate(['/login']);
   }
 }
