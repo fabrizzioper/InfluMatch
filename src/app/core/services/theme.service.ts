@@ -1,9 +1,16 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Injectable,
+  Inject,
+  PLATFORM_ID,
+  Renderer2,
+  RendererFactory2,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject, type Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 const STORAGE_KEY = 'influMatch-dark-mode';
 const DARK_MODE_CLASS = 'dark-mode';
+const TRANSITION_CLASS = 'theme-transition';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +18,15 @@ const DARK_MODE_CLASS = 'dark-mode';
 export class ThemeService {
   private darkMode$ = new BehaviorSubject<boolean>(false);
   private isBrowser: boolean;
+  private renderer: Renderer2;
+  private transitionDuration = 300; // 300ms para todas las transiciones
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object,
+    rendererFactory: RendererFactory2
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.renderer = rendererFactory.createRenderer(null, null);
 
     if (this.isBrowser) {
       // Detectar preferencia del sistema
@@ -38,6 +51,9 @@ export class ThemeService {
             this.setDark(e.matches);
           }
         });
+
+      // Añadir una regla CSS global para las transiciones
+      this.addGlobalTransitionStyles();
     }
   }
 
@@ -53,11 +69,21 @@ export class ThemeService {
 
   /** Cambia el tema y lo persiste */
   setDark(isDark: boolean): void {
-    this.darkMode$.next(isDark);
-
     if (this.isBrowser) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(isDark));
-      this.applyTheme(isDark);
+      // Añadir clase de transición antes del cambio
+      document.body.classList.add(TRANSITION_CLASS);
+
+      // Aplicar el cambio después de un pequeño retraso para permitir que la clase de transición se aplique
+      setTimeout(() => {
+        this.darkMode$.next(isDark);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(isDark));
+        this.applyTheme(isDark);
+
+        // Eliminar la clase de transición después de completar la transición
+        setTimeout(() => {
+          document.body.classList.remove(TRANSITION_CLASS);
+        }, this.transitionDuration);
+      }, 10);
     }
   }
 
@@ -101,7 +127,22 @@ export class ThemeService {
     // Actualizar meta theme-color para que coincida con el tema
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', isDark ? '#121212' : '#4051b5');
+      metaThemeColor.setAttribute('content', isDark ? '#1A2980' : '#2D46B9');
     }
+  }
+
+  private addGlobalTransitionStyles() {
+    // Crear un elemento de estilo para las transiciones globales
+    const styleEl = document.createElement('style');
+    styleEl.textContent = `
+      .theme-transition,
+      .theme-transition *,
+      .theme-transition *:before,
+      .theme-transition *:after {
+        transition: all ${this.transitionDuration}ms ease !important;
+        transition-delay: 0 !important;
+      }
+    `;
+    document.head.appendChild(styleEl);
   }
 }

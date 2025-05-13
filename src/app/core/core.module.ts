@@ -1,32 +1,11 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
-// Factory para cargar archivos JSON de i18n
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
-}
+import { AuthRepository } from '../domain/repositories/auth-repository';
+import { AuthRepositoryImpl } from '../infrastructure/repositories/auth.repository';
 
 @NgModule({
-  imports: [
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-      defaultLanguage: 'en',
-    }),
-  ],
-  exports: [HttpClientModule, TranslateModule],
+  imports: [HttpClientModule],
+  providers: [{ provide: AuthRepository, useClass: AuthRepositoryImpl }],
 })
-export class CoreModule {
-  // Prevenir import múltiple
-  constructor(@Optional() @SkipSelf() parent: CoreModule) {
-    if (parent) {
-      throw new Error('CoreModule ya está cargado. Importa solo en AppModule.');
-    }
-  }
-}
+export class CoreModule {}

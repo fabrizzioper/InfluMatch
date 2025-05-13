@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { TranslateModule, type TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 import { HeaderComponent } from './components/header/header.component';
@@ -35,7 +35,10 @@ export class LandingComponent implements OnInit, OnDestroy {
   @HostBinding('class.dark-mode') isDark = false;
   private themeSubscription: Subscription | null = null;
 
-  constructor(private theme: ThemeService) {}
+  constructor(
+    private theme: ThemeService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.isDark = this.theme.isDark();

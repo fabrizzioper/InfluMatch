@@ -1,18 +1,16 @@
-// src/app/app.component.ts
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ThemeService } from './core/services/theme.service';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
-  template: `<router-outlet></router-outlet>`,
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: false,
 })
-export class AppComponent implements OnInit {
-  constructor(private theme: ThemeService) {}
-  ngOnInit() {
-    this.theme.initTheme();
+export class AppComponent {
+  constructor(private translate: TranslateService) {
+    // Configuración inicial del idioma
+    translate.setDefaultLang('es');
+    translate.use('es');
   }
 }

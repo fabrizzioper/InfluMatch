@@ -1,4 +1,4 @@
-import type { Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
@@ -6,6 +6,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/landing/landing.component').then(
         (m) => m.LandingComponent
+      ),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/pages/login/login.component').then(
+        (m) => m.LoginComponent
       ),
   },
   { path: '**', redirectTo: '' },
