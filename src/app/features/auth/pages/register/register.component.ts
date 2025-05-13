@@ -103,7 +103,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   submit() {
     if (this.form.invalid) return;
 
-    // extraemos todo excepto el checkbox de términos
+    // desestructuramos para descartar acceptTerms
     const { acceptTerms, ...userData } = this.form.value as {
       name: string;
       email: string;
@@ -113,7 +113,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       acceptTerms: boolean;
     };
 
-    // userData ya tiene: name, email, password, user_type, profile_completed
     const data: NewUserVO = userData;
 
     this.registerUC.execute(data).subscribe(
@@ -125,17 +124,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
           { duration: 5000 }
         );
 
-        if (!user.profile_completed) {
-          this.router.navigateByUrl('/onboarding');
-        } else {
-          this.router.navigateByUrl('/');
-        }
+        // 🚀 tras crear la cuenta, si NO completó el perfil...
+        this.router.navigateByUrl('/onboarding');
       },
       (error) => {
         this.snackBar.open(
           this.translate.instant('REGISTER.ERROR_MESSAGE'),
           this.translate.instant('LOGIN.CLOSE'),
-          { duration: 5000 }
+          { duration: 3000 }
         );
       }
     );

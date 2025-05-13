@@ -24,6 +24,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'onboarding',
+    loadComponent: () =>
+      import('./features/auth/pages/onboarding/onboarding.component').then(
+        (m) => m.OnboardingComponent
+      ),
+  },
+  {
     path: 'dashboard',
     loadComponent: () =>
       import('./features/dashboard/dashboard.component').then(

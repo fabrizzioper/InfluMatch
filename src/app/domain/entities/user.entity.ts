@@ -4,4 +4,5 @@ export interface User {
   email: string;
   user_type: string;
   profile_completed: boolean;
+  avatar_url?: string;
 }

@@ -1,0 +1,46 @@
+<h2>Completa tu perfil</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <!-- campos comunes -->
+  <mat-form-field
+    ><mat-label>Nombre público</mat-label>
+    <input matInput formControlName="display_name"
+  /></mat-form-field>
+  <mat-form-field
+    ><mat-label>Bio</mat-label>
+    <textarea matInput formControlName="bio"></textarea>
+  </mat-form-field>
+
+  <!-- sección condicional -->
+  <ng-container *ngIf="userType === 'influencer'">
+    <mat-form-field
+      ><mat-label>Especialidad (nicho)</mat-label>
+      <input matInput formControlName="niche"
+    /></mat-form-field>
+    <mat-form-field
+      ><mat-label>Seguidores</mat-label>
+      <input matInput type="number" formControlName="followers_count"
+    /></mat-form-field>
+    <mat-form-field
+      ><mat-label>Tarifa por post</mat-label>
+      <input matInput type="number" formControlName="rate_per_post"
+    /></mat-form-field>
+  </ng-container>
+
+  <ng-container *ngIf="userType === 'marca'">
+    <mat-form-field
+      ><mat-label>Sector</mat-label> <input matInput formControlName="sector"
+    /></mat-form-field>
+    <mat-form-field
+      ><mat-label>Rango de presupuesto</mat-label>
+      <input matInput formControlName="budget_range"
+    /></mat-form-field>
+    <mat-form-field
+      ><mat-label>Objetivos</mat-label>
+      <textarea matInput formControlName="objectives"></textarea>
+    </mat-form-field>
+  </ng-container>
+
+  <button mat-flat-button color="primary" [disabled]="form.invalid">
+    Finalizar
+  </button>
+</form>

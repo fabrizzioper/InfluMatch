@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { User } from '../../domain/entities/user.entity';
 import { UserCredentials } from '../../domain/value-objects/user-credentials.vo';
 import { NewUserVO } from '../../domain/value-objects/new-user.vo';
+import { ProfileVO } from '../../domain/value-objects/profile.vo';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApi {
@@ -31,5 +32,9 @@ export class AuthApi {
 
   register(data: NewUserVO): Observable<User> {
     return this.http.post<User>(this.url, data);
+  }
+
+  updateProfile(data: ProfileVO): Observable<User> {
+    return this.http.put<User>(`${this.url}/${data.user_id}`, data);
   }
 }

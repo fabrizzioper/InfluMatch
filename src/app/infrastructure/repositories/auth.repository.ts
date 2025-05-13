@@ -6,6 +6,7 @@ import { AuthApi } from '../api/auth.api';
 import { User } from '../../domain/entities/user.entity';
 import { UserCredentials } from '../../domain/value-objects/user-credentials.vo';
 import { NewUserVO } from '../../domain/value-objects/new-user.vo';
+import { ProfileVO } from '../../domain/value-objects/profile.vo';
 
 @Injectable({ providedIn: 'root' })
 export class AuthRepositoryImpl extends AuthRepository {
@@ -17,7 +18,11 @@ export class AuthRepositoryImpl extends AuthRepository {
     return this.api.login(creds).pipe(
       map((user) =>
         user
-          ? { ...user, role: user.user_type ?? 'guest' } // 🔄 adapta el campo
+          ? {
+              ...user,
+              role: user.user_type, // ya tenías esto
+              profile_completed: user.profile_completed ?? false, // ¡añadido!
+            }
           : null
       )
     );
@@ -27,5 +32,11 @@ export class AuthRepositoryImpl extends AuthRepository {
     return this.api.register(data).pipe(
       map((u) => ({ ...u, role: u.user_type ?? 'guest' })) // adapta el campo
     );
+  }
+
+  updateProfile(data: ProfileVO): Observable<User> {
+    return this.api
+      .updateProfile(data)
+      .pipe(map((u) => ({ ...u, role: u.user_type, profile_completed: true })));
   }
 }

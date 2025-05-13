@@ -82,20 +82,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.form.invalid) return;
 
     const creds = this.form.value as UserCredentials;
-
     this.loginUC.execute(creds).subscribe(
       (user) => {
         if (user) {
           this.auth.save(user);
-          this.router.navigateByUrl('/dashboard');
+          // ───────────── flujo condicional ─────────────
+          if (!user.profile_completed) {
+            this.router.navigateByUrl('/onboarding');
+          } else {
+            this.router.navigateByUrl('/dashboard');
+          }
         } else {
           this.showErrorMessage();
         }
       },
-      (error) => {
-        // Manejar el error de la API
-        this.showErrorMessage();
-      }
+      (error) => this.showErrorMessage()
     );
   }
 
