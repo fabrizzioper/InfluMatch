@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   Validators,
@@ -6,11 +6,17 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 import { RegisterUseCase } from '../../../../application/use-cases/register.usecase';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -22,61 +28,89 @@ import { NewUserVO } from '../../../../domain/value-objects/new-user.vo';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    TranslateModule,
   ],
-  template: `
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="name" required />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" type="email" required />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input matInput formControlName="password" type="password" required />
-      </mat-form-field>
-
-      <button mat-flat-button color="primary" [disabled]="form.invalid">
-        Registrarme
-      </button>
-    </form>
-  `,
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
-  // 1️⃣ Declaramos la propiedad sin inicializar
+export class RegisterComponent implements OnInit, OnDestroy {
   form!: FormGroup;
+  hidePassword = true;
+  currentLang = 'es';
+  private langSubscription: Subscription | null = null;
 
   constructor(
     private fb: FormBuilder,
     private registerUC: RegisterUseCase,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
   ) {
-    // 2️⃣ La inicializamos DENTRO del constructor, cuando fb ya existe
-    this.form = this.fb.nonNullable.group({
+    this.form = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      rol_type: ['Developer'],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rol_type: [''],
+      acceptTerms: [false, Validators.requiredTrue],
     });
+  }
+
+  ngOnInit() {
+    // Initialize language
+    this.currentLang = this.translate.currentLang || 'es';
+    this.langSubscription = this.translate.onLangChange.subscribe((event) => {
+      this.currentLang = event.lang;
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.langSubscription) {
+      this.langSubscription.unsubscribe();
+    }
+  }
+
+  changeLang(lang: string): void {
+    this.currentLang = lang;
+    this.translate.use(lang);
   }
 
   submit() {
     if (this.form.invalid) return;
 
-    // 3️⃣  getRawValue() ⇒ todas las props son non-nullable
-    const data: NewUserVO = this.form.getRawValue();
+    // Extraemos los datos del formulario excepto acceptTerms
+    const { acceptTerms, ...userData } = this.form.value;
+    const data: NewUserVO = userData;
 
-    this.registerUC.execute(data).subscribe((user) => {
-      this.auth.save(user); // inicia sesión
-      this.router.navigateByUrl('/');
-    });
+    this.registerUC.execute(data).subscribe(
+      (user) => {
+        this.auth.save(user);
+        this.snackBar.open(
+          this.translate.instant('REGISTER.SUCCESS_MESSAGE'),
+          this.translate.instant('LOGIN.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+        this.router.navigateByUrl('/');
+      },
+      (error) => {
+        this.snackBar.open(
+          this.translate.instant('REGISTER.ERROR_MESSAGE'),
+          this.translate.instant('LOGIN.CLOSE'),
+          {
+            duration: 5000,
+          }
+        );
+      }
+    );
   }
 }
