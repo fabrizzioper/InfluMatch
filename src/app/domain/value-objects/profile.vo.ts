@@ -22,8 +22,12 @@ export interface ProfileVO {
     instagram?: string;
     tiktok?: string;
     youtube?: string;
+    twitter?: string;
+    facebook?: string;
   };
   portfolio_urls?: string[];
+  previous_experience?: string;
+  preferred_categories?: string[];
 
   // Campos para marcas
   sector?: string;
@@ -33,4 +37,7 @@ export interface ProfileVO {
   contact_name?: string;
   contact_position?: string;
   content_types?: string[];
+  influencer_types?: string[];
+  campaign_duration?: string;
+  additional_info?: string;
 }

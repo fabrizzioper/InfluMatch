@@ -9,12 +9,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
-
 import { AuthService } from '../../../../core/services/auth.service';
 import { UpdateProfileUseCase } from '../../../../application/use-cases/update-profile.usecase';
 import { ProfileVO } from '../../../../domain/value-objects/profile.vo';
@@ -22,15 +16,7 @@ import { ProfileVO } from '../../../../domain/value-objects/profile.vo';
 @Component({
   selector: 'app-onboarding',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
 })
@@ -38,6 +24,8 @@ export class OnboardingComponent implements OnInit {
   form!: FormGroup;
   user_type!: 'influencer' | 'marca';
   userId!: string;
+  currentStep = 1;
+  imagePreview: string | null = null;
   console = console; // Para poder usar console.log en el template
 
   constructor(
@@ -85,9 +73,13 @@ export class OnboardingComponent implements OnInit {
           instagram: [''],
           tiktok: [''],
           youtube: [''],
+          twitter: [''],
+          facebook: [''],
         })
       );
       this.form.addControl('portfolio_urls', this.fb.array([]));
+      this.form.addControl('previous_experience', this.fb.control(''));
+      this.form.addControl('preferred_categories', this.fb.control([]));
 
       // Añadir una URL de portafolio por defecto
       this.addPortfolioUrl();
@@ -105,7 +97,17 @@ export class OnboardingComponent implements OnInit {
       );
       this.form.addControl('contact_name', this.fb.control(''));
       this.form.addControl('contact_position', this.fb.control(''));
-      this.form.addControl('content_ s', this.fb.control([]));
+      this.form.addControl('content_s', this.fb.control([]));
+      this.form.addControl('influencer_s', this.fb.control([]));
+      this.form.addControl('campaign_duration', this.fb.control(''));
+      this.form.addControl('additional_info', this.fb.control(''));
+      this.form.addControl(
+        'social_links',
+        this.fb.group({
+          instagram: [''],
+          facebook: [''],
+        })
+      );
     }
   }
 
@@ -124,6 +126,61 @@ export class OnboardingComponent implements OnInit {
   // Método para eliminar una URL del portafolio
   removePortfolioUrl(index: number) {
     this.portfolioUrls.removeAt(index);
+  }
+
+  // Método para manejar la selección de archivos
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+
+      // Validar tipo y tamaño
+      if (!file.type.includes('image/')) {
+        alert('Por favor, selecciona una imagen válida');
+        return;
+      }
+
+      if (file.size > 2 * 1024 * 1024) {
+        // 2MB
+        alert('La imagen no debe superar los 2MB');
+        return;
+      }
+
+      // Crear vista previa
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+        // En un caso real, aquí subirías la imagen al servidor
+        // y guardarías la URL en el formulario
+        this.form.patchValue({
+          avatar_url: this.imagePreview,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Método para eliminar la imagen
+  removeImage() {
+    this.imagePreview = null;
+    this.form.patchValue({
+      avatar_url: '',
+    });
+  }
+
+  // Navegación entre pasos
+  nextStep() {
+    if (this.currentStep < 3) {
+      this.currentStep++;
+      window.scrollTo(0, 0);
+    }
+  }
+
+  prevStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+      window.scrollTo(0, 0);
+    }
   }
 
   submit() {
@@ -153,6 +210,8 @@ export class OnboardingComponent implements OnInit {
         languages: formData.languages,
         social_links: formData.social_links,
         portfolio_urls: formData.portfolio_urls,
+        previous_experience: formData.previous_experience,
+        preferred_categories: formData.preferred_categories,
       });
     } else {
       Object.assign(payload, {
@@ -162,7 +221,11 @@ export class OnboardingComponent implements OnInit {
         objectives: formData.objectives,
         contact_name: formData.contact_name,
         contact_position: formData.contact_position,
-        content_types: formData.content_types,
+        content_s: formData.content_s,
+        influencer_s: formData.influencer_s,
+        campaign_duration: formData.campaign_duration,
+        additional_info: formData.additional_info,
+        social_links: formData.social_links,
       });
     }
 
