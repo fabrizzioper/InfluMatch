@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       (user) => {
         if (user) {
           this.auth.save(user);
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/dashboard');
         } else {
           this.showErrorMessage();
         }

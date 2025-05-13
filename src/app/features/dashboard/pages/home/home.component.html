@@ -1,0 +1,130 @@
+<div class="dashboard-home">
+  <h1 class="welcome-title">{{ 'DASHBOARD.HOME.WELCOME' | translate }} {{ currentUser?.name }}!</h1>
+  
+  <div class="dashboard-stats">
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon>visibility</mat-icon>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">1,234</div>
+          <div class="stat-label">{{ 'DASHBOARD.HOME.VIEWS' | translate }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon>people</mat-icon>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">56</div>
+          <div class="stat-label">{{ 'DASHBOARD.HOME.CONNECTIONS' | translate }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon>star</mat-icon>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">4.8</div>
+          <div class="stat-label">{{ 'DASHBOARD.HOME.RATING' | translate }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="stat-card">
+      <mat-card-content>
+        <div class="stat-icon">
+          <mat-icon>mail</mat-icon>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">12</div>
+          <div class="stat-label">{{ 'DASHBOARD.HOME.MESSAGES' | translate }}</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <div class="dashboard-content-row">
+    <mat-card class="activity-card">
+      <mat-card-header>
+        <mat-card-title>{{ 'DASHBOARD.HOME.RECENT_ACTIVITY' | translate }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon">
+              <mat-icon>person_add</mat-icon>
+            </div>
+            <div class="activity-details">
+              <div class="activity-title">{{ 'DASHBOARD.HOME.NEW_CONNECTION' | translate }}</div>
+              <div class="activity-time">2 {{ 'DASHBOARD.HOME.HOURS_AGO' | translate }}</div>
+            </div>
+          </div>
+          
+          <div class="activity-item">
+            <div class="activity-icon">
+              <mat-icon>message</mat-icon>
+            </div>
+            <div class="activity-details">
+              <div class="activity-title">{{ 'DASHBOARD.HOME.NEW_MESSAGE' | translate }}</div>
+              <div class="activity-time">5 {{ 'DASHBOARD.HOME.HOURS_AGO' | translate }}</div>
+            </div>
+          </div>
+          
+          <div class="activity-item">
+            <div class="activity-icon">
+              <mat-icon>visibility</mat-icon>
+            </div>
+            <div class="activity-details">
+              <div class="activity-title">{{ 'DASHBOARD.HOME.PROFILE_VIEWED' | translate }}</div>
+              <div class="activity-time">1 {{ 'DASHBOARD.HOME.DAY_AGO' | translate }}</div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="recommendations-card">
+      <mat-card-header>
+        <mat-card-title>{{ 'DASHBOARD.HOME.RECOMMENDATIONS' | translate }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="recommendations-list">
+          <div class="recommendation-item">
+            <div class="recommendation-avatar">A</div>
+            <div class="recommendation-details">
+              <div class="recommendation-name">Acme Inc.</div>
+              <div class="recommendation-type">{{ 'DASHBOARD.HOME.BRAND' | translate }}</div>
+            </div>
+            <button mat-button color="primary">{{ 'DASHBOARD.HOME.CONNECT' | translate }}</button>
+          </div>
+          
+          <div class="recommendation-item">
+            <div class="recommendation-avatar">J</div>
+            <div class="recommendation-details">
+              <div class="recommendation-name">John Smith</div>
+              <div class="recommendation-type">{{ 'DASHBOARD.HOME.INFLUENCER' | translate }}</div>
+            </div>
+            <button mat-button color="primary">{{ 'DASHBOARD.HOME.CONNECT' | translate }}</button>
+          </div>
+          
+          <div class="recommendation-item">
+            <div class="recommendation-avatar">T</div>
+            <div class="recommendation-details">
+              <div class="recommendation-name">Tech Solutions</div>
+              <div class="recommendation-type">{{ 'DASHBOARD.HOME.BRAND' | translate }}</div>
+            </div>
+            <button mat-button color="primary">{{ 'DASHBOARD.HOME.CONNECT' | translate }}</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

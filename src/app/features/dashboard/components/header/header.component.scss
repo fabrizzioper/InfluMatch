@@ -1,0 +1,42 @@
+.header-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.menu-button {
+  margin-right: 16px;
+}
+
+.toolbar-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.lang-button {
+  margin-right: 8px;
+  
+  mat-icon {
+    margin-right: 4px;
+  }
+}
+
+.notification-button {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff4081;
+    border-radius: 50%;
+  }
+}

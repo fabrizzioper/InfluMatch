@@ -1,0 +1,27 @@
+<mat-toolbar color="primary" class="header-toolbar">
+  <button mat-icon-button class="menu-button" (click)="onToggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  
+  <span class="toolbar-title">{{ 'DASHBOARD.TITLE' | translate }}</span>
+  
+  <div class="toolbar-spacer"></div>
+  
+  <button mat-button [matMenuTriggerFor]="langMenu" class="lang-button">
+    <mat-icon>language</mat-icon>
+    <span>{{ currentLang.toUpperCase() }}</span>
+  </button>
+  
+  <mat-menu #langMenu="matMenu">
+    <button mat-menu-item (click)="changeLang('es')" [disabled]="currentLang === 'es'">
+      <span>Español</span>
+    </button>
+    <button mat-menu-item (click)="changeLang('en')" [disabled]="currentLang === 'en'">
+      <span>English</span>
+    </button>
+  </mat-menu>
+  
+  <button mat-icon-button class="notification-button">
+    <mat-icon>notifications</mat-icon>
+  </button>
+</mat-toolbar>

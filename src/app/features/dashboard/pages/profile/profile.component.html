@@ -1,0 +1,92 @@
+<div class="profile-container">
+  <mat-card class="profile-header">
+    <div class="profile-cover"></div>
+    <div class="profile-info">
+      <div class="profile-avatar">
+        {{
+          currentUser && currentUser.name
+            ? currentUser.name.charAt(0).toUpperCase()
+            : "?"
+        }}
+      </div>
+      <div class="profile-details">
+        <h2 class="profile-name">{{ currentUser?.name || "Usuario" }}</h2>
+        <p class="profile-role">{{ currentUser?.rol_type || "-" }}</p>
+      </div>
+      <div class="profile-actions">
+        <button mat-raised-button color="primary">
+          <mat-icon>edit</mat-icon>
+          {{ "DASHBOARD.PROFILE.EDIT" | translate }}
+        </button>
+      </div>
+    </div>
+  </mat-card>
+
+  <div class="profile-content">
+    <mat-card class="profile-section">
+      <mat-card-header>
+        <mat-card-title>{{
+          "DASHBOARD.PROFILE.ABOUT" | translate
+        }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="profile-bio">
+          {{ "DASHBOARD.PROFILE.BIO_PLACEHOLDER" | translate }}
+        </p>
+        <div class="profile-details-grid">
+          <div class="profile-detail-item">
+            <mat-icon>email</mat-icon>
+            <span>{{ currentUser?.email || "-" }}</span>
+          </div>
+          <div class="profile-detail-item">
+            <mat-icon>location_on</mat-icon>
+            <span>{{
+              "DASHBOARD.PROFILE.LOCATION_PLACEHOLDER" | translate
+            }}</span>
+          </div>
+          <div class="profile-detail-item">
+            <mat-icon>link</mat-icon>
+            <span>website.com</span>
+          </div>
+          <div class="profile-detail-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ "DASHBOARD.PROFILE.JOINED" | translate }} 2023</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="profile-section">
+      <mat-card-header>
+        <mat-card-title>{{
+          "DASHBOARD.PROFILE.ACTIVITY" | translate
+        }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab [label]="'DASHBOARD.PROFILE.POSTS' | translate">
+            <div class="tab-content">
+              <p class="empty-state">
+                {{ "DASHBOARD.PROFILE.NO_POSTS" | translate }}
+              </p>
+            </div>
+          </mat-tab>
+          <mat-tab [label]="'DASHBOARD.PROFILE.CAMPAIGNS' | translate">
+            <div class="tab-content">
+              <p class="empty-state">
+                {{ "DASHBOARD.PROFILE.NO_CAMPAIGNS" | translate }}
+              </p>
+            </div>
+          </mat-tab>
+          <mat-tab [label]="'DASHBOARD.PROFILE.CONNECTIONS' | translate">
+            <div class="tab-content">
+              <p class="empty-state">
+                {{ "DASHBOARD.PROFILE.NO_CONNECTIONS" | translate }}
+              </p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
