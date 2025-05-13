@@ -2,5 +2,6 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  rol_type: string;
+  user_type: string;
+  profile_completed: boolean;
 }

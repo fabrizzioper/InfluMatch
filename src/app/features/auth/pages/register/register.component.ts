@@ -53,11 +53,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   currentLang = 'es';
   private langSubscription: Subscription | null = null;
 
-  // Opciones de rol (siempre en español)
   rolOptions: RolOption[] = [
-    { value: 'influencer', translationKey: 'REGISTER.ACCOUNT_ _INFLUENCER' },
-    { value: 'marca', translationKey: 'REGISTER.ACCOUNT_ _BRAND' },
+    { value: 'influencer', translationKey: 'REGISTER.ACCOUNT_TYPE_INFLUENCER' },
+    { value: 'marca', translationKey: 'REGISTER.ACCOUNT_TYPE_BRAND' },
   ];
+  // Opciones de rol (siempre en español)
 
   constructor(
     private fb: FormBuilder,
@@ -75,7 +75,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      rol_: ['influencer', Validators.required], // Valor por defecto: influencer
+      user_type: ['', Validators.required],
+      profile_completed: [false], // ← snake_case
       acceptTerms: [false, Validators.requiredTrue],
     });
   }
@@ -102,8 +103,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
   submit() {
     if (this.form.invalid) return;
 
-    // Extraemos los datos del formulario excepto acceptTerms
-    const { acceptTerms, ...userData } = this.form.value;
+    // extraemos todo excepto el checkbox de términos
+    const { acceptTerms, ...userData } = this.form.value as {
+      name: string;
+      email: string;
+      password: string;
+      user_type: string;
+      profile_completed: boolean;
+      acceptTerms: boolean;
+    };
+
+    // userData ya tiene: name, email, password, user_type, profile_completed
     const data: NewUserVO = userData;
 
     this.registerUC.execute(data).subscribe(
@@ -112,19 +122,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.snackBar.open(
           this.translate.instant('REGISTER.SUCCESS_MESSAGE'),
           this.translate.instant('LOGIN.CLOSE'),
-          {
-            duration: 5000,
-          }
+          { duration: 5000 }
         );
-        this.router.navigateByUrl('/');
+
+        if (!user.profile_completed) {
+          this.router.navigateByUrl('/onboarding');
+        } else {
+          this.router.navigateByUrl('/');
+        }
       },
       (error) => {
         this.snackBar.open(
           this.translate.instant('REGISTER.ERROR_MESSAGE'),
           this.translate.instant('LOGIN.CLOSE'),
-          {
-            duration: 5000,
-          }
+          { duration: 5000 }
         );
       }
     );

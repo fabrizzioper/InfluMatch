@@ -17,7 +17,7 @@ export class AuthRepositoryImpl extends AuthRepository {
     return this.api.login(creds).pipe(
       map((user) =>
         user
-          ? { ...user, role: user.rol_type ?? 'guest' } // 🔄 adapta el campo
+          ? { ...user, role: user.user_type ?? 'guest' } // 🔄 adapta el campo
           : null
       )
     );
@@ -25,7 +25,7 @@ export class AuthRepositoryImpl extends AuthRepository {
 
   register(data: NewUserVO): Observable<User> {
     return this.api.register(data).pipe(
-      map((u) => ({ ...u, role: u.rol_type ?? 'guest' })) // adapta el campo
+      map((u) => ({ ...u, role: u.user_type ?? 'guest' })) // adapta el campo
     );
   }
 }

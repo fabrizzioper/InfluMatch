@@ -100,7 +100,7 @@
         <mat-form-field appearance="outline">
           <mat-label>{{ "REGISTER.ACCOUNT_TYPE" | translate }}</mat-label>
           <mat-icon matPrefix>business</mat-icon>
-          <mat-select formControlName="rol_type">
+          <mat-select formControlName="user_type">
             <mat-option
               *ngFor="let option of rolOptions"
               [value]="option.value"
