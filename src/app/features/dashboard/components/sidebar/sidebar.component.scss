@@ -151,6 +151,9 @@ $shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         margin: 0;
         font-size: 16px;
         font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         color: $sidebar-text;
       }
 
@@ -313,32 +316,43 @@ $shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     width: $sidebar-width !important; // Override animation width
   }
 
-  // Toggle sidebar button (outside the header)
-  .toggle-sidebar-button {
-    position: absolute;
-    top: 70px;
-    right: -15px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: white;
-    border: 1px solid $sidebar-border;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  // Toggle sidebar button (inside navigation)
+  .toggle-sidebar-button-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: all $transition-speed ease;
+    padding: 4px 8px;
 
-    &:hover {
-      background-color: $sidebar-hover;
-      transform: scale(1.1);
-    }
+    .toggle-sidebar-button {
+      width: 100%;
+      border-radius: $border-radius;
+      border: none;
+      background: transparent;
+      color: $sidebar-text;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 10px 12px;
+      transition: all $transition-speed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    mat-icon {
-      font-size: 18px;
-      color: $primary-blue;
+      mat-icon {
+        margin-right: 8px;
+        font-size: 20px;
+        height: 20px;
+        width: 20px;
+        color: $sidebar-text-muted;
+        transition: color $transition-speed;
+      }
+
+      &:hover {
+        background-color: $sidebar-hover;
+
+        mat-icon {
+          color: $primary-blue;
+        }
+      }
     }
   }
 

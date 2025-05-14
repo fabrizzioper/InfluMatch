@@ -96,6 +96,14 @@
           <span>{{ "SIDEBAR.ANALYTICS" | translate }}</span>
         </a>
       </li>
+      <!-- Toggle sidebar button (inside navigation) -->
+      <li class="toggle-sidebar-button-container" *ngIf="!isMobile">
+        <button class="toggle-sidebar-button" (click)="toggleSidebar()">
+          <mat-icon>{{
+            isExpanded ? "chevron_left" : "chevron_right"
+          }}</mat-icon>
+        </button>
+      </li>
       <li>
         <a
           routerLink="/dashboard/settings"
@@ -145,15 +153,6 @@
         />
       </div>
     </div>
-
-    <!-- Toggle Button (outside header but visible) -->
-    <button
-      class="toggle-sidebar-button"
-      (click)="toggleSidebar()"
-      *ngIf="!isMobile"
-    >
-      <mat-icon>{{ isExpanded ? "chevron_left" : "chevron_right" }}</mat-icon>
-    </button>
 
     <!-- User Info -->
     <div class="user-info" [class.collapsed-user]="!isExpanded">
@@ -266,6 +265,18 @@
         </li>
       </ul>
     </nav>
+
+    <!-- Toggle sidebar button (inside navigation) -->
+    <div class="toggle-sidebar-button-container" *ngIf="!isMobile">
+      <button
+        class="toggle-sidebar-button"
+        (click)="toggleSidebar()"
+        (mouseenter)="showTooltip($event, isExpanded ? 'Colapsar' : 'Expandir')"
+        (mouseleave)="hideTooltip()"
+      >
+        <mat-icon>{{ isExpanded ? "chevron_left" : "chevron_right" }}</mat-icon>
+      </button>
+    </div>
 
     <!-- Language Selector -->
     <div class="language-selector" [class.collapsed]="!isExpanded">
