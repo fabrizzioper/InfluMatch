@@ -86,8 +86,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       (user) => {
         if (user) {
           this.auth.save(user);
-          if (user.profile_completed == false) {
+          // ───────────── flujo condicional ─────────────
+          if (!user.profile_completed) {
             this.router.navigateByUrl('/onboarding');
+          } else {
+            this.router.navigateByUrl('/dashboard');
           }
         } else {
           this.showErrorMessage();
