@@ -1,12 +1,19 @@
-// domain/value-objects/brand-profile.vo.ts
 export interface BrandProfileVO {
-  userId: string;
-  displayName: string;
+  user_id: string;
+  display_name: string;
+  avatar_url: string;
   bio: string;
   location: string;
-  contactEmail: string;
+  contact_email: string;
   sector: string;
-  budgetRange: string;
+  website?: string;
+  budget_range: string;
   objectives: string;
-  // opcionales...
+  contact_name?: string;
+  contact_position?: string;
+  content_s?: string;
+  influencer_s?: string;
+  campaign_duration?: string;
+  additional_info?: string;
+  social_links?: Record<string, string>;
 }

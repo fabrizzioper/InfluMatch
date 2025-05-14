@@ -1,3 +1,25 @@
-<div class="dashboard-home">
-  <h1>Hola</h1>
+<div class="cards-container">
+  <!-- Marca ve Influencers -->
+  <ng-container *ngIf="role === 'marca'">
+    <app-profile-card
+      *ngFor="let p of influencers"
+      [title]="p.display_name"
+      [subtitle]="'Nicho: ' + p.niche"
+      [imgUrl]="p.avatar_url || 'assets/images/default-avatar.png'"
+      [details]="
+        'IG: ' + p.followers.instagram + ' • TikTok: ' + p.followers.tiktok
+      "
+    ></app-profile-card>
+  </ng-container>
+
+  <!-- Influencer ve Marcas -->
+  <ng-container *ngIf="role === 'influencer'">
+    <app-profile-card
+      *ngFor="let p of brands"
+      [title]="p.display_name"
+      [subtitle]="'Sector: ' + p.sector"
+      [imgUrl]="p.avatar_url || 'assets/images/default-avatar.png'"
+      [details]="'Presupuesto: ' + p.budget_range"
+    ></app-profile-card>
+  </ng-container>
 </div>

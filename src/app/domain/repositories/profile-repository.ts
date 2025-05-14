@@ -8,4 +8,7 @@ export abstract class ProfileRepository {
   abstract loadForUser(userId: string): Observable<Profile>;
   abstract saveInfluencer(data: InfluencerProfileVO): Observable<Profile>;
   abstract saveBrand(data: BrandProfileVO): Observable<Profile>;
+
+  abstract listInfluencers(): Observable<InfluencerProfileVO[]>;
+  abstract listBrands(): Observable<BrandProfileVO[]>;
 }
