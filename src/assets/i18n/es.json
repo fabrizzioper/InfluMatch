@@ -10,6 +10,16 @@
     "DARK_MODE": "Modo Oscuro",
     "LIGHT_MODE": "Modo Claro"
   },
+  "SIDEBAR": {
+    "DASHBOARD": "Dashboard",
+    "PROFILE": "Mi Perfil",
+    "MESSAGES": "Mensajes",
+    "CAMPAIGNS": "Campañas",
+    "ANALYTICS": "Analíticas",
+    "SETTINGS": "Configuración",
+    "LOGOUT": "Cerrar Sesión",
+    "LANGUAGE": "Idioma"
+  },
   "LOGIN": {
     "WELCOME": "¡Bienvenido de nuevo!",
     "SUBTITLE": "Conecta con los mejores influencers y marcas en nuestra plataforma impulsada por IA",
@@ -252,48 +262,5 @@
     "NEWSLETTER_TEXT": "Mantente actualizado con las últimas tendencias en marketing de influencers y características de la plataforma.",
     "EMAIL_PLACEHOLDER": "Ingresa tu correo electrónico",
     "SUBSCRIBE": "Suscribirse"
-  },
-  "DASHBOARD": {
-    "TITLE": "Panel de control",
-    "LOGOUT": "Cerrar sesión",
-    "MENU": {
-      "HOME": "Inicio",
-      "PROFILE": "Perfil",
-      "SETTINGS": "Configuración",
-      "CAMPAIGNS": "Campañas",
-      "MESSAGES": "Mensajes",
-      "ANALYTICS": "Analíticas"
-    },
-    "HOME": {
-      "WELCOME": "Bienvenido,",
-      "VIEWS": "Vistas de perfil",
-      "CONNECTIONS": "Conexiones",
-      "RATING": "Calificación",
-      "MESSAGES": "Mensajes",
-      "RECENT_ACTIVITY": "Actividad reciente",
-      "NEW_CONNECTION": "Nueva conexión establecida",
-      "NEW_MESSAGE": "Nuevo mensaje recibido",
-      "PROFILE_VIEWED": "Tu perfil fue visto",
-      "HOURS_AGO": "horas atrás",
-      "DAY_AGO": "día atrás",
-      "RECOMMENDATIONS": "Recomendaciones para ti",
-      "BRAND": "Marca",
-      "INFLUENCER": "Influencer",
-      "CONNECT": "Conectar"
-    },
-    "PROFILE": {
-      "EDIT": "Editar perfil",
-      "ABOUT": "Acerca de",
-      "BIO_PLACEHOLDER": "No hay información de biografía disponible. Edita tu perfil para añadir una descripción sobre ti o tu marca.",
-      "LOCATION_PLACEHOLDER": "Sin ubicación",
-      "JOINED": "Se unió en",
-      "ACTIVITY": "Actividad",
-      "POSTS": "Publicaciones",
-      "CAMPAIGNS": "Campañas",
-      "CONNECTIONS": "Conexiones",
-      "NO_POSTS": "Aún no hay publicaciones para mostrar",
-      "NO_CAMPAIGNS": "Aún no hay campañas para mostrar",
-      "NO_CONNECTIONS": "Aún no hay conexiones para mostrar"
-    }
   }
 }

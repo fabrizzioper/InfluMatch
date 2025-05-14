@@ -10,6 +10,16 @@
     "DARK_MODE": "Dark Mode",
     "LIGHT_MODE": "Light Mode"
   },
+  "SIDEBAR": {
+    "DASHBOARD": "Dashboard",
+    "PROFILE": "My Profile",
+    "MESSAGES": "Messages",
+    "CAMPAIGNS": "Campaigns",
+    "ANALYTICS": "Analytics",
+    "SETTINGS": "Settings",
+    "LOGOUT": "Logout",
+    "LANGUAGE": "Language"
+  },
   "LOGIN": {
     "WELCOME": "Welcome back!",
     "SUBTITLE": "Connect with the best influencers and brands on our AI-powered platform",
@@ -252,49 +262,5 @@
     "NEWSLETTER_TEXT": "Stay updated with the latest trends in influencer marketing and platform features.",
     "EMAIL_PLACEHOLDER": "Enter your email address",
     "SUBSCRIBE": "Subscribe"
-  },
-
-  "DASHBOARD": {
-    "TITLE": "Dashboard",
-    "LOGOUT": "Log out",
-    "MENU": {
-      "HOME": "Home",
-      "PROFILE": "Profile",
-      "SETTINGS": "Settings",
-      "CAMPAIGNS": "Campaigns",
-      "MESSAGES": "Messages",
-      "ANALYTICS": "Analytics"
-    },
-    "HOME": {
-      "WELCOME": "Welcome,",
-      "VIEWS": "Profile views",
-      "CONNECTIONS": "Connections",
-      "RATING": "Rating",
-      "MESSAGES": "Messages",
-      "RECENT_ACTIVITY": "Recent activity",
-      "NEW_CONNECTION": "New connection established",
-      "NEW_MESSAGE": "New message received",
-      "PROFILE_VIEWED": "Your profile was viewed",
-      "HOURS_AGO": "hours ago",
-      "DAY_AGO": "day ago",
-      "RECOMMENDATIONS": "Recommendations for you",
-      "BRAND": "Brand",
-      "INFLUENCER": "Influencer",
-      "CONNECT": "Connect"
-    },
-    "PROFILE": {
-      "EDIT": "Edit profile",
-      "ABOUT": "About",
-      "BIO_PLACEHOLDER": "No bio information available. Edit your profile to add a description about yourself or your brand.",
-      "LOCATION_PLACEHOLDER": "No location",
-      "JOINED": "Joined in",
-      "ACTIVITY": "Activity",
-      "POSTS": "Posts",
-      "CAMPAIGNS": "Campaigns",
-      "CONNECTIONS": "Connections",
-      "NO_POSTS": "No posts to show yet",
-      "NO_CAMPAIGNS": "No campaigns to show yet",
-      "NO_CONNECTIONS": "No connections to show yet"
-    }
   }
 }
