@@ -1,55 +1,177 @@
-<div class="sidebar">
-  <div class="logo-container">
-    <img
-      src="assets/images/logo-light.png"
-      alt="InfluMatch Logo"
-      class="logo"
-    />
+<!-- Mobile Header (visible only on mobile) -->
+<div class="mobile-header" *ngIf="isMobile">
+  <button class="hamburger-button" (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="mobile-logo">
+    <img src="assets/images/logo-dark.png" alt="InfluMatch Logo" class="logo" />
   </div>
+</div>
 
-  <div class="user-info">
-    <div class="avatar">
-      <img
-        [src]="user?.avatar_url || 'assets/images/default-avatar.png'"
-        alt="User Avatar"
-      />
+<!-- Mobile Overlay -->
+<div
+  class="mobile-overlay"
+  *ngIf="isMobile && isMobileMenuOpen"
+  (click)="closeMobileMenu()"
+  [class.visible]="isMobileMenuOpen"
+></div>
+
+<!-- Sidebar Container -->
+<div
+  class="sidebar-container"
+  [class.mobile-open]="isMobile && isMobileMenuOpen"
+>
+  <!-- Sidebar -->
+  <div
+    class="sidebar"
+    [@expandCollapse]="isExpanded ? 'expanded' : 'collapsed'"
+    [class.collapsed]="!isExpanded"
+  >
+    <!-- Sidebar Header -->
+    <div class="sidebar-header">
+      <div class="logo-container" [class.centered]="!isExpanded">
+        <img
+          src="assets/images/logo-dark.png"
+          alt="InfluMatch Logo"
+          class="logo"
+          [class.small-logo]="!isExpanded"
+        />
+      </div>
+      <button class="toggle-button" (click)="toggleSidebar()" *ngIf="!isMobile">
+        <mat-icon [class.rotate]="!isExpanded">chevron_left</mat-icon>
+      </button>
     </div>
-    <div class="user-details">
-      <h3>{{ user?.display_name || user?.name }}</h3>
-      <span class="user-type">{{
-        user?.user_type === "marca" ? "Marca" : "Influencer"
-      }}</span>
+
+    <!-- User Info -->
+    <div class="user-info" [class.collapsed-user]="!isExpanded">
+      <div class="avatar">
+        <img
+          [src]="user?.avatar_url || 'assets/images/default-avatar.png'"
+          alt="User Avatar"
+        />
+      </div>
+      <div
+        class="user-details"
+        *ngIf="isExpanded"
+        [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+      >
+        <h3>{{ user?.display_name || user?.name }}</h3>
+        <div class="user-type">{{ user?.user_type }}</div>
+      </div>
     </div>
-  </div>
 
-  <nav class="navigation">
-    <ul>
-      <li>
-        <a
-          routerLink="/dashboard"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <i class="fas fa-home"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <a routerLink="/dashboard/profile" routerLinkActive="active">
-          <mat-icon>person</mat-icon>
-          <i class="fas fa-home"></i>
-          <span>Profile</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <!-- Navigation -->
+    <nav class="navigation">
+      <ul>
+        <li>
+          <a
+            routerLink="/dashboard"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMobileMenu()"
+          >
+            <mat-icon>dashboard</mat-icon>
+            <span
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+              >Dashboard</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/dashboard/profile"
+            routerLinkActive="active"
+            (click)="closeMobileMenu()"
+          >
+            <mat-icon>person</mat-icon>
+            <span
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+              >Mi Perfil</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/dashboard/messages"
+            routerLinkActive="active"
+            (click)="closeMobileMenu()"
+          >
+            <mat-icon>chat</mat-icon>
+            <span
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+              >Mensajes</span
+            >
+            <div
+              class="badge"
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+            >
+              3
+            </div>
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/dashboard/campaigns"
+            routerLinkActive="active"
+            (click)="closeMobileMenu()"
+          >
+            <mat-icon>campaign</mat-icon>
+            <span
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+              >Campañas</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/dashboard/analytics"
+            routerLinkActive="active"
+            (click)="closeMobileMenu()"
+          >
+            <mat-icon>bar_chart</mat-icon>
+            <span
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+              >Analíticas</span
+            >
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-  <div class="logout-container">
-    <button class="logout-button" (click)="logout()">
-      <i class="fas fa-sign-out-alt"></i>
-      <span>Cerrar Sesión</span>
-    </button>
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <ul>
+        <li>
+          <a
+            routerLink="/dashboard/settings"
+            routerLinkActive="active"
+            (click)="closeMobileMenu()"
+          >
+            <mat-icon>settings</mat-icon>
+            <span
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+              >Configuración</span
+            >
+          </a>
+        </li>
+        <li>
+          <button class="logout-button" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span
+              *ngIf="isExpanded"
+              [@fadeInOut]="isExpanded ? 'visible' : 'hidden'"
+              >Cerrar Sesión</span
+            >
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
