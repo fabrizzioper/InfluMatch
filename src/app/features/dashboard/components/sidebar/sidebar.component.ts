@@ -80,7 +80,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class SidebarComponent implements OnInit {
   user: any = null;
-  isExpanded = true;
+  isExpanded = false;
   isMobile = false;
   isMobileMenuOpen = false;
   tooltipVisible = false;
