@@ -1,4 +1,4 @@
-import type { Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { profileIncompleteGuard } from './core/guards/profile-incomplete.guard';
 
@@ -26,11 +26,26 @@ export const routes: Routes = [
   },
   {
     path: 'onboarding',
-    canActivate: [profileIncompleteGuard], // Este guard ya verifica autenticación y estado del perfil
+    canActivate: [profileIncompleteGuard],
     loadComponent: () =>
       import('./features/auth/pages/onboarding/onboarding.component').then(
         (m) => m.OnboardingComponent
       ),
   },
-  { path: '**', redirectTo: '' },
+  {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/dashboard/dashboard.component').then(
+        (m) => m.DashboardComponent
+      ),
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.routes').then(
+        (m) => m.DASHBOARD_ROUTES
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];

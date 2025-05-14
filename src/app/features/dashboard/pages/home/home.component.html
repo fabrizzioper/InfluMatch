@@ -1,0 +1,109 @@
+<div class="dashboard-home">
+  <div class="welcome-section">
+    <h1>{{ greeting }}, {{ user?.display_name || user?.name }}</h1>
+    <p>Bienvenido a tu panel de control de InfluMatch</p>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card summary-card">
+      <div class="card-header">
+        <h2>Resumen</h2>
+      </div>
+      <div class="card-content">
+        <div class="stat-item">
+          <span class="stat-label">Tipo de cuenta</span>
+          <span class="stat-value">{{
+            user?.user_type === "marca" ? "Marca" : "Influencer"
+          }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Perfil completado</span>
+          <span class="stat-value completed">Sí</span>
+        </div>
+        <!-- Más estadísticas pueden ir aquí -->
+      </div>
+    </div>
+
+    <div class="dashboard-card next-steps-card">
+      <div class="card-header">
+        <h2>Próximos pasos</h2>
+      </div>
+      <div class="card-content">
+        <ul class="steps-list">
+          <li class="step completed">
+            <i class="fas fa-check-circle"></i>
+            <span>Completar perfil</span>
+          </li>
+          <li class="step">
+            <i class="fas fa-circle"></i>
+            <span>{{
+              user?.user_type === "marca"
+                ? "Crear primera campaña"
+                : "Conectar redes sociales"
+            }}</span>
+          </li>
+          <li class="step">
+            <i class="fas fa-circle"></i>
+            <span>{{
+              user?.user_type === "marca"
+                ? "Explorar influencers"
+                : "Explorar marcas"
+            }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="dashboard-card" *ngIf="user?.user_type === 'marca'">
+      <div class="card-header">
+        <h2>Información de marca</h2>
+      </div>
+      <div class="card-content">
+        <div class="info-item">
+          <span class="info-label">Sector</span>
+          <span class="info-value">{{
+            user?.sector || "No especificado"
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Presupuesto</span>
+          <span class="info-value">{{
+            user?.budget_range || "No especificado"
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Objetivos</span>
+          <span class="info-value">{{
+            user?.objectives || "No especificado"
+          }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-card" *ngIf="user?.user_type !== 'marca'">
+      <div class="card-header">
+        <h2>Información de influencer</h2>
+      </div>
+      <div class="card-content">
+        <div class="info-item">
+          <span class="info-label">Ubicación</span>
+          <span class="info-value">{{
+            user?.location || "No especificado"
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Categoría</span>
+          <span class="info-value">{{
+            user?.influencer_s || "No especificado"
+          }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Tipo de contenido</span>
+          <span class="info-value">{{
+            user?.content_s || "No especificado"
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
