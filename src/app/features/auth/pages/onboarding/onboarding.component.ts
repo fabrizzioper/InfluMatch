@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Directive,
+  ElementRef,
+  Output,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -12,6 +20,24 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { UpdateProfileUseCase } from '../../../../application/use-cases/update-profile.usecase';
 import { ProfileVO } from '../../../../domain/value-objects/profile.vo';
+
+@Directive({
+  selector: '[clickOutside]',
+  standalone: true,
+})
+export class ClickOutsideDirective {
+  @Output() clickOutside = new EventEmitter<void>();
+
+  constructor(private elementRef: ElementRef) {}
+
+  @HostListener('document:click', ['$event.target'])
+  public onClick(target: any) {
+    const clickedInside = this.elementRef.nativeElement.contains(target);
+    if (!clickedInside) {
+      this.clickOutside.emit();
+    }
+  }
+}
 
 @Component({
   selector: 'app-onboarding',
@@ -27,6 +53,98 @@ export class OnboardingComponent implements OnInit {
   currentStep = 1;
   imagePreview: string | null = null;
   console = console; // Para poder usar console.log en el template
+
+  // Dropdown states
+  nicheDropdownOpen = false;
+  sectorDropdownOpen = false;
+  audienceDropdownOpen = false;
+  languageDropdownOpen = false;
+  budgetDropdownOpen = false;
+  categoryDropdownOpen = false;
+  influencerTypeDropdownOpen = false;
+  durationDropdownOpen = false;
+
+  // Options for dropdowns
+  nicheOptions = [
+    { value: 'moda', label: 'Moda' },
+    { value: 'belleza', label: 'Belleza' },
+    { value: 'lifestyle', label: 'Lifestyle' },
+    { value: 'fitness', label: 'Fitness' },
+    { value: 'viajes', label: 'Viajes' },
+    { value: 'tecnologia', label: 'Tecnología' },
+    { value: 'gastronomia', label: 'Gastronomía' },
+    { value: 'gaming', label: 'Gaming' },
+    { value: 'otro', label: 'Otro' },
+  ];
+
+  sectorOptions = [
+    { value: 'moda', label: 'Moda' },
+    { value: 'belleza', label: 'Belleza' },
+    { value: 'tecnologia', label: 'Tecnología' },
+    { value: 'alimentacion', label: 'Alimentación' },
+    { value: 'hogar', label: 'Hogar y Decoración' },
+    { value: 'salud', label: 'Salud' },
+    { value: 'entretenimiento', label: 'Entretenimiento' },
+    { value: 'otro', label: 'Otro' },
+  ];
+
+  audienceOptions = [
+    { value: '18-24', label: '18-24 años' },
+    { value: '25-34', label: '25-34 años' },
+    { value: '35-44', label: '35-44 años' },
+    { value: '45+', label: '45+ años' },
+  ];
+
+  languageOptions = [
+    { value: 'es', label: 'Español' },
+    { value: 'en', label: 'Inglés' },
+    { value: 'fr', label: 'Francés' },
+    { value: 'de', label: 'Alemán' },
+    { value: 'it', label: 'Italiano' },
+    { value: 'pt', label: 'Portugués' },
+    { value: 'other', label: 'Otro' },
+  ];
+
+  budgetOptions = [
+    { value: '1000-5000', label: '$1,000 - $5,000' },
+    { value: '5000-10000', label: '$5,000 - $10,000' },
+    { value: '10000-50000', label: '$10,000 - $50,000' },
+    { value: '50000+', label: '$50,000+' },
+  ];
+
+  contentTypeOptions = [
+    { value: 'posts', label: 'Posts' },
+    { value: 'stories', label: 'Stories' },
+    { value: 'reels', label: 'Reels/TikToks' },
+    { value: 'video', label: 'Videos' },
+    { value: 'blogs', label: 'Blog Posts' },
+  ];
+
+  categoryOptions = [
+    { value: 'moda', label: 'Moda' },
+    { value: 'belleza', label: 'Belleza' },
+    { value: 'tecnologia', label: 'Tecnología' },
+    { value: 'alimentacion', label: 'Alimentación' },
+    { value: 'hogar', label: 'Hogar y Decoración' },
+    { value: 'salud', label: 'Salud' },
+    { value: 'entretenimiento', label: 'Entretenimiento' },
+    { value: 'otro', label: 'Otro' },
+  ];
+
+  influencerTypeOptions = [
+    { value: 'micro', label: 'Micro influencers (10K-50K seguidores)' },
+    { value: 'mid', label: 'Mid-tier (50K-500K seguidores)' },
+    { value: 'macro', label: 'Macro influencers (500K-1M seguidores)' },
+    { value: 'mega', label: 'Mega influencers (1M+ seguidores)' },
+  ];
+
+  durationOptions = [
+    { value: 'one-time', label: 'Publicación única' },
+    { value: 'short', label: 'Corta (1-2 semanas)' },
+    { value: 'medium', label: 'Media (1 mes)' },
+    { value: 'long', label: 'Larga (3+ meses)' },
+    { value: 'ongoing', label: 'Colaboración continua' },
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -140,7 +258,7 @@ export class OnboardingComponent implements OnInit {
         return;
       }
 
-      if (file.size > 2 * 1024 * 1024) {
+      if (file.size > 5 * 1024 * 1024) {
         // 2MB
         alert('La imagen no debe superar los 2MB');
         return;
@@ -233,5 +351,92 @@ export class OnboardingComponent implements OnInit {
       this.auth.save(u);
       this.router.navigateByUrl('/dashboard');
     });
+  }
+
+  // Métodos para obtener nombres de opciones
+  getNicheName(value: string): string {
+    return (
+      this.nicheOptions.find((option) => option.value === value)?.label || ''
+    );
+  }
+
+  getSectorName(value: string): string {
+    return (
+      this.sectorOptions.find((option) => option.value === value)?.label || ''
+    );
+  }
+
+  getAudienceName(value: string): string {
+    return (
+      this.audienceOptions.find((option) => option.value === value)?.label || ''
+    );
+  }
+
+  getLanguageName(value: string): string {
+    return (
+      this.languageOptions.find((option) => option.value === value)?.label || ''
+    );
+  }
+
+  getBudgetName(value: string): string {
+    return (
+      this.budgetOptions.find((option) => option.value === value)?.label || ''
+    );
+  }
+
+  getCategoryName(value: string): string {
+    return (
+      this.categoryOptions.find((option) => option.value === value)?.label || ''
+    );
+  }
+
+  getInfluencerTypeName(value: string): string {
+    return (
+      this.influencerTypeOptions.find((option) => option.value === value)
+        ?.label || ''
+    );
+  }
+
+  getDurationName(value: string): string {
+    return (
+      this.durationOptions.find((option) => option.value === value)?.label || ''
+    );
+  }
+
+  // Métodos para seleccionar opciones
+  selectNiche(value: string): void {
+    this.form.patchValue({ niche: value });
+  }
+
+  selectSector(value: string): void {
+    this.form.patchValue({ sector: value });
+  }
+
+  selectAudience(value: string): void {
+    this.form.patchValue({ main_audience: value });
+  }
+
+  selectLanguage(value: string): void {
+    this.form.patchValue({ primary_language: value });
+  }
+
+  selectBudget(value: string): void {
+    this.form.patchValue({ budget_range: value });
+  }
+
+  selectContentType(value: string): void {
+    this.form.patchValue({ primary_content_type: value });
+  }
+
+  selectCategory(value: string): void {
+    this.form.patchValue({ preferred_category: value });
+  }
+
+  selectInfluencerType(value: string): void {
+    this.form.patchValue({ influencer_type: value });
+  }
+
+  selectDuration(value: string): void {
+    this.form.patchValue({ campaign_duration: value });
   }
 }

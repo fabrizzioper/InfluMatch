@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="card-header">
       <h1>¡Completa tu perfil!</h1>
-      <p *ngIf="user_type === 'influencer'">
+      <p class="white" *ngIf="user_type === 'influencer'">
         Para que las marcas puedan encontrarte, cuéntanos sobre ti.
       </p>
       <p *ngIf="user_type === 'marca'">
@@ -16,7 +16,7 @@
 
     <!-- Progress Steps -->
     <div class="steps-progress">
-      <div class="step-item">
+      <div class="step-item" [ngClass]="{ completed: currentStep > 1 }">
         <div
           class="step-circle"
           [ngClass]="{ active: currentStep === 1, completed: currentStep > 1 }"
@@ -31,7 +31,7 @@
           Información básica
         </div>
       </div>
-      <div class="step-item">
+      <div class="step-item" [ngClass]="{ completed: currentStep > 2 }">
         <div
           class="step-circle"
           [ngClass]="{ active: currentStep === 2, completed: currentStep > 2 }"
@@ -127,7 +127,9 @@
                   </div>
                 </div>
                 <label class="upload-button" (click)="fileInput.click()">
-                  {{ imagePreview ? "🔄 Cambiar imagen" : "📤 Subir imagen" }}
+                  <span>{{
+                    imagePreview ? "Cambiar imagen" : "Subir imagen"
+                  }}</span>
                 </label>
                 <input
                   type="file"
@@ -233,43 +235,116 @@
               Redes sociales y audiencia
             </h2>
 
-            <div class="followers-section">
-              <div class="followers-title">Seguidores por plataforma</div>
-              <div class="followers-grid" formGroupName="followers">
-                <div class="follower-item">
-                  <div class="platform-header">
-                    <div class="platform-icon instagram">📸</div>
-                    <div class="platform-name">Instagram</div>
+            <div class="form-field form-field-full">
+              <label>Seguidores por plataforma</label>
+              <div class="portfolio-items" formGroupName="followers">
+                <div class="portfolio-item">
+                  <div class="platform-icon instagram">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="2"
+                        y="2"
+                        width="20"
+                        height="20"
+                        rx="5"
+                        ry="5"
+                      ></rect>
+                      <path
+                        d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                      ></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
                   </div>
                   <input
                     type="number"
                     formControlName="instagram"
-                    placeholder="Número de seguidores"
+                    placeholder="Instagram: Número de seguidores"
                   />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="
+                      form.get('followers')?.patchValue({ instagram: 0 })
+                    "
+                  >
+                    ✕
+                  </button>
                 </div>
-
-                <div class="follower-item">
-                  <div class="platform-header">
-                    <div class="platform-icon tiktok">🎵</div>
-                    <div class="platform-name">TikTok</div>
+                <div class="portfolio-item">
+                  <div class="platform-icon tiktok">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+                      <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+                      <path d="M15 8v8a4 4 0 0 1-4 4H9"></path>
+                      <path d="M15 4v8"></path>
+                    </svg>
                   </div>
                   <input
                     type="number"
                     formControlName="tiktok"
-                    placeholder="Número de seguidores"
+                    placeholder="TikTok: Número de seguidores"
                   />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="form.get('followers')?.patchValue({ tiktok: 0 })"
+                  >
+                    ✕
+                  </button>
                 </div>
-
-                <div class="follower-item">
-                  <div class="platform-header">
-                    <div class="platform-icon youtube">🎬</div>
-                    <div class="platform-name">YouTube</div>
+                <div class="portfolio-item">
+                  <div class="platform-icon youtube">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+                      ></path>
+                      <polygon
+                        points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"
+                      ></polygon>
+                    </svg>
                   </div>
                   <input
                     type="number"
                     formControlName="youtube"
-                    placeholder="Número de seguidores"
+                    placeholder="YouTube: Número de seguidores"
                   />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="form.get('followers')?.patchValue({ youtube: 0 })"
+                  >
+                    ✕
+                  </button>
                 </div>
               </div>
             </div>
@@ -317,8 +392,8 @@
               </div>
 
               <div class="form-field">
-                <label>Idiomas hablados</label>
-                <select multiple formControlName="languages">
+                <label>Idioma principal</label>
+                <select formControlName="languages">
                   <option value="es">Español</option>
                   <option value="en">Inglés</option>
                   <option value="fr">Francés</option>
@@ -330,52 +405,187 @@
               </div>
             </div>
 
-            <div class="social-links" formGroupName="social_links">
-              <h3>Enlaces a redes sociales</h3>
-
-              <div class="social-link-item">
-                <div class="social-icon instagram">📸</div>
-                <input
-                  type="text"
-                  formControlName="instagram"
-                  placeholder="@usuario"
-                />
-              </div>
-
-              <div class="social-link-item">
-                <div class="social-icon tiktok">🎵</div>
-                <input
-                  type="text"
-                  formControlName="tiktok"
-                  placeholder="@usuario"
-                />
-              </div>
-
-              <div class="social-link-item">
-                <div class="social-icon youtube">🎬</div>
-                <input
-                  type="text"
-                  formControlName="youtube"
-                  placeholder="URL del canal"
-                />
-              </div>
-
-              <div class="social-link-item">
-                <div class="social-icon twitter">🐦</div>
-                <input
-                  type="text"
-                  formControlName="twitter"
-                  placeholder="@usuario"
-                />
-              </div>
-
-              <div class="social-link-item">
-                <div class="social-icon facebook">👍</div>
-                <input
-                  type="text"
-                  formControlName="facebook"
-                  placeholder="URL del perfil"
-                />
+            <div class="form-field form-field-full">
+              <label>Enlaces a redes sociales</label>
+              <div class="portfolio-items" formGroupName="social_links">
+                <div class="portfolio-item">
+                  <div class="platform-icon instagram">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect
+                        x="2"
+                        y="2"
+                        width="20"
+                        height="20"
+                        rx="5"
+                        ry="5"
+                      ></rect>
+                      <path
+                        d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                      ></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="instagram"
+                    placeholder="Instagram: @usuario"
+                  />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="
+                      form.get('social_links')?.patchValue({ instagram: '' })
+                    "
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div class="portfolio-item">
+                  <div class="platform-icon tiktok">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+                      <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+                      <path d="M15 8v8a4 4 0 0 1-4 4H9"></path>
+                      <path d="M15 4v8"></path>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="tiktok"
+                    placeholder="TikTok: @usuario"
+                  />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="
+                      form.get('social_links')?.patchValue({ tiktok: '' })
+                    "
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div class="portfolio-item">
+                  <div class="platform-icon youtube">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+                      ></path>
+                      <polygon
+                        points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"
+                      ></polygon>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="youtube"
+                    placeholder="YouTube: URL del canal"
+                  />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="
+                      form.get('social_links')?.patchValue({ youtube: '' })
+                    "
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div class="portfolio-item">
+                  <div class="platform-icon twitter">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="twitter"
+                    placeholder="Twitter: @usuario"
+                  />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="
+                      form.get('social_links')?.patchValue({ twitter: '' })
+                    "
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div class="portfolio-item">
+                  <div class="platform-icon facebook">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    formControlName="facebook"
+                    placeholder="Facebook: URL del perfil"
+                  />
+                  <button
+                    type="button"
+                    class="remove-btn"
+                    (click)="
+                      form.get('social_links')?.patchValue({ facebook: '' })
+                    "
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
             </div>
           </ng-container>
@@ -421,7 +631,7 @@
 
               <div class="form-field form-field-full">
                 <label>Tipo de contenido que buscas</label>
-                <select multiple formControlName="content_types">
+                <select formControlName="content_s">
                   <option value="posts">Posts</option>
                   <option value="stories">Stories</option>
                   <option value="reels">Reels/TikToks</option>
@@ -450,23 +660,81 @@
 
               <div class="form-field form-field-full">
                 <label>Redes sociales de la marca</label>
-                <div class="social-links" formGroupName="social_links">
-                  <div class="social-link-item">
-                    <div class="social-icon instagram">📸</div>
+                <div class="portfolio-items" formGroupName="social_links">
+                  <div class="portfolio-item">
+                    <div class="platform-icon instagram">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <rect
+                          x="2"
+                          y="2"
+                          width="20"
+                          height="20"
+                          rx="5"
+                          ry="5"
+                        ></rect>
+                        <path
+                          d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                        ></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                      </svg>
+                    </div>
                     <input
                       type="text"
                       formControlName="instagram"
-                      placeholder="@usuario"
+                      placeholder="Instagram: @usuario"
                     />
+                    <button
+                      type="button"
+                      class="remove-btn"
+                      (click)="
+                        form.get('social_links')?.patchValue({ instagram: '' })
+                      "
+                    >
+                      ✕
+                    </button>
                   </div>
-
-                  <div class="social-link-item">
-                    <div class="social-icon facebook">👍</div>
+                  <div class="portfolio-item">
+                    <div class="platform-icon facebook">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                        ></path>
+                      </svg>
+                    </div>
                     <input
                       type="text"
                       formControlName="facebook"
-                      placeholder="URL del perfil"
+                      placeholder="Facebook: URL del perfil"
                     />
+                    <button
+                      type="button"
+                      class="remove-btn"
+                      (click)="
+                        form.get('social_links')?.patchValue({ facebook: '' })
+                      "
+                    >
+                      ✕
+                    </button>
                   </div>
                 </div>
               </div>
@@ -510,7 +778,7 @@
                   class="add-portfolio-btn"
                   (click)="addPortfolioUrl()"
                 >
-                  ➕ Añadir URL
+                  + Añadir URL
                 </button>
               </div>
 
@@ -524,8 +792,8 @@
               </div>
 
               <div class="form-field">
-                <label>Categorías de productos preferidas</label>
-                <select multiple formControlName="preferred_categories">
+                <label>Categoría de productos preferida</label>
+                <select formControlName="preferred_categories">
                   <option value="moda">Moda</option>
                   <option value="belleza">Belleza</option>
                   <option value="tecnologia">Tecnología</option>
@@ -567,8 +835,8 @@
             </div>
 
             <div class="form-field">
-              <label>Tipo de influencers que buscas</label>
-              <select multiple formControlName="influencer_types">
+              <label>Tipo de influencer que buscas</label>
+              <select formControlName="influencer_s">
                 <option value="micro">
                   Micro influencers (10K-50K seguidores)
                 </option>
@@ -629,7 +897,6 @@
           type="submit"
           class="btn-submit"
           [disabled]="form.invalid"
-          (click)="console.log(form.value)"
         >
           Finalizar
         </button>
