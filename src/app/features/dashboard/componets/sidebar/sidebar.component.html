@@ -1,4 +1,4 @@
-<div class="sidebar-container" [class.expanded]="expanded">
+<div class="sidebar" [class.expanded]="expanded">
   <div class="sidebar-header">
     <div class="logo-container">
       <img
@@ -8,33 +8,31 @@
       />
       <span class="logo-text" *ngIf="expanded">InfluMatch</span>
     </div>
-    <button mat-icon-button class="toggle-button" (click)="toggleSidebar()">
+    <div class="user-info" *ngIf="expanded">
+      <div class="user-avatar">
+        <img
+          [src]="user?.avatar_url || 'assets/images/default-avatar.png'"
+          [alt]="user?.name"
+        />
+      </div>
+      <div class="user-details">
+        <span class="user-name">{{ user?.name }}</span>
+        <span class="user-type">{{
+          user?.user_type === "influencer" ? "Influencer" : "Marca"
+        }}</span>
+      </div>
+    </div>
+    <button mat-icon-button class="toggle-btn" (click)="toggleSidebar()">
       <mat-icon>{{ expanded ? "chevron_left" : "chevron_right" }}</mat-icon>
     </button>
   </div>
 
   <div class="sidebar-content">
-    <div class="user-info" *ngIf="user">
-      <div class="avatar">
-        <img
-          [src]="user.avatar_url || 'assets/images/default-avatar.png'"
-          [alt]="user.name"
-        />
-      </div>
-      <div class="user-details" *ngIf="expanded">
-        <h3 class="user-name">{{ user.name }}</h3>
-        <p class="user-type">
-          {{ user.user_type === "influencer" ? "Influencer" : "Marca" }}
-        </p>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
+    <div class="sidebar-menu">
       <a
         routerLink="/dashboard/home"
         routerLinkActive="active"
-        class="nav-item"
-        [class.expanded]="expanded"
+        class="menu-item"
       >
         <mat-icon>dashboard</mat-icon>
         <span *ngIf="expanded">Dashboard</span>
@@ -43,8 +41,7 @@
       <a
         routerLink="/dashboard/directory"
         routerLinkActive="active"
-        class="nav-item"
-        [class.expanded]="expanded"
+        class="menu-item"
       >
         <mat-icon>people</mat-icon>
         <span *ngIf="expanded">Directorio</span>
@@ -53,37 +50,45 @@
       <a
         routerLink="/dashboard/profile"
         routerLinkActive="active"
-        class="nav-item"
-        [class.expanded]="expanded"
+        class="menu-item"
       >
         <mat-icon>person</mat-icon>
         <span *ngIf="expanded">Perfil</span>
       </a>
 
-      <a href="#" class="nav-item" [class.expanded]="expanded">
+      <a
+        routerLink="/dashboard/messages"
+        routerLinkActive="active"
+        class="menu-item"
+      >
         <mat-icon>message</mat-icon>
         <span *ngIf="expanded">Mensajes</span>
+        <span class="badge" *ngIf="expanded">3</span>
       </a>
 
-      <a href="#" class="nav-item" [class.expanded]="expanded">
+      <a
+        routerLink="/dashboard/notifications"
+        routerLinkActive="active"
+        class="menu-item"
+      >
         <mat-icon>notifications</mat-icon>
         <span *ngIf="expanded">Notificaciones</span>
+        <span class="badge" *ngIf="expanded">5</span>
       </a>
 
-      <a href="#" class="nav-item" [class.expanded]="expanded">
+      <a
+        routerLink="/dashboard/settings"
+        routerLinkActive="active"
+        class="menu-item"
+      >
         <mat-icon>settings</mat-icon>
         <span *ngIf="expanded">Configuración</span>
       </a>
-    </nav>
+    </div>
   </div>
 
   <div class="sidebar-footer">
-    <button
-      mat-button
-      class="logout-button"
-      [class.expanded]="expanded"
-      (click)="logout()"
-    >
+    <button mat-button class="logout-btn" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       <span *ngIf="expanded">Cerrar sesión</span>
     </button>

@@ -1,143 +1,180 @@
 <div class="directory-container">
   <div class="directory-header">
     <h1>{{ currentUserType === "influencer" ? "Marcas" : "Influencers" }}</h1>
-    <p>
-      Encuentra
-      {{ currentUserType === "influencer" ? "marcas" : "influencers" }} que se
-      ajusten a tus necesidades
+    <p class="subtitle">
+      {{
+        currentUserType === "influencer"
+          ? "Descubre marcas que buscan colaborar con influencers como tú"
+          : "Encuentra influencers que pueden ayudar a promocionar tu marca"
+      }}
     </p>
   </div>
 
+  <!-- Loader -->
   <div class="loading-container" *ngIf="loading">
     <mat-spinner diameter="50"></mat-spinner>
-    <p>Cargando usuarios...</p>
+    <p>Cargando...</p>
   </div>
 
+  <!-- Error message -->
   <div class="error-container" *ngIf="error">
-    <mat-icon color="warn">error</mat-icon>
+    <mat-icon>error_outline</mat-icon>
+    <h2>No se pudieron cargar los datos</h2>
     <p>
-      Ocurrió un error al cargar los usuarios. Por favor, intenta de nuevo más
-      tarde.
+      Ha ocurrido un error al cargar la información. Por favor, intenta de nuevo
+      más tarde.
     </p>
     <button mat-raised-button color="primary" (click)="loadUsers()">
       Reintentar
     </button>
   </div>
 
-  <div class="empty-state" *ngIf="!loading && !error && users.length === 0">
+  <!-- Empty state -->
+  <div class="empty-container" *ngIf="!loading && !error && users.length === 0">
     <mat-icon>search_off</mat-icon>
+    <h2>No se encontraron resultados</h2>
     <p>
-      No se encontraron
+      No hay
       {{
         currentUserType === "influencer" ? "marcas" : "influencers"
       }}
-      disponibles.
+      disponibles en este momento.
     </p>
   </div>
 
+  <!-- Directory grid -->
   <div class="directory-grid" *ngIf="!loading && !error && users.length > 0">
     <mat-card class="user-card" *ngFor="let user of users">
       <div class="card-header">
-        <div class="user-avatar">
+        <div class="avatar">
           <img
             [src]="user.avatar_url || getDefaultAvatar()"
-            [alt]="user.name"
+            [alt]="user.display_name || user.name"
           />
         </div>
         <div class="user-info">
           <h2 class="user-name">{{ user.display_name || user.name }}</h2>
           <p class="user-location" *ngIf="user.location">
-            <mat-icon>location_on</mat-icon>
-            {{ user.location }}
+            <mat-icon>location_on</mat-icon> {{ user.location }}
           </p>
         </div>
       </div>
 
       <mat-card-content>
+        <!-- Bio -->
         <p class="user-bio" *ngIf="user.bio">{{ user.bio }}</p>
 
-        <!-- Información específica para influencers -->
-        <div class="influencer-info" *ngIf="user.user_type === 'influencer'">
-          <div class="info-row" *ngIf="user.niche">
-            <span class="info-label">Nicho:</span>
-            <span class="info-value">{{ user.niche }}</span>
+        <!-- Influencer specific info -->
+        <ng-container *ngIf="isInfluencer(user) && currentUserType === 'marca'">
+          <div class="info-section" *ngIf="user.niche">
+            <h3>Nicho</h3>
+            <mat-chip-set>
+              <mat-chip>{{ user.niche }}</mat-chip>
+            </mat-chip-set>
           </div>
 
-          <div class="info-row" *ngIf="user.followers">
-            <span class="info-label">Seguidores:</span>
-            <span class="info-value">{{
-              formatFollowers(getFollowersTotal(user.followers))
-            }}</span>
+          <div class="info-section" *ngIf="user.followers">
+            <h3>Seguidores</h3>
+            <div class="followers-info">
+              <div
+                class="follower-count"
+                *ngIf="user.followers && user.followers.instagram"
+              >
+                <mat-icon>photo_camera</mat-icon>
+                <span>{{ formatFollowers(user.followers.instagram) }}</span>
+              </div>
+              <div
+                class="follower-count"
+                *ngIf="user.followers && user.followers.tiktok"
+              >
+                <mat-icon>music_note</mat-icon>
+                <span>{{ formatFollowers(user.followers.tiktok) }}</span>
+              </div>
+              <div
+                class="follower-count"
+                *ngIf="user.followers && user.followers.youtube"
+              >
+                <mat-icon>smart_display</mat-icon>
+                <span>{{ formatFollowers(user.followers.youtube) }}</span>
+              </div>
+            </div>
           </div>
 
-          <div class="info-row" *ngIf="user.rate_per_post">
-            <span class="info-label">Tarifa por post:</span>
-            <span class="info-value">${{ user.rate_per_post }}</span>
+          <div class="info-section" *ngIf="user.rate_per_post">
+            <h3>Tarifa por publicación</h3>
+            <p class="rate">${{ user.rate_per_post }} USD</p>
           </div>
 
-          <div class="info-row" *ngIf="user.engagement_rate">
-            <span class="info-label">Engagement:</span>
-            <span class="info-value">{{ user.engagement_rate }}%</span>
+          <div class="info-section" *ngIf="user.engagement_rate">
+            <h3>Engagement</h3>
+            <p>{{ user.engagement_rate }}%</p>
           </div>
-        </div>
+        </ng-container>
 
-        <!-- Información específica para marcas -->
-        <div class="brand-info" *ngIf="user.user_type === 'marca'">
-          <div class="info-row" *ngIf="user.sector">
-            <span class="info-label">Sector:</span>
-            <span class="info-value">{{ user.sector }}</span>
-          </div>
-
-          <div class="info-row" *ngIf="user.budget_range">
-            <span class="info-label">Presupuesto:</span>
-            <span class="info-value">{{ user.budget_range }}</span>
+        <!-- Brand specific info -->
+        <ng-container *ngIf="isBrand(user) && currentUserType === 'influencer'">
+          <div class="info-section" *ngIf="user.sector">
+            <h3>Sector</h3>
+            <mat-chip-set>
+              <mat-chip>{{ user.sector }}</mat-chip>
+            </mat-chip-set>
           </div>
 
-          <div class="info-row" *ngIf="user.objectives">
-            <span class="info-label">Objetivos:</span>
-            <span class="info-value">{{ user.objectives }}</span>
+          <div class="info-section" *ngIf="user.budget_range">
+            <h3>Presupuesto</h3>
+            <p>{{ user.budget_range }}</p>
           </div>
-        </div>
 
-        <!-- Redes sociales -->
+          <div class="info-section" *ngIf="user.objectives">
+            <h3>Objetivos</h3>
+            <p>{{ user.objectives }}</p>
+          </div>
+
+          <div class="info-section" *ngIf="user.campaign_duration">
+            <h3>Duración de campaña</h3>
+            <p>{{ user.campaign_duration }}</p>
+          </div>
+        </ng-container>
+
+        <!-- Social links -->
         <div class="social-links" *ngIf="hasSocialLinks(user)">
           <h3>Redes sociales</h3>
           <div class="social-icons">
             <a
-              *ngIf="user.social_links?.instagram"
-              [href]="getSocialLink('instagram', user.social_links?.instagram)"
+              *ngIf="user.social_links && user.social_links.instagram"
+              [href]="getSocialLink('instagram', user.social_links.instagram)"
               target="_blank"
               class="social-icon"
             >
               <mat-icon>photo_camera</mat-icon>
             </a>
             <a
-              *ngIf="user.social_links?.facebook"
-              [href]="getSocialLink('facebook', user.social_links?.facebook)"
+              *ngIf="user.social_links && user.social_links.facebook"
+              [href]="getSocialLink('facebook', user.social_links.facebook)"
               target="_blank"
               class="social-icon"
             >
               <mat-icon>facebook</mat-icon>
             </a>
             <a
-              *ngIf="user.social_links?.tiktok"
-              [href]="getSocialLink('tiktok', user.social_links?.tiktok)"
+              *ngIf="user.social_links && user.social_links.tiktok"
+              [href]="getSocialLink('tiktok', user.social_links.tiktok)"
               target="_blank"
               class="social-icon"
             >
               <mat-icon>music_note</mat-icon>
             </a>
             <a
-              *ngIf="user.social_links?.youtube"
-              [href]="getSocialLink('youtube', user.social_links?.youtube)"
+              *ngIf="user.social_links && user.social_links.youtube"
+              [href]="getSocialLink('youtube', user.social_links.youtube)"
               target="_blank"
               class="social-icon"
             >
               <mat-icon>smart_display</mat-icon>
             </a>
             <a
-              *ngIf="user.social_links?.twitter"
-              [href]="getSocialLink('twitter', user.social_links?.twitter)"
+              *ngIf="user.social_links && user.social_links.twitter"
+              [href]="getSocialLink('twitter', user.social_links.twitter)"
               target="_blank"
               class="social-icon"
             >

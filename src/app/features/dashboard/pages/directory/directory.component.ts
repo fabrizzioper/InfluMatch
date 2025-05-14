@@ -1,51 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterModule } from '@angular/router';
 
 import { AuthService } from '../../../../core/services/auth.service';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  user_type: string;
-  profile_completed: boolean;
-  avatar_url?: string;
-  display_name?: string;
-  bio?: string;
-  location?: string;
-
-  // Campos específicos de influencer
-  niche?: string;
-  followers?: {
-    instagram: number;
-    tiktok: number;
-    youtube: number;
-  };
-  rate_per_post?: number;
-  engagement_rate?: string;
-
-  // Campos específicos de marca
-  sector?: string;
-  budget_range?: string;
-  objectives?: string;
-
-  // Campos comunes adicionales
-  social_links?: {
-    instagram?: string;
-    facebook?: string;
-    tiktok?: string;
-    youtube?: string;
-    twitter?: string;
-  };
-}
+import { GetUsersUseCase } from '../../../../application/use-cases/get-users.usecase';
+import { User } from '../../../../domain/entities/user.entity';
+import { Influencer } from '../../../../domain/entities/influencer.entity';
+import { Brand } from '../../../../domain/entities/brand.entity';
 
 @Component({
   selector: 'app-directory',
@@ -57,82 +22,58 @@ interface User {
     MatIconModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule,
-    RouterModule,
   ],
   templateUrl: './directory.component.html',
   styleUrls: ['./directory.component.scss'],
 })
 export class DirectoryComponent implements OnInit {
   users: User[] = [];
+  currentUserType: 'influencer' | 'marca' = 'influencer';
   loading = true;
   error = false;
-  currentUserType = '';
 
   constructor(
-    private http: HttpClient,
     private authService: AuthService,
-    private snackBar: MatSnackBar
+    private getUsersUseCase: GetUsersUseCase
   ) {}
 
   ngOnInit(): void {
     const currentUser = this.authService.currentUser;
     if (currentUser) {
-      this.currentUserType = currentUser.user_type || '';
+      this.currentUserType = currentUser.user_type as 'influencer' | 'marca';
       this.loadUsers();
     }
   }
 
   loadUsers(): void {
-    // Determinar qué tipo de usuarios cargar (opuesto al tipo del usuario actual)
-    const userTypeToLoad =
-      this.currentUserType === 'influencer' ? 'marca' : 'influencer';
+    this.loading = true;
+    this.error = false;
 
-    this.http
-      .get<User[]>(
-        `https://68226283b342dce8004e1b82.mockapi.io/users-register?user_type=${userTypeToLoad}`
-      )
-      .subscribe(
-        (data) => {
-          // Filtrar solo usuarios con perfil completo
-          this.users = data.filter((user) => user.profile_completed);
+    if (this.currentUserType === 'influencer') {
+      this.getUsersUseCase.getBrands().subscribe(
+        (brands) => {
+          this.users = brands;
           this.loading = false;
         },
         (error) => {
-          console.error('Error loading users:', error);
-          this.loading = false;
+          console.error('Error loading brands:', error);
           this.error = true;
-          this.snackBar.open(
-            'Error al cargar los usuarios. Intenta de nuevo más tarde.',
-            'Cerrar',
-            {
-              duration: 5000,
-            }
-          );
+          this.loading = false;
         }
       );
-  }
-
-  getFollowersTotal(followers?: {
-    instagram: number;
-    tiktok: number;
-    youtube: number;
-  }): number {
-    if (!followers) return 0;
-    return (
-      (followers.instagram || 0) +
-      (followers.tiktok || 0) +
-      (followers.youtube || 0)
-    );
-  }
-
-  formatFollowers(count: number): string {
-    if (count >= 1000000) {
-      return (count / 1000000).toFixed(1) + 'M';
-    } else if (count >= 1000) {
-      return (count / 1000).toFixed(1) + 'K';
+    } else {
+      this.getUsersUseCase.getInfluencers().subscribe(
+        (influencers) => {
+          this.users = influencers;
+          this.loading = false;
+        },
+        (error) => {
+          console.error('Error loading influencers:', error);
+          this.error = true;
+          this.loading = false;
+        }
+      );
     }
-    return count.toString();
   }
 
   getDefaultAvatar(): string {
@@ -140,7 +81,7 @@ export class DirectoryComponent implements OnInit {
   }
 
   getSocialLink(platform: string, username: string | undefined): string {
-    if (!username) return '';
+    if (!username) return '#';
 
     switch (platform) {
       case 'instagram':
@@ -154,13 +95,48 @@ export class DirectoryComponent implements OnInit {
       case 'twitter':
         return `https://twitter.com/${username}`;
       default:
-        return '';
+        return `https://${platform}.com/${username}`;
     }
   }
 
   hasSocialLinks(user: User): boolean {
-    if (!user.social_links) return false;
+    return !!(
+      user.social_links &&
+      (user.social_links.instagram ||
+        user.social_links.facebook ||
+        user.social_links.tiktok ||
+        user.social_links.youtube ||
+        user.social_links.twitter)
+    );
+  }
 
-    return Object.values(user.social_links).some((link) => !!link);
+  isInfluencer(user: User): user is Influencer {
+    return user.user_type === 'influencer';
+  }
+
+  isBrand(user: User): user is Brand {
+    return user.user_type === 'marca';
+  }
+
+  formatFollowers(count: number | undefined): string {
+    if (!count) return '0';
+
+    if (count >= 1000000) {
+      return (count / 1000000).toFixed(1) + 'M';
+    } else if (count >= 1000) {
+      return (count / 1000).toFixed(1) + 'K';
+    }
+    return count.toString();
+  }
+
+  getFollowersTotal(followers: any): number {
+    if (!followers) return 0;
+
+    let total = 0;
+    if (followers.instagram) total += followers.instagram;
+    if (followers.tiktok) total += followers.tiktok;
+    if (followers.youtube) total += followers.youtube;
+
+    return total;
   }
 }
