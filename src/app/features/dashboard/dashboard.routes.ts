@@ -7,6 +7,13 @@ export const DASHBOARD_ROUTES: Routes = [
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'profile',
+    loadComponent: () =>
+      import('./pages/profile/profile.component').then(
+        (m) => m.ProfileComponent
+      ),
+  },
+  {
     path: 'profile/:id',
     loadComponent: () =>
       import('./pages/profile-detail/profile-detail.component').then(
