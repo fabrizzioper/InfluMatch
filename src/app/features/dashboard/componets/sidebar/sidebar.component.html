@@ -1,53 +1,91 @@
-<div class="sidebar">
-  <div class="logo-container">
-    <img
-      src="assets/images/logo-white.png"
-      alt="InfluMatch Logo"
-      class="logo"
-    />
-  </div>
-
-  <div class="user-info">
-    <div class="avatar">
+<div class="sidebar-container" [class.expanded]="expanded">
+  <div class="sidebar-header">
+    <div class="logo-container">
       <img
-        [src]="user?.avatar_url || 'assets/images/default-avatar.png'"
-        alt="User Avatar"
+        src="assets/images/logo-white.png"
+        alt="InfluMatch Logo"
+        class="logo"
       />
+      <span class="logo-text" *ngIf="expanded">InfluMatch</span>
     </div>
-    <div class="user-details">
-      <h3>{{ user?.display_name || user?.name }}</h3>
-      <span class="user-type">{{
-        user?.user_type === "marca" ? "Marca" : "Influencer"
-      }}</span>
-    </div>
+    <button mat-icon-button class="toggle-button" (click)="toggleSidebar()">
+      <mat-icon>{{ expanded ? "chevron_left" : "chevron_right" }}</mat-icon>
+    </button>
   </div>
 
-  <nav class="navigation">
-    <ul>
-      <li>
-        <a
-          routerLink="/dashboard"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <i class="fas fa-home"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/dashboard/profile" routerLinkActive="active">
-          <i class="fas fa-user"></i>
-          <span>Perfil</span>
-        </a>
-      </li>
-      <!-- Más opciones de menú pueden ir aquí -->
-    </ul>
-  </nav>
+  <div class="sidebar-content">
+    <div class="user-info" *ngIf="user">
+      <div class="avatar">
+        <img
+          [src]="user.avatar_url || 'assets/images/default-avatar.png'"
+          [alt]="user.name"
+        />
+      </div>
+      <div class="user-details" *ngIf="expanded">
+        <h3 class="user-name">{{ user.name }}</h3>
+        <p class="user-type">
+          {{ user.user_type === "influencer" ? "Influencer" : "Marca" }}
+        </p>
+      </div>
+    </div>
 
-  <div class="logout-container">
-    <button class="logout-button" (click)="logout()">
-      <i class="fas fa-sign-out-alt"></i>
-      <span>Cerrar Sesión</span>
+    <nav class="sidebar-nav">
+      <a
+        routerLink="/dashboard/home"
+        routerLinkActive="active"
+        class="nav-item"
+        [class.expanded]="expanded"
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span *ngIf="expanded">Dashboard</span>
+      </a>
+
+      <a
+        routerLink="/dashboard/directory"
+        routerLinkActive="active"
+        class="nav-item"
+        [class.expanded]="expanded"
+      >
+        <mat-icon>people</mat-icon>
+        <span *ngIf="expanded">Directorio</span>
+      </a>
+
+      <a
+        routerLink="/dashboard/profile"
+        routerLinkActive="active"
+        class="nav-item"
+        [class.expanded]="expanded"
+      >
+        <mat-icon>person</mat-icon>
+        <span *ngIf="expanded">Perfil</span>
+      </a>
+
+      <a href="#" class="nav-item" [class.expanded]="expanded">
+        <mat-icon>message</mat-icon>
+        <span *ngIf="expanded">Mensajes</span>
+      </a>
+
+      <a href="#" class="nav-item" [class.expanded]="expanded">
+        <mat-icon>notifications</mat-icon>
+        <span *ngIf="expanded">Notificaciones</span>
+      </a>
+
+      <a href="#" class="nav-item" [class.expanded]="expanded">
+        <mat-icon>settings</mat-icon>
+        <span *ngIf="expanded">Configuración</span>
+      </a>
+    </nav>
+  </div>
+
+  <div class="sidebar-footer">
+    <button
+      mat-button
+      class="logout-button"
+      [class.expanded]="expanded"
+      (click)="logout()"
+    >
+      <mat-icon>exit_to_app</mat-icon>
+      <span *ngIf="expanded">Cerrar sesión</span>
     </button>
   </div>
 </div>

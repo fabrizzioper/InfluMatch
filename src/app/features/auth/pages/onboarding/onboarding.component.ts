@@ -6,6 +6,7 @@ import {
   Output,
   EventEmitter,
   HostListener,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -16,6 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AuthService } from '../../../../core/services/auth.service';
 import { UpdateProfileUseCase } from '../../../../application/use-cases/update-profile.usecase';
@@ -42,17 +44,22 @@ export class ClickOutsideDirective {
 @Component({
   selector: 'app-onboarding',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule],
   templateUrl: './onboarding.component.html',
   styleUrls: ['./onboarding.component.scss'],
 })
 export class OnboardingComponent implements OnInit {
+  @ViewChild('step1') step1Element!: ElementRef;
+  @ViewChild('step2') step2Element!: ElementRef;
+  @ViewChild('step3') step3Element!: ElementRef;
+
   form!: FormGroup;
   user_type!: 'influencer' | 'marca';
   userId!: string;
   currentStep = 1;
   imagePreview: string | null = null;
   console = console; // Para poder usar console.log en el template
+  formErrors: { [key: string]: string } = {};
 
   // Dropdown states
   nicheDropdownOpen = false;
@@ -150,7 +157,8 @@ export class OnboardingComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private updateProfile: UpdateProfileUseCase,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -161,7 +169,7 @@ export class OnboardingComponent implements OnInit {
     // Crear formulario base con campos comunes
     this.form = this.fb.group({
       display_name: [user.name, Validators.required],
-      avatar_url: [user.avatar_url || ''],
+      avatar_url: [user.avatar_url || ''], // Opcional
       bio: ['', Validators.required],
       location: ['', Validators.required],
       contact_email: [user.email, [Validators.required, Validators.email]],
@@ -169,64 +177,73 @@ export class OnboardingComponent implements OnInit {
 
     // Añadir campos específicos según el tipo de usuario
     if (this.user_type === 'influencer') {
-      this.form.addControl('niche', this.fb.control('', Validators.required));
-      this.form.addControl(
-        'followers',
-        this.fb.group({
-          instagram: [0],
-          tiktok: [0],
-          youtube: [0],
-        })
-      );
-      this.form.addControl(
-        'rate_per_post',
-        this.fb.control(0, Validators.required)
-      );
-      this.form.addControl('engagement_rate', this.fb.control(''));
-      this.form.addControl('main_audience', this.fb.control(''));
-      this.form.addControl('languages', this.fb.control([]));
-      this.form.addControl(
-        'social_links',
-        this.fb.group({
-          instagram: [''],
-          tiktok: [''],
-          youtube: [''],
-          twitter: [''],
-          facebook: [''],
-        })
-      );
-      this.form.addControl('portfolio_urls', this.fb.array([]));
-      this.form.addControl('previous_experience', this.fb.control(''));
-      this.form.addControl('preferred_categories', this.fb.control([]));
-
-      // Añadir una URL de portafolio por defecto
-      this.addPortfolioUrl();
+      this.initInfluencerForm();
     } else {
-      // Campos para marcas
-      this.form.addControl('sector', this.fb.control('', Validators.required));
-      this.form.addControl('website', this.fb.control(''));
-      this.form.addControl(
-        'budget_range',
-        this.fb.control('', Validators.required)
-      );
-      this.form.addControl(
-        'objectives',
-        this.fb.control('', Validators.required)
-      );
-      this.form.addControl('contact_name', this.fb.control(''));
-      this.form.addControl('contact_position', this.fb.control(''));
-      this.form.addControl('content_s', this.fb.control([]));
-      this.form.addControl('influencer_s', this.fb.control([]));
-      this.form.addControl('campaign_duration', this.fb.control(''));
-      this.form.addControl('additional_info', this.fb.control(''));
-      this.form.addControl(
-        'social_links',
-        this.fb.group({
-          instagram: [''],
-          facebook: [''],
-        })
-      );
+      this.initBrandForm();
     }
+  }
+
+  // Inicializar formulario para influencers
+  private initInfluencerForm(): void {
+    this.form.addControl('niche', this.fb.control('', Validators.required));
+    this.form.addControl(
+      'followers',
+      this.fb.group({
+        instagram: [0, [Validators.required, Validators.min(0)]],
+        tiktok: [0, Validators.min(0)],
+        youtube: [0, Validators.min(0)],
+      })
+    );
+    this.form.addControl(
+      'rate_per_post',
+      this.fb.control(0, [Validators.required, Validators.min(0)])
+    );
+    this.form.addControl('engagement_rate', this.fb.control(''));
+    this.form.addControl('main_audience', this.fb.control(''));
+    this.form.addControl('languages', this.fb.control(''));
+    this.form.addControl(
+      'social_links',
+      this.fb.group({
+        instagram: [''],
+        tiktok: [''],
+        youtube: [''],
+        twitter: [''],
+        facebook: [''],
+      })
+    );
+    this.form.addControl('portfolio_urls', this.fb.array([]));
+    this.form.addControl('previous_experience', this.fb.control(''));
+    this.form.addControl('preferred_categories', this.fb.control(''));
+
+    // Añadir una URL de portafolio por defecto
+    this.addPortfolioUrl();
+  }
+
+  // Inicializar formulario para marcas
+  private initBrandForm(): void {
+    this.form.addControl('sector', this.fb.control('', Validators.required));
+    this.form.addControl('website', this.fb.control(''));
+    this.form.addControl(
+      'budget_range',
+      this.fb.control('', Validators.required)
+    );
+    this.form.addControl(
+      'objectives',
+      this.fb.control('', Validators.required)
+    );
+    this.form.addControl('contact_name', this.fb.control(''));
+    this.form.addControl('contact_position', this.fb.control(''));
+    this.form.addControl('content_s', this.fb.control(''));
+    this.form.addControl('influencer_s', this.fb.control(''));
+    this.form.addControl('campaign_duration', this.fb.control(''));
+    this.form.addControl('additional_info', this.fb.control(''));
+    this.form.addControl(
+      'social_links',
+      this.fb.group({
+        instagram: [''],
+        facebook: [''],
+      })
+    );
   }
 
   // Getter para acceder fácilmente al FormArray de portfolio_urls
@@ -243,7 +260,15 @@ export class OnboardingComponent implements OnInit {
 
   // Método para eliminar una URL del portafolio
   removePortfolioUrl(index: number) {
-    this.portfolioUrls.removeAt(index);
+    if (this.portfolioUrls.length > 1) {
+      this.portfolioUrls.removeAt(index);
+    } else {
+      this.snackBar.open(
+        'Debes mantener al menos una URL de portafolio',
+        'Cerrar',
+        { duration: 3000 }
+      );
+    }
   }
 
   // Método para manejar la selección de archivos
@@ -259,8 +284,8 @@ export class OnboardingComponent implements OnInit {
       }
 
       if (file.size > 5 * 1024 * 1024) {
-        // 2MB
-        alert('La imagen no debe superar los 2MB');
+        // 5MB
+        alert('La imagen no debe superar los 5MB');
         return;
       }
 
@@ -289,8 +314,11 @@ export class OnboardingComponent implements OnInit {
   // Navegación entre pasos
   nextStep() {
     if (this.currentStep < 3) {
-      this.currentStep++;
-      window.scrollTo(0, 0);
+      // Validar campos del paso actual
+      if (this.validateCurrentStep()) {
+        this.currentStep++;
+        window.scrollTo(0, 0);
+      }
     }
   }
 
@@ -301,8 +329,134 @@ export class OnboardingComponent implements OnInit {
     }
   }
 
+  // Validar campos del paso actual
+  validateCurrentStep(): boolean {
+    this.formErrors = {};
+    let isValid = true;
+    const controls = this.form.controls;
+
+    // Validar campos según el paso actual
+    if (this.currentStep === 1) {
+      // Paso 1: Información básica
+      const requiredFields = [
+        'display_name',
+        'bio',
+        'location',
+        'contact_email',
+      ];
+
+      for (const field of requiredFields) {
+        const control = this.form.get(field);
+        if (control && control.invalid) {
+          this.formErrors[field] = 'Este campo es obligatorio';
+          isValid = false;
+        }
+      }
+
+      if (!isValid) {
+        this.scrollToFirstError(1);
+        this.showErrorMessage(
+          'Por favor, completa todos los campos obligatorios'
+        );
+      }
+    } else if (this.currentStep === 2) {
+      // Paso 2: Información específica según tipo de usuario
+      if (this.user_type === 'influencer') {
+        const requiredFields = ['niche', 'rate_per_post'];
+        const followersGroup = this.form.get('followers') as FormGroup;
+
+        for (const field of requiredFields) {
+          const control = this.form.get(field);
+          if (control && control.invalid) {
+            this.formErrors[field] = 'Este campo es obligatorio';
+            isValid = false;
+          }
+        }
+
+        if (followersGroup.get('instagram')?.invalid) {
+          this.formErrors['followers.instagram'] = 'Este campo es obligatorio';
+          isValid = false;
+        }
+      } else {
+        // Marca
+        const requiredFields = ['sector', 'budget_range', 'objectives'];
+
+        for (const field of requiredFields) {
+          const control = this.form.get(field);
+          if (control && control.invalid) {
+            this.formErrors[field] = 'Este campo es obligatorio';
+            isValid = false;
+          }
+        }
+      }
+
+      if (!isValid) {
+        this.scrollToFirstError(2);
+        this.showErrorMessage(
+          'Por favor, completa todos los campos obligatorios'
+        );
+      }
+    }
+
+    return isValid;
+  }
+
+  // Mostrar mensaje de error
+  showErrorMessage(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 5000,
+      panelClass: ['error-snackbar'],
+    });
+  }
+
+  // Desplazarse al primer error
+  scrollToFirstError(step: number): void {
+    setTimeout(() => {
+      const errorElements = document.querySelectorAll('.field-error');
+      if (errorElements.length > 0) {
+        const firstError = errorElements[0] as HTMLElement;
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Si no hay elementos con error, desplazarse al paso correspondiente
+        if (step === 1 && this.step1Element) {
+          this.step1Element.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        } else if (step === 2 && this.step2Element) {
+          this.step2Element.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        } else if (step === 3 && this.step3Element) {
+          this.step3Element.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      }
+    }, 100);
+  }
+
   submit() {
-    if (this.form.invalid) return;
+    // Validar todo el formulario
+    this.markAllAsTouched(this.form);
+
+    if (this.form.invalid) {
+      // Determinar en qué paso está el primer error
+      const stepWithError = this.findStepWithError();
+
+      // Ir a ese paso
+      this.currentStep = stepWithError;
+
+      // Desplazarse al primer error
+      this.scrollToFirstError(stepWithError);
+
+      this.showErrorMessage(
+        'Por favor, completa todos los campos obligatorios'
+      );
+      return;
+    }
 
     console.log('Form data:', this.form.value);
 
@@ -351,6 +505,73 @@ export class OnboardingComponent implements OnInit {
       this.auth.save(u);
       this.router.navigateByUrl('/dashboard');
     });
+  }
+
+  // Marcar todos los controles como tocados para mostrar errores
+  markAllAsTouched(formGroup: FormGroup | FormArray): void {
+    Object.keys(formGroup.controls).forEach((key) => {
+      const control = formGroup.get(key);
+
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markAllAsTouched(control);
+      } else if (control) {
+        control.markAsTouched();
+        control.markAsDirty();
+
+        if (control.invalid) {
+          this.formErrors[key] = 'Este campo es obligatorio';
+        }
+      }
+    });
+  }
+
+  // Encontrar en qué paso está el primer error
+  findStepWithError(): number {
+    // Paso 1: Información básica
+    const step1Fields = ['display_name', 'bio', 'location', 'contact_email'];
+    for (const field of step1Fields) {
+      if (this.form.get(field)?.invalid) {
+        return 1;
+      }
+    }
+
+    // Paso 2: Información específica
+    if (this.user_type === 'influencer') {
+      const step2Fields = ['niche', 'rate_per_post'];
+      const followersGroup = this.form.get('followers');
+
+      for (const field of step2Fields) {
+        if (this.form.get(field)?.invalid) {
+          return 2;
+        }
+      }
+
+      if (followersGroup?.invalid) {
+        return 2;
+      }
+    } else {
+      // Marca
+      const step2Fields = ['sector', 'budget_range', 'objectives'];
+
+      for (const field of step2Fields) {
+        if (this.form.get(field)?.invalid) {
+          return 2;
+        }
+      }
+    }
+
+    // Si no hay errores en los pasos anteriores, asumir paso 3
+    return 3;
+  }
+
+  // Verificar si un campo tiene error
+  hasError(controlName: string): boolean {
+    return !!this.formErrors[controlName];
+  }
+
+  // Obtener mensaje de error para un campo
+  getErrorMessage(controlName: string): string {
+    return this.formErrors[controlName] || '';
   }
 
   // Métodos para obtener nombres de opciones
@@ -417,7 +638,7 @@ export class OnboardingComponent implements OnInit {
   }
 
   selectLanguage(value: string): void {
-    this.form.patchValue({ primary_language: value });
+    this.form.patchValue({ languages: value });
   }
 
   selectBudget(value: string): void {
@@ -425,15 +646,15 @@ export class OnboardingComponent implements OnInit {
   }
 
   selectContentType(value: string): void {
-    this.form.patchValue({ primary_content_type: value });
+    this.form.patchValue({ content_s: value });
   }
 
   selectCategory(value: string): void {
-    this.form.patchValue({ preferred_category: value });
+    this.form.patchValue({ preferred_categories: value });
   }
 
   selectInfluencerType(value: string): void {
-    this.form.patchValue({ influencer_type: value });
+    this.form.patchValue({ influencer_s: value });
   }
 
   selectDuration(value: string): void {

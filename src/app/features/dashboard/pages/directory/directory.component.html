@@ -1,0 +1,156 @@
+<div class="directory-container">
+  <div class="directory-header">
+    <h1>{{ currentUserType === "influencer" ? "Marcas" : "Influencers" }}</h1>
+    <p>
+      Encuentra
+      {{ currentUserType === "influencer" ? "marcas" : "influencers" }} que se
+      ajusten a tus necesidades
+    </p>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando usuarios...</p>
+  </div>
+
+  <div class="error-container" *ngIf="error">
+    <mat-icon color="warn">error</mat-icon>
+    <p>
+      Ocurrió un error al cargar los usuarios. Por favor, intenta de nuevo más
+      tarde.
+    </p>
+    <button mat-raised-button color="primary" (click)="loadUsers()">
+      Reintentar
+    </button>
+  </div>
+
+  <div class="empty-state" *ngIf="!loading && !error && users.length === 0">
+    <mat-icon>search_off</mat-icon>
+    <p>
+      No se encontraron
+      {{
+        currentUserType === "influencer" ? "marcas" : "influencers"
+      }}
+      disponibles.
+    </p>
+  </div>
+
+  <div class="directory-grid" *ngIf="!loading && !error && users.length > 0">
+    <mat-card class="user-card" *ngFor="let user of users">
+      <div class="card-header">
+        <div class="user-avatar">
+          <img
+            [src]="user.avatar_url || getDefaultAvatar()"
+            [alt]="user.name"
+          />
+        </div>
+        <div class="user-info">
+          <h2 class="user-name">{{ user.display_name || user.name }}</h2>
+          <p class="user-location" *ngIf="user.location">
+            <mat-icon>location_on</mat-icon>
+            {{ user.location }}
+          </p>
+        </div>
+      </div>
+
+      <mat-card-content>
+        <p class="user-bio" *ngIf="user.bio">{{ user.bio }}</p>
+
+        <!-- Información específica para influencers -->
+        <div class="influencer-info" *ngIf="user.user_type === 'influencer'">
+          <div class="info-row" *ngIf="user.niche">
+            <span class="info-label">Nicho:</span>
+            <span class="info-value">{{ user.niche }}</span>
+          </div>
+
+          <div class="info-row" *ngIf="user.followers">
+            <span class="info-label">Seguidores:</span>
+            <span class="info-value">{{
+              formatFollowers(getFollowersTotal(user.followers))
+            }}</span>
+          </div>
+
+          <div class="info-row" *ngIf="user.rate_per_post">
+            <span class="info-label">Tarifa por post:</span>
+            <span class="info-value">${{ user.rate_per_post }}</span>
+          </div>
+
+          <div class="info-row" *ngIf="user.engagement_rate">
+            <span class="info-label">Engagement:</span>
+            <span class="info-value">{{ user.engagement_rate }}%</span>
+          </div>
+        </div>
+
+        <!-- Información específica para marcas -->
+        <div class="brand-info" *ngIf="user.user_type === 'marca'">
+          <div class="info-row" *ngIf="user.sector">
+            <span class="info-label">Sector:</span>
+            <span class="info-value">{{ user.sector }}</span>
+          </div>
+
+          <div class="info-row" *ngIf="user.budget_range">
+            <span class="info-label">Presupuesto:</span>
+            <span class="info-value">{{ user.budget_range }}</span>
+          </div>
+
+          <div class="info-row" *ngIf="user.objectives">
+            <span class="info-label">Objetivos:</span>
+            <span class="info-value">{{ user.objectives }}</span>
+          </div>
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="social-links" *ngIf="hasSocialLinks(user)">
+          <h3>Redes sociales</h3>
+          <div class="social-icons">
+            <a
+              *ngIf="user.social_links?.instagram"
+              [href]="getSocialLink('instagram', user.social_links?.instagram)"
+              target="_blank"
+              class="social-icon"
+            >
+              <mat-icon>photo_camera</mat-icon>
+            </a>
+            <a
+              *ngIf="user.social_links?.facebook"
+              [href]="getSocialLink('facebook', user.social_links?.facebook)"
+              target="_blank"
+              class="social-icon"
+            >
+              <mat-icon>facebook</mat-icon>
+            </a>
+            <a
+              *ngIf="user.social_links?.tiktok"
+              [href]="getSocialLink('tiktok', user.social_links?.tiktok)"
+              target="_blank"
+              class="social-icon"
+            >
+              <mat-icon>music_note</mat-icon>
+            </a>
+            <a
+              *ngIf="user.social_links?.youtube"
+              [href]="getSocialLink('youtube', user.social_links?.youtube)"
+              target="_blank"
+              class="social-icon"
+            >
+              <mat-icon>smart_display</mat-icon>
+            </a>
+            <a
+              *ngIf="user.social_links?.twitter"
+              [href]="getSocialLink('twitter', user.social_links?.twitter)"
+              target="_blank"
+              class="social-icon"
+            >
+              <mat-icon>chat</mat-icon>
+            </a>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button color="primary">Ver perfil</button>
+        <button mat-raised-button color="primary">Contactar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

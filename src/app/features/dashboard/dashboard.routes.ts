@@ -1,16 +1,18 @@
 import { Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { DirectoryComponent } from './pages/directory/directory.component';
 
 export const DASHBOARD_ROUTES: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./pages/home/home.component').then((m) => m.HomeComponent),
-  },
-  {
-    path: 'profile',
-    loadComponent: () =>
-      import('./pages/profile/profile.component').then(
-        (m) => m.ProfileComponent
-      ),
+    component: DashboardComponent,
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'directory', component: DirectoryComponent },
+    ],
   },
 ];
